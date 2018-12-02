@@ -1,0 +1,125 @@
+/*me1 拍卖，专辑，领券*/
+.me1{
+    margin-top: 30px;
+    height: 450px;
+}
+.me1 li{
+    float: left;
+    height: 450px;
+    width: 390px;
+    margin-right: 10px;
+    background: #fff;
+}
+.me1 .me1_lastli{
+    margin-right: 0px;
+}
+/*排行榜标题*/
+.me1_paihang_t{
+    display: block;
+    height: 60px;
+    line-height: 60px;
+    width: 350px;
+    padding: 0 20px;
+}
+.me1_paihang_t h5{
+    float: left;
+    font-size: 22px;
+    color: #222;
+}
+.me1_paihang_t h5:hover{
+    color: #222;
+}
+.me1_paihang_t span:hover{
+    color: #666;
+}
+.me1_paihang_t span{
+    display: block;
+    float: left;
+    display: inline-block;
+    color: #666;
+    font-size: 14px;
+}
+.me1_paihang_t i{
+    display: block;
+    float: left;
+    font-family: 'icomoon';
+    font-style: normal;
+    color: #E85959;
+    font-size: 23px;
+    margin: 0px 10px 0px 5px;
+}
+/*排行榜内容*/
+.me1_paihang_c{
+    height: 390px;
+
+}
+.me1_paihang_cnav{
+    height: 32px;
+    background: #F7F7F7;
+}
+.me1_paihang_cnav a{
+    display:block;
+    float: left;
+    width: 60px;
+    height: 32px;
+    line-height: 32px;
+    margin: 0 9px;
+    text-align: center;
+}
+.me1_paihang_cshow{
+    border-bottom: 1px solid #eee;
+    width: 360px;
+    margin: 0 auto;
+    height: 321px;
+}
+.me1_paihang_cshow a{
+    display: block;
+    height: 80px;
+    line-height: 80px;
+    padding:14px 0px;
+}
+.me1_paihang_cshow a:nth-child(1) span{
+    color: #e74240;
+}
+.me1_paihang_cshow a:nth-child(2) span{
+    color: #ed713d;
+}
+.me1_paihang_cshow a:nth-child(3) span{
+    color: #feb185;
+}
+.me1_paihang_cshow a img{
+    float: left;
+}
+.me1_paihang_cshow a span{
+    float: left;
+    margin: 0 20px;
+    font-size: 32px;
+    width: 12px;
+    font-family: 'impact', sans-serif;
+}
+.me1_paihang_cshow a p{
+    padding-top: 24px;
+    display: block;
+    height: 32px;
+    line-height: 16px;
+    width: 220px;
+    float: left;
+}
+.me1_paihang_cswiper{
+    height: 35px;
+    /*background-color: #449fdb;*/
+    text-align: center;
+}
+.me1_paihang_cswiper p{
+    height: 18px;
+    width: 36px;
+}
+.me1_paihang_cswiper p i{
+    margin-top: 8px;
+    display: block;
+    float: left;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid #666;
+}

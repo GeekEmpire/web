@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		body{
+			margin: 0;
+			padding:0;
+		}
+		table.t1{
+			border-collapse: collapse;
+			margin:5% auto;
+		}
+		td{
+			border: 2px solid black;
+			width: 60px;
+			height: 30px;
+			text-align: center;
+			line-height: 30px;
+		}
+	</style>
+	<script type="text/javascript">
+		var i,j;
+		document.write("<table class='t1'>");
+		for(i=1;i<=9;i++)
+		{
+			document.write("<tr>");
+			for(j=1;j<=i;j++)
+			{
+				document.write("<td>");
+				document.write(i+"*"+j+"="+i*j);
+				document.write("</td>");
+			}
+			document.write("</tr>");
+		}
+		document.write("</table>")
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

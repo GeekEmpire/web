@@ -1,0 +1,227 @@
+.grid{
+    height: 480px;
+    font-family: '微软雅黑';
+}
+/*grid1*/
+.grid1{
+    width: 190px;
+    height: 100%;
+    background-color: #fefefe;
+    margin-right: 10px;
+    color: #999;
+    font-size: 14px;
+}
+.grid1 a{
+    font-size: 14px;
+}
+.grid1 ul{
+     padding: 10px 0;
+ }
+.grid1 li:hover{
+    background-color: #ccc;
+}
+.grid1 li{
+    height: 26px;
+    line-height: 26px;
+    padding-left: 12px;
+}
+/*grid2*/
+.grid2{
+    width: 790px;
+    height: 100%;
+}
+.grid2 .banner-left{
+    width: 590px;
+    height: 100%;
+    margin-right: 10px;
+}
+.banner-left img{
+    height: 480px;
+    width: 590px;
+}
+.banner-right{
+    width: 190px;
+    height: 100%;
+}
+.banner-right a{
+    display: block;
+    margin-bottom: 15px;
+}
+/*grid3*/
+.grid3{
+    width: 190px;
+    height: 100%;
+    background-color: #FEFEFE;
+}
+.grid3 div{
+    display: block;
+    width: 190px;
+    height: 160px;
+    border-top: 1px solid #fff;
+    box-sizing: border-box;
+}
+/*grid3 top*/
+.grid3 .top{
+    position: relative;
+    text-align: center;
+}
+.grid3 .top img{
+    margin: 0 auto;
+    width: 70px;
+    border: 5px solid #ddd;
+    border-radius: 50%;
+    box-shadow: 10px 10px 15px rgba(0,0,0,0.1);
+    position: absolute;
+    left: 55px;
+    top:-10px;
+}
+.grid3 .top p{
+    font-size: 14px;
+    margin-top: 80px;
+    color: #999;
+}
+.grid3 .top span{
+    display: inline-block;
+    width: 65px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 12px;
+    border-radius: 12px 12px 12px 12px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.grid3 .top .sp1 {
+    background-color: #fff;
+    color: #e43f38;
+    border: 1px solid #eee;
+}
+.grid3 .top .sp2{
+    background-color: #3a3534;
+    color: #c4b584;
+}
+.grid3 .top span:hover{
+    background: #f10215;
+    color: #fff;
+}
+/*grid3 mid*/
+.grid3 .mid{
+    clear: both;
+}
+.grid3 .sales{
+    height: 25px;
+    padding: 0 10px;
+}
+.grid3 .sales a{
+    display: inline-block;
+    color: #333;
+    padding: 5px;
+}
+.grid3 .sales a:hover{
+    color: #f10215;
+}
+.grid3 .sales span{
+    width: 1px;
+    height: 10px;
+    background-color: #999;
+    display: inline-block;
+}
+.grid3 .mid .cont {
+    width: 170px;
+    height: 130px;
+    margin: 0 10px;
+    border-bottom: 1px solid #DDD;
+}
+.grid3 .mid ul {
+    margin-top: 5px;
+}
+.grid3 .bom{
+
+}
+.grid3 .title{
+    height: 25px;
+    padding: 0 10px;
+}
+.grid3 .title a{
+    width: 35px;
+    margin-left: 10px;
+}
+.grid3 .cont{
+    margin-left: 10px;
+}
+.grid3 .bom .cont a{
+    display: inline-block;
+    width: 85px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+}
+.grid3 .bom img{
+    display: inline-block;
+    width: 80px;
+    height: 100px;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+.ms{
+    height: 275px;
+    background-color: #fff;
+    margin-top: 30px;
+}
+.ms ul{
+    height: 275px;
+    float: left;
+}
+.ms li{
+    float: left;
+    height: 275px;
+    width: 199px;
+    border-right: 1px solid #ddd;
+    text-align: center;
+    position: relative;
+    overflow: hidden;    /*超出部分省略*/
+}
+.ms li img{
+    position: absolute;
+    top: 40px;
+    left: 30px;
+}
+.ms li span{
+    width: 80px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid #f10215;
+}
+.ms .sale{
+    margin-top: 15px;
+    margin-left: 15px;
+}
+.ms .sale .new{
+    background-color: #f10215;
+    color: #fff;
+}
+.ms .sale .old{
+    background-color: #fff;
+    color: #999;
+    font-size: 12px;
+    text-decoration: line-through;
+}
+.ms .sale .old:hover{
+    color: #999;
+}
+.ms li p{
+    margin-top: 200px;
+}
+.ms-left{
+    float: left;
+}
+.ms-right{
+    float: left;
+    width: 190px;
+    height: 100%;
+    margin-left: 10px;
+    margin-top: 7px;
+}
+

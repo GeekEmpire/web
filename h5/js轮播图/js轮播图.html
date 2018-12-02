@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播图</title>
+	<style>
+		*{
+			margin: 0px;
+			padding:0px;
+		}
+		.main{
+			width: 600px;
+			height: auto;
+			margin: 100px auto;
+			/*border: 1px solid red;*/
+		}
+		.head{
+			width: 600px;
+			height: 300px;
+			/*border: 1px solid red;*/
+			position: relative;
+		}
+		.head img{
+			width: 600px;
+			height: 300px;
+		}
+		.head h3{
+			position: absolute;
+			bottom: 5px;
+			left: 10px;
+			/*bottom: 10px;*/
+		}
+		.smallimg{
+			width: 600px;
+			height: 60px;
+			/*border: 1px solid red;*/
+		}
+		.smallimg img{
+			width: 60px;
+			height: 60px;
+		}
+		.smallimg ul{
+
+		}
+		.smallimg li{
+			list-style: none;
+			float: left;
+			position: relative;
+		}
+		.border{
+			width: 60px;
+			height: 10px;
+			background-color: #858124;
+			position: absolute;
+			bottom: 4px;
+		}
+		.mask{
+			width: 60px;
+			height: 60px;
+			background-color: #0F0F0F;
+			opacity: 0.4;
+			position: absolute;
+			top: 0px;
+		}
+	</style>
+</head>
+<body>
+	<div class="main">
+		<div class="head" id="head">
+			<img src="./images/b1.jpg" alt="" id="big_img">
+			<h3 id="title">第1张图的描述信息</h3>
+		</div>
+		<div class="smallimg" id="smallimg">
+			<ul>
+				<li>
+					<img src="./images/small01.jpg" alt="">
+					<span class="border"></span>
+					<span class="mask" style="display: none"></span>
+				</li>
+				<li>
+					<img src="./images/small02.jpg" alt="">
+					<span class="border"></span>
+					<span class="mask"></span>
+				</li>
+				<li>
+					<img src="./images/small03.jpg" alt="">
+					<span class="border"></span>
+					<span class="mask"></span>
+				</li>
+				<li>
+					<img src="./images/small04.jpg" alt="">
+					<span class="border"></span>
+					<span class="mask"></span>
+				</li>
+				<li>
+					<img src="./images/small05.jpg" alt="">
+					<span class="border"></span>
+					<span class="mask"></span>
+				</li>
+				<li>
+					<img src="./images/small06.jpg" alt="">
+					<span class="border"></span>
+					<span class="mask"></span>
+				</li>
+				<li>
+					<img src="./images/small07.jpg" alt="">
+					<span class="border"></span>
+					<span class="mask"></span>
+				</li>
+				<li>
+					<img src="./images/small08.jpg" alt="">
+					<span class="border"></span>
+					<span class="mask"></span>
+				</li>
+				<li>
+					<img src="./images/small09.jpg" alt="">
+					<span class="border"></span>
+					<span class="mask"></span>
+				</li>
+				<li>
+					<img src="./images/small10.jpg" alt="">
+					<span class="border"></span>
+					<span class="mask"></span>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<script>
+		var bigimg = document.getElementById("big_img");
+		var title = document.getElementById("title");
+		var border = document.getElementsByClassName("border");
+		var mask = document.getElementsByClassName("mask");
+		var i =0;
+		function swiper() {
+		    i++;
+			bigimg.src = "./images/b"+i+".jpg";
+			title.innerText = "第"+i+"张图的描述信息";
+			for(var j=0;j<10;j++)
+			{
+			    border[j].style = "display:none";
+			    mask[j].style = "display:block";
+			}
+			border[i-1].style = "display:block";
+			mask[i-1].style = "display:none";
+			i=i%10;
+        };
+		var t = setInterval(swiper,2000);
+		var li = document.getElementById("smallimg").getElementsByTagName("li");
+		for(k=0;k<li.length;k++)
+		{
+			(function (n) {
+				li[n].onmouseover = function () {
+				    clearInterval(t);
+                    bigimg.src = "./images/b"+(n+1)+".jpg";
+                    title.innerText = "第"+(n+1)+"张图的描述信息";
+                    for(var j=0;j<10;j++)
+                    {
+                        border[j].style = "display:none";
+                        mask[j].style = "display:block";
+                    }
+                    border[n].style = "display:block";
+                    mask[n].style = "display:none";
+                }
+                li[n].onmouseout = function () {
+				    i = n;
+				    t = setInterval(swiper,2000);
+                }
+            })(k);
+		}
+
+	</script>
+</body>
+</html>

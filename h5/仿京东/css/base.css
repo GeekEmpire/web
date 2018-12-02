@@ -1,0 +1,419 @@
+/*板心*/
+.w{
+    width: 1190px;
+    margin: 0px auto;
+}
+
+/*公共样式*/
+.fl {
+    float: left
+}
+.fr {
+    float: right;
+}
+.jdcolor {
+    color: #f10215 !important;
+}
+@font-face {
+    font-family: 'icomoon';
+    src: url('../fonts/icomoon.eot?j2ygxm');
+    src: url('../fonts/icomoon.eot?j2ygxm#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?j2ygxm') format('truetype'),
+    url('../fonts/icomoon.woff?j2ygxm') format('woff'),
+    url('../fonts/icomoon.svg?j2ygxm#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    background-color: #f1f3f0;
+}
+a{
+    text-decoration: none;
+    font-size: 12px;
+    color: #999;
+    cursor:pointer;
+}
+a:hover{
+    color:#c81623;
+}
+img:hover{
+    opacity: 0.8;
+}
+body,ul,li,dl,dt,dd,h1,h5,p,input,button,i,span,a{
+    margin: 0;
+    padding: 0;
+}
+ul{
+    list-style: none;
+}
+img{
+    display: block;
+}
+input, button{
+    border:none;
+    outline: none;
+}
+
+/*header*/
+header{
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    background-color: #E70302;
+}
+header .logo{
+    height: 80px;
+    background: url("../images/logo.jpg");
+}
+header .fr{
+    margin-top: 17px;
+    margin-right: 16px;
+}
+header .min{
+    width: 60px;
+    height: 80px;
+    position: fixed;     /*相对于浏览器定位*/
+    top: 0px;
+    right: 0px;
+}
+.min img{
+    width: 80px;
+    height: 80px;
+}
+.min span{
+    width: 60px;
+    height: 15px;
+    line-height: 15px;
+    display: block;
+    text-align: center;
+    position: absolute;
+    bottom: -15px;
+    right: 0px;
+    font-size: 12px;
+    color: #FFF;
+    background-color: #000;
+}
+/*shortcut*/
+.shortcut{
+    height: 30px;
+    line-height: 30px;
+    background-color: #e3e4e6;
+    border-bottom:1px solid #DDD;
+}
+.shortcut .city
+{
+    margin-left: 200px;
+}
+.shortcut li{
+    float:left;
+}
+.shortcut i{
+    font-family: 'icomoon';
+    font-style: normal;
+    color:#999;
+}
+.shortcut .space{
+    display: block;
+    width: 1px;
+    height: 10px;
+    background-color: #ccc;
+    margin: 10px 12px;
+}
+.mobile img{
+    border: 1px solid #DDD;
+    paddding: 3px;
+}
+
+/*mid_logo*/
+.mid_logo{
+    height: 140px;
+    /*background-color: red;*/
+    position: relative;
+}
+.jd_logo{
+    position: absolute;
+    top: -30px;
+    box-shadow: 0px -5px 10px rgba(0,0,0,0.3);
+}
+.jd_logo a{
+    display: block;
+    width: 190px;
+    height: 170px;
+    background: #fff url("../images/logo.png") no-repeat;
+}
+.form{
+    width: 552px;
+    height: 35px;
+    position: absolute;
+    left: 320px;
+    top: 30px;
+    /*background-color: #449fdb;*/
+}
+.form input {
+    float: left;
+    width: 483px;
+    height: 33px;
+    font-size: 14px;
+    border: 1px solid #fff;
+    padding-left: 5px;
+}
+.form a{
+    line-height: 35px;
+    text-align: center;
+    width: 62px;
+    height: 35px;
+    background-color: #f10215;
+    float: left;
+    font-family: 'icomoon';
+    font-style: normal;
+    font-size: 20px;
+    color: #FFF;
+ }
+.shop_car{
+    height: 35px;
+    position: absolute;
+    width: 185px;
+    line-height: 35px;
+    text-align: center;
+    border:1px solid #ddd;
+    background-color: #fff;
+    top:30px;
+    right: 100px;
+
+}
+.shop_car a{
+    color: #f10215;
+}
+.shop_car i{
+    font-family: 'icomoon';
+    font-style: normal;
+    margin-right: 5px;
+}
+.shop_car span{
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    background-color: #f10215;
+    color: #fff;
+    border-radius: 50%;
+    display: block;
+    position: absolute;
+    top: 5px;
+    right: 30px;
+}
+.keywords {
+    position: absolute;
+    top:70px;
+    left: 320px;
+}
+.keywords a{
+    margin-right: 10px;
+    white-space: nowrap;
+}
+.nav{
+    width: 840px;
+    height: 40px;
+    line-height: 40px;
+    position: absolute;
+    bottom: 0px;
+    left: 220px;
+}
+.nav li{
+    float: left;
+}
+.nav li a{
+    font-size: 14px;
+    color: #333;
+    font-weight: bolder;
+    margin-left: 30px;
+}
+.nav a:hover{
+    color: #f10215;
+}
+.nav .space{
+    width: 1px;
+    height: 10px;
+    background-color: #ccc;
+    margin-top: 15px;
+    margin-right: -15px;
+    margin-left: 15px;
+}
+.supper{
+    position: absolute;
+    bottom: 15px;
+    right: 0px;
+}
+/*footer*/
+footer{
+    margin-top: 35px;
+    height: 568px;
+    width: 100%;
+    background-color: #EAEAEA;
+}
+.mod_service{
+    border-bottom: 1px solid #DEDEDE;
+    padding: 30px 0;
+    overflow: hidden;
+}
+.mod_service li{
+    height: 43px;
+    width: 297px;
+    line-height: 43px;
+    float: left;
+    position: relative;
+}
+.mod_service li h5{
+    position: absolute;
+    width: 37px;
+    height: 43px;
+    top: 0px;
+    left: 38px;
+    background: url("../images/footer.png") no-repeat left bottom;
+    text-indent: -999em;
+}
+.mod_service li:nth-child(2) h5{    /*父元素的第二个子元素的所有li*/
+    background: url("../images/footer.png") no-repeat -41px bottom;
+}
+.mod_service li:nth-child(3) h5{
+    background: url("../images/footer.png") no-repeat -82px bottom;
+}
+.mod_service li:nth-child(4) h5{
+    background: url("../images/footer.png") no-repeat -123px bottom;
+}
+.mod_service li p {
+    margin-left: 82px;
+    font-weight: bolder;
+    color: #454545;
+}
+.mod_help{
+    height: 200px;
+    border-bottom: 1px solid #DEDEDE;
+    padding-top: 25px;
+    box-sizing: border-box;   /*内外边距全在宽高内*/
+}
+.mod_help_nav {
+    width: 200px;
+    float: left;
+}
+.mod_help_nav h5{
+    margin-bottom: 5px;
+}
+.mod_help_nav a{
+    color: #666;
+}
+.mod_help_nav a:hover{
+    color: #f10215;
+}
+.mod_help_area{
+    width: 190px;
+    float: left;
+    color: #666;
+}
+.mod_help_area h5{
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+.mod_help_area p{
+    color: #666;
+    font-size: 12px;
+}
+.mod_help_area_show{
+    height: 20px;
+    line-height: 20px;
+}
+.mod_help_area_show a{
+    float: right;
+}
+.mod_help_area_show i{
+    font-family: 'icomoon';
+    font-style: normal;
+    /*height: 20px;*/
+    /*width: 20px;*/
+    /*line-height: 20px;*/
+    display: inline-block;
+    transform: rotate(-90deg);
+    margin-left: -3px;
+}
+.mod_copyright{
+    margin-top: 20px;
+    text-align: center;
+    /*border: 1px solid blue;*/
+}
+.mod_copyright a{
+    margin: 5px;
+}
+.mod_copyright span{
+    font-size: 12px;
+    color: #999;
+}
+.mod_copyright_info{
+    padding: 10px 0px;
+}
+.mod_copyright_info->div{
+}
+.mod_copyright .mod_copyright_pfirst a{
+    color: #666;
+}
+.mod_copyright .mod_copyright_pfirst a:hover{
+    color: #f10215;
+}
+.mod_copyright_second{
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+}
+.mod_copyright_second a{
+    ;
+}
+.mod_copyright_second i{
+    width: 15px;
+    height: 12px;
+    margin-right: 7px;
+    display: inline-block;
+    vertical-align: -2px;
+}
+.mod_copyright_a_i1{
+    background: url("../images/footer.png") no-repeat -108px -155px;
+}
+.mod_copyright_a_i2{
+    background: url("../images/footer.png") no-repeat -128px -155px;
+}
+.mod_copyright_a_i3{
+    background: url("../images/footer.png") no-repeat -148px -155px;
+}
+.mod_copyright_a_i4{
+    background: url("../images/footer.png") no-repeat -168px -155px;
+}
+.mod_copyright_a_i5{
+    background: url("../images/footer.png") no-repeat -108px -172px;
+}
+.mod_copyright_icon a{
+    width: 103px;
+    height: 33px;
+    display: inline-block;
+    margin: 20px 4px 0;
+}
+.mod_copyright_icon a:nth-child(1){
+    background: url("../images/footer.png") no-repeat -207px -3px;
+}
+.mod_copyright_icon a:nth-child(2){
+    background: url("../images/footer.png") no-repeat -207px -40px;
+}
+.mod_copyright_icon a:nth-child(3){
+    background: url("../images/footer.png") no-repeat -207px -77px;
+}
+.mod_copyright_icon a:nth-child(4){
+    background: url("../images/footer.png") no-repeat -207px -112px;
+}
+.mod_copyright_icon a:nth-child(5){
+    background: url("../images/footer.png") no-repeat -207px -150px;
+}
+.mod_copyright_icon a:nth-child(6){
+    background: url("../images/footer.png") no-repeat 0px -157px;
+}
+
+
+
+
+

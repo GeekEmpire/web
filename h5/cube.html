@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body{
+			margin: 0;
+			padding: 0;
+		}
+		.cube{
+			width: 300px;
+			height: 300px;
+			/*border: 1px solid red;*/
+			margin: 200px auto;
+			
+			
+			position: relative;
+			transform-style: preserve-3d;
+			perspective: 1000px;
+			transform: rotateX(45deg) rotateY(45deg);
+			animation: rotate 3s infinite linear;
+		}
+
+		.cube div{
+			width: 300px;
+			height: 300px;
+			font-size: 28px;
+			line-height: 300px;
+			text-align: center;
+			position: absolute;
+			top: 0;
+			left: 0;
+			opacity: 0.5;  /*透明度*/
+			transition: all 2s;
+		}
+		.left{
+			background-color: pink;
+			transform: rotateY(90deg);
+			margin-left: -150px;
+		}
+		.right{
+			background-color: blue;
+			transform: rotateY(-90deg);
+			margin-left: 150px;
+		}
+		.top{
+			background-color: yellow;
+			transform: rotateX(90deg);
+			margin-top: -150px;
+		}
+		.bottom{
+			background-color: orange;
+			transform: rotateX(-90deg);
+			margin-top: 150px;
+		}
+		.front{
+			background-color: purple;
+			transform: translateZ(150px);
+		}
+		.back{
+			background-color: green;
+			transform: translateZ(-150px);
+		}
+		@keyframes rotate{
+			from{
+				transform: rotate3d(0,0,0,0deg);
+			}
+
+			to{
+				transform: rotate3d(1,1,1,360deg);
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="cube">
+		<div class="front">front</div>
+		<div class="back">back</div>
+		<div class="left">left</div>
+		<div class="right">right</div>
+		<div class="top">top</div>
+		<div class="bottom">bottom</div>
+	</div>
+</body>
+</html>

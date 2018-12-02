@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Dom练习</title>
+	<style>
+		h3{
+			text-align: center;
+		}
+		table{
+			margin: 0px auto;
+			width: 400px;
+		}
+		td{
+			width: 200px;
+			height: 50px;
+		}
+		input,span{
+			width: 200px;
+			height: 35px;
+		}
+		button{
+			width: 200px;
+			height: 40px;
+		}
+	</style>
+</head>
+<body>
+	<h3>dom练习</h3>
+	<table>
+		<tr>
+			<th>姓名</th>
+			<th>操作</th>
+		</tr>
+		<tr>
+			<td id="td"><input type="text" name="name" id="in"></td>
+			<td><button id="bt">确定</button></td>
+		</tr>
+	</table>
+	<script>
+		var td = document.getElementById("td");
+		var bt = document.getElementById("bt");
+		var count=0;
+		bt.addEventListener("click",function(){
+		    count++;
+
+		    if(count%2==1) {
+		        var c = td.firstChild;
+		        var sp = document.createElement('span');
+                sp.innerText = c.value;
+                td.replaceChild(sp, c);
+                // console.log(td.firstChild);
+				bt.innerText = "修改";
+            }else{
+		        var c = td.firstChild;
+		        console.log(c);
+		        var input = document.createElement('input');
+		        input.type = "text";
+		        input.value = c.textContent;
+		        td.replaceChild(input,c);
+		        bt.innerText ="确定";
+			}
+			console.log(count);
+        })
+	</script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>登记表</title>
+</head>
+<style type="text/css">
+	.top{
+		width: 100%;
+		height: auto;
+		background-color: #F0F0F0;
+	}
+	.content{		
+		width: 100%;
+		height: auto;
+		padding-top: 2%;
+		background-image: url(images/main_bg.jpg);
+	}
+	.bottom{
+		width: 100%;
+		height: 30px;
+		background-color: #F0F0F0;
+		text-align: center;
+		font-size: 10px;
+		padding-top: 15px;
+	}
+	body{
+		height: auto;
+	}
+	table, tr, td{
+		border: 2px #C0C0C0 solid;
+	}
+	table{
+		border-collapse: collapse;
+		width: 100%;
+		height: auto;
+	}
+	tr{
+		height: 35px;
+	}
+	td{
+		padding-left: 1%;
+	}
+	.logo{
+		padding-left: 15%;
+	}
+	.container{
+		width: 60%;
+		margin:auto;
+		padding:0 2% 2% 2%;
+		border: 2px solid white;
+		background-color: #F0F0F0;
+	}
+	.heder{
+		text-align: center;
+		font-size: 1.2em;
+		font-weight: bold;
+	}
+	.title{
+		background-color: #C0C0C0;
+		margin-bottom: 10px;
+		height: 36px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding-left: 2%;
+		
+	}
+	.save{
+		margin: 1% 10%;
+		height: 36px;
+		width: 120px;
+		background-color: #FFFF66;
+		cursor:pointer; 
+	}
+	.save:hover{
+		background-color: green;
+	}
+	.img{
+		width: 85px;
+		height: 150px;
+	}
+	.in-sex, .in-major{
+		width: 80px;
+	}
+</style>
+<body>
+	<div class="top">
+		<img src="images/logo.png" class="logo">
+	</div>
+	<div class="content">	
+		<div class="container" ">
+			<div class="heder">
+				<p>学员档案</p>
+			</div>
+			<div class="title" style="border: 1px #C0C0C0 solid">基本信息</div>
+			<div class="tb">
+				<table >
+					<tr>
+						<td>姓名：</td>
+						<td>赵玉川</td>
+						<td>所属班级: </td>
+						<td>PHP0330基础班</td>
+						<td rowspan="5">
+							<div class="img">
+								<img src="images/wlh.jpg" width=100 height="150">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>出生日期：</td>
+						<td><input type="text" name="birday"></td>
+						<td>性别：</td>
+						<td>
+							<select name="sex" class="in-sex">
+								<option value="male">帅哥</option>
+								<option value="formale">美女</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>手机号：</td>
+						<td><input type="text" name="phone"></td>
+						<td>QQ号：</td>
+						<td><input type="text" name="qq"></td>
+					</tr>
+					<tr>
+						<td>籍贯：</td>
+						<td><input type="text" name="local"></td>
+						<td>电子邮箱：</td>
+						<td><input type="text" name="mail"></td>
+					</tr>
+					<tr>
+						<td>毕业学校：</td>
+						<td><input type="text" name="school"></td>
+						<td>专业</td>
+						<td>
+							<select name="major" class="in-major">
+								<option value="computer">计算机</option>
+								<option value="math">数学</option>
+								<option value="english">英语</option>
+								<option value="lawyer">律师</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>在京住址：</td>
+						<td colspan="4"><input type="text" name="home" size="35" ></td>
+					</tr>
+					<tr>
+						<td colspan="5">
+							<span>何种方式了解传播博客：</span>
+							<input type="Checkbox" name="idol01" value="Leon">视频 
+							<input type="Checkbox" name="idol02" value="Noriko_Sagai">百度 
+							<input type="Checkbox" name="idol03" value="Leon">介绍 
+							<input type="Checkbox" name="idol04" value="BonJovi">其他 
+						</td>
+					</tr>
+					<tr>
+						<td rowspan="4">我的目标：</td>
+						<td colspan="4" rowspan="4">
+							<textarea rows="7.5" cols="50"></textarea>
+						</td>
+					</tr>
+					<tr></tr>
+					<tr></tr>
+					<tr></tr>
+					<tr>
+						<td colspan="5">
+							<div class="rd-bt">
+								<button class="save">保存</button>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="bottom">
+		本程序由个人开发，只作为测试使用,版权所有: <a href="#">丽水学院</a>
+	</div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Tab切换</title>
+	<style>
+		*{
+			margin: 0px;
+			padding: 0px;
+		}
+		body{
+			width: 508px;
+			height: auto;
+			margin: 10% auto;
+		}
+		#list{
+			height: 30px;
+			width: 100%;
+			/*border: 1px solid red;*/
+		}
+		#list li{
+			width: 125px;
+			float: left;
+			height: 30px;
+			line-height: 30px;
+			list-style: none;
+			border: 1px solid black;
+			text-align: center;
+		}
+		.cont{
+			width: 506px;
+			height: 200px;
+			border: 1px solid black;
+			border-top: none;
+			float: left;
+		}
+		.cont li{
+			width: 100%;
+			margin-left: 5%;
+		}
+	</style>
+</head>
+<body>
+	<div id="news">
+		<div id="list">
+			<ul id="tab">
+				<li style="background-color: #ccc">国内新闻</li>
+				<li>国际新闻</li>
+				<li>体育新闻</li>
+				<li>娱乐新闻</li>
+			</ul>
+		</div>
+		<div class="cont" >
+			<ol>
+				<li>中国妇女第十二次全国代表大会开幕 习近平到会祝贺</li>
+				<li>习近平就印尼狮航客机失事向印尼总统佐科致慰问电</li>
+				<li>习近平同法国总统互致贺电 庆祝中法海洋卫星发射成功</li>
+				<li>武侠小说泰斗金庸逝世　终年94岁</li>
+				<li>浙江省“最多跑一次”改革办名字太奇葩？网友却吹爆</li>
+				<li>第二季《创意中国》首播 西藏古文明揭开神秘面纱</li>
+			</ol>
+		</div>
+		<div class="cont" style="display: none" >
+			<ol>
+				<li>特朗普称计划取消“在美出生即获公民权”政策</li>
+				<li>环球社评：美又限制中国芯片企业，如何应对</li>
+				<li>日本"战犯企业"在韩国败诉 被判向原告每人赔1亿韩元</li>
+				<li>避难6年的维基解密创始人 将不再得到厄瓜多尔庇护？</li>
+				<li>美又称将对中国产品加税 外交部：要谈就好好谈，威胁没用</li>
+				<li>默克尔萌生退意掀起德国领袖争夺战 谁来接她班？</li>
+			</ol>
+		</div>
+		<div class="cont" style="display: none">
+			<ol>
+				<li>NBA-汤普森52分勇士狂胜公牛</li>
+				<li>汤神14记三分创纪录 汤普森狂飙射烂篮筐</li>
+				<li>杜兰特屡屡传球提前打卡</li>
+				<li>库里连得9分 巴特勒最后18秒逆天球</li>
+				<li>詹皇致命失误 詹皇准3双湖人负狼队</li>
+				<li>英超-曼联领跑桑乔争夺战 意甲-米兰新援重伤休战3月</li>
+			</ol>
+		</div>
+		<div class="cont" style="display: none">
+			<ol>
+				<li>赵本山照片被当逝者遗像于热播剧中播出？过分！</li>
+				<li>李咏去世后哈文朋友圈发“鸡汤式”感慨？工作人员否认</li>
+				<li>陈柏霖桂纶镁因《蓝色大门》再合体！他俩曾是青春的代名词啊</li>
+				<li>和李沁因戏生情私下相约滑雪？肖战方：这事真没听说过！</li>
+				<li>李亚鹏列为被执行人追踪：拍卖房款足以清偿债务</li>
+				<li>张学友18岁女儿穿热裤现身美容院，她越长大越漂亮了</li>
+			</ol>
+		</div>
+	</div>
+	<script>
+		window.onload=function () {
+            var heads = document.getElementById("tab").getElementsByTagName("li");
+            var conts = document.getElementsByClassName("cont");
+            // console.log(conts);
+            // for(var i=0;i<heads.length;i++)
+            // {
+            //     heads[i].index = i;
+            //     heads[i].onmouseover = function () {
+            //         for(var j=0;j<heads.length;j++)
+            //         {
+            //             // console.log(heads[j])
+            //             heads[j].style = "background-color:none";
+            //         }
+            //         heads[this.index].style ="background-color:#ccc";
+            //         for(var j=0;j<conts.length;j++)
+            //         {
+            //             conts[j].style = "display:none";
+            //         }
+            //         conts[this.index].style = "display:block";
+            //     }
+            // }
+			for(var i=0;i<heads.length;i++)
+			{
+				(function (num) {
+					heads[i].onmouseover = function () {
+						for(var j=0;j<heads.length;j++)
+						{
+						    heads[j].style = "background-color:none";
+						}
+						heads[num].style = "background-color:#ccc";
+                        for(var j=0;j<conts.length;j++)
+						{
+							conts[j].style = "display:none";
+						}
+						conts[num].style = "display:block";
+                    }
+                })(i)
+			}
+        }
+
+
+	</script>
+</body>
+</html>
