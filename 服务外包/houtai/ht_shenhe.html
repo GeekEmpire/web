@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>会议室管理中心</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="favicon_16.ico"/>
+    <!-- <link rel="bookmark" href="favicon_16.ico"/> -->
+    <!-- site css -->
+    <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="dist/css/site.min.css">
+    <link rel="stylesheet" href="dist/css/me.css">
+    <script src="layui/layui.js" charset="utf-8" type="text/javascript"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="dist/js/site.min.js"></script>
+    <script type="text/javascript" src="dist/js/houtai.js"></script>
+  </head>
+  <body>
+    <!--nav 顶部导航栏-->
+    <nav role="navigation" class="navbar navbar-custom">
+        <div class="container-fluid">
+          <!--左边-->
+          <div class="navbar-header">
+            <a href="ht_shenhe.html" class="navbar-brand">会议室管理后台</a>
+          </div>
+          <!--右边-->
+          <div id="bs-content-row-navbar-collapse-5" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="getting-started.html">会议审批</a></li>
+              <li class="active"><a href="index.html">预定详情</a></li>
+              <!-- <li class="disabled"><a href="#">Link</a></li> -->
+              <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">个人中心 <b class="caret"></b></a>
+                <ul role="menu" class="dropdown-menu">
+                  <li class="dropdown-header">设置</li>
+                  <li><a href="#">帮助</a></li>
+                  <li class="divider"></li>
+                  <li class="active"><a href="#">更多</a></li>
+                  <li class="divider"></li>
+                  <li class="disabled"><a href="#">退出登录</a></li>
+                </ul>
+              </li>
+            </ul>
+
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+    <!--header-->
+
+    <div class="container-fluid">
+    <!--documents内容-->
+        <div class="row row-offcanvas row-offcanvas-left">
+          <!--内容左边导航-->
+          <div class="col-xs-6 col-sm-3 sidebar-offcanvas" role="navigation">
+            <ul class="list-group panel">
+                <li class="list-group-item"><i class="glyphicon glyphicon-align-justify"></i> <b>功能</b></li>
+                <li class="list-group-item"><input type="text" class="form-control search-query" placeholder="查找功能"></li>
+                <li class="active">
+                  <a href="ht_index.html" class="list-group-item"><i class="glyphicon glyphicon-home"></i>主界面 </a>
+                </li>
+                <li>
+                  <a href="#xitong" class="list-group-item " data-toggle="collapse">
+                    <i class="glyphicon glyphicon-cog"></i>系统管理
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                  </a>
+                  <div class="collapse" id="xitong">
+                    <a href="ht_account.html" class="list-group-item">账号管理</a>
+                    <a href="" class="list-group-item">组织机构管理</a>
+                    <a href="ht_meet.html" class="list-group-item">会议室管理</a>
+                    <a href="" class="list-group-item">公共会议模板</a>
+                    <a href="" class="list-group-item">通知模板</a>
+                    <a href="" class="list-group-item">日志查询</a>
+                  </div>
+                </li>
+                <li>
+                  <a href="#chengxuan" class="list-group-item" data-toggle="collapse">
+                    <i class="glyphicon glyphicon-user"></i>成员管理 
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                  </a>
+                  <div class="collapse" id="chengxuan">
+                    <a href="" class="list-group-item">所有职员</a>
+                    <a href="" class="list-group-item">公告发布</a>
+                    <a href="" class="list-group-item">信息查询</a>
+                  </div>
+                </li>
+                <li>
+                  <a href="#huiyi" class="list-group-item" data-toggle="collapse">
+                    <i class="glyphicon glyphicon-calendar"></i>会议管理
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                  </a>
+                  <div class="collapse in" id="huiyi">
+                    <a href="#" class="list-group-item">会议预定</a>
+                    <a href="#" class="list-group-item me_active">会议审核</a>
+                    <a href="#" class="list-group-item">会场查看</a>
+                  </div>
+                </li>
+                <li>
+                  <a href="#" class="list-group-item">
+                    <i class="glyphicon glyphicon-bell"></i>今日详情
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="list-group-item">
+                    <i class="glyphicon glyphicon-indent-left"></i>查询分析
+                  </a>
+                </li>
+              </ul>
+          </div>
+          <!--右边内容-->
+          <div class="col-xs-12 col-sm-9 content">
+            <!--添加-->
+            <div id="mz_add_info" style="display: none;padding-right: 45px">
+              <form class="layui-form me_margin_top" action="" lay-filter="initForm">
+                <div class="layui-form-item">
+                  <label class="layui-form-label">名称</label>
+                  <div class="layui-input-block">
+                    <input type="text" name="username" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                  </div>
+                </div>
+                <div class="layui-form-item">
+                  <label class="layui-form-label">位置</label>
+                  <div class="layui-input-inline">
+                    <input type="password" name="text" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                  </div>
+                  <div class="layui-form-mid layui-word-aux">辅助文字</div>
+                </div>
+                <div class="layui-form-item">
+                  <label class="layui-form-label">是否需要审核</label>
+                  <div class="layui-input-block">
+                    <select name="city" lay-verify="required">
+                      <option value=""></option>
+                      <option value="0">是</option>
+                      <option value="1">否</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="layui-form-item">
+                  <label class="layui-form-label">可容纳人数</label>
+                  <div class="layui-input-block">
+                    <input type="number" name="" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                  </div>
+                </div>
+                <div class="layui-form-item">
+                  <label class="layui-form-label">工具</label>
+                  <div class="layui-input-block">
+                    <input type="checkbox" name="like[write]" title="投影">
+                    <input type="checkbox" name="like[read]" title="话筒">
+                    <input type="checkbox" name="like[dai]" title="打印">
+                  </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                  <label class="layui-form-label">其他</label>
+                  <div class="layui-input-block">
+                    <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title"><a href="javascript:void(0);" class="toggle-sidebar"><span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a> 审核预约</h3>
+                <!--<a href="#">刷新</a>-->
+              </div>
+              <div class="panel-body">
+                <div class="content-row">
+                <h5>待审核：</h5>
+                <div class="col-md-12">
+                  <!-- table-model -->
+                  <div class="searchTable"><!--搜索-->
+                    按
+                    <span>
+                      <select id='mz_search_w'>
+                        <option value="0">ID</option>
+                        <option value="1">姓名</option>
+                        <option value="2">职位</option>
+                        <option value="3">会议室</option>
+                      </select>
+                    </span>搜索：
+                    <div class="layui-inline">
+                      <input class="layui-input" name="id" id="searchReload" autocomplete="off">
+                    </div>
+                    <button class="layui-btn" data-type="reload">搜索</button>
+                    <button class="layui-btn me_fr" id="mz_add_meet">添加会议室</button>
+                    <!--<button class="layui-btn me_fr" id="mz_add_meet" data-toggle="modal" data-target="#tableModal">添加会议室</button>-->
+                  </div>
+                  <table class="layui-hide" id="mz_meet_table" lay-filter="mz_meet_table"></table>
+                  <script type="text/html" id="barMeet">
+                    <a class="layui-btn layui-btn-xs" lay-event="edit">同意</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">拒绝</a>
+                  </script>
+                </div>
+
+                  <!--隔开-->
+                  <div class="col-md-12 mz_shenghe_hr"></div>
+                  <hr>
+              </div>
+                <div class="content-row">
+                  <h5>已审核：</h5>
+                  <div class="col-md-12">
+                    <!-- table-model -->
+                    <table class="layui-hide" id="mz_shenghed_table" lay-filter="mz_meet_table"></table>
+                  </div>
+                </div>
+              </div><!-- panel body -->
+            </div>
+        </div><!-- content -->
+      </div>
+    </div>
+    <!--footer-->
+    <div class="site-footer">
+      <div class="container">
+        <!--<div class="download">-->
+          <!--<span class="download__infos">You simply have to <b>try it</b>.</span>&nbsp;&nbsp;&nbsp;&nbsp;-->
+           <!---->
+            <!--&lt;!&ndash; SmartAddon BEGIN &ndash;&gt;-->
+            <!--<script type="text/javascript">-->
+            <!--(function() {-->
+            <!--var s=document.createElement('script');s.type='text/javascript';s.async = true;-->
+            <!--s.src='http://s1'+'.smartaddon.com/share_addon.js';-->
+            <!--var j =document.getElementsByTagName('script')[0];j.parentNode.insertBefore(s,j);-->
+            <!--})();-->
+            <!--</script>-->
+
+             <!---->
+            <!--&lt;!&ndash; SmartAddon END &ndash;&gt;-->
+        <!--</div>-->
+        <hr class="dashed" />
+        <div class="row">
+          <div class="col-md-4">
+            <h3>Get involved</h3>
+            <p>Bootflat is hosted on and open for everyone to contribute. Please give us some feedback and join the development!</p>
+          </div>
+          <div class="col-md-4">
+            <h3>Contribute</h3>
+            <p>You want to help us and participate in the development or the documentation? Just fork Bootflat on  and send us a pull request.</p>
+          </div>
+          <div class="col-md-4">
+            <h3>Found a bug?</h3>
+            <p>Open a new issue  on GitHub. Please search for existing issues first and make sure to include all relevant information.</p>
+          </div>
+        </div>
+        <hr class="dashed" />
+        <div class="row">
+          <div class="col-md-6">
+            <h3>Talk to us</h3>
+            <ul>
+              <li>Tweet us at  @YourTwitter &nbsp;&nbsp;&nbsp;&nbsp;Email us at <span class="connect">info@yourdomain.com</span></li>
+              <li>
+                 <i class="icon" data-icon="&#xe121"></i> 
+                 <i class="icon" data-icon="&#xe10b"></i> 
+                 <i class="icon" data-icon="&#xe110"></i> 
+                 <i class="icon" data-icon="&#xe10e"></i> 
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <!-- Begin MailChimp Signup Form -->
+           
+            <div id="mc_embed_signup">
+            <h3 style="margin-bottom: 15px;">Newsletter</h3>
+            <form action="" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" novalidate>
+                <input style="margin-bottom: 10px;" type="email" value="" name="EMAIL" class="email form-control" id="mce-EMAIL" placeholder="email address" required>
+                <span class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn btn-primary"></span>
+            </form>
+            </div>
+            <!--End mc_embed_signup-->
+          </div>
+        </div>
+        <hr class="dashed" />
+        <div class="copyright clearfix">
+          <p><b>Bootflat</b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="getting-started.html">Getting Started</a>&nbsp;&bull;&nbsp;<a href="index.html">Documentation</a>&nbsp;&bull;&nbsp; Free PSD &nbsp;&bull;&nbsp; Color Picker.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a> </p>
+         
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="dist/js/ht_shenhe.js"></script>
+  </body>
+</html>

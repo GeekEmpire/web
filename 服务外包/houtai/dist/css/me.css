@@ -1,0 +1,117 @@
+.me_active{
+	background-color: #E6E9ED;
+}
+a{
+	cursor: pointer;
+}
+.me_fl{
+	float: left;
+}
+.me_fr{
+	float: right;
+}
+.me_center{
+	text-align: center;
+}
+.me_font16{
+	font-size: 16px;
+}
+.me_margin_left{
+	margin-left: 20px;
+}
+.me_margin_leftsm{
+	margin-left: 10px;
+}
+.me_margin_right{
+	margin-right: 20px;
+}
+.me_margin_top{
+	margin-top: 10px;
+}
+.me_margin_mtop{
+	margin-top: 50px;
+}
+.me_margin_bottom{
+	margin-bottom: 10px;
+}
+.me_padding_topsm{
+	padding-top: 5px;
+}
+.me_padding_mbottom{
+	padding-bottom: 150px;
+}
+.mz_permit{
+	margin-right: 5px;
+}
+.me_border{
+	border: 1px solid #ccc;
+}
+/*主页*/
+.mz_ggb{
+	height: 220px;
+}/*公告板*/
+
+/*头像部分*/
+.mz_touxiang_t{
+	font-size: 18px;
+	margin-bottom: 10px;
+}
+.mz_touxiang{
+	display: block;
+	width: 100px;
+	height: 130px;
+	margin: 0 auto;
+}
+.mz_touxiang img{
+	display: block;
+	width: 100px;
+	height: 100px;
+	border: 1px solid #ccc;
+}
+.mz_touxiang a{
+	display: block;
+	margin-top: 5px;
+	text-align: center;
+}
+.layui-upload-choose{
+	display: none;
+}
+
+/*账号管理，修改信息*/
+#mz_admin_info li{
+	height: 30px;
+	line-height: 30px;
+	margin: 10px;
+	font-size: 16px;
+}
+#mz_modify_modal_t{
+	font-size: 24px;
+	text-align: center;
+}
+.layui-input-block{
+	margin-left: 130px;
+}
+.layui-form-label{
+	width: 120px;
+}
+.layui-input-inline{
+	margin-left: 10px;
+}
+.mz_info_intro{
+	display: block;
+	text-indent:2em;
+	margin-right: 15%;
+}
+@media (min-width: 768px) {
+	.me_kuochong{
+		padding-bottom: 150px;
+	}
+}/* 账号管理结束*/
+
+.mz_shenghe_hr{
+	display: block;
+	width: 80%;
+	height: 2px;
+	margin: 10px;
+}
+

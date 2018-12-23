@@ -1,0 +1,121 @@
+﻿/*公共*/
+body,div,a,input,h5,p,span,i,h4{
+    padding: 0px;
+    margin: 0px;
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+.w{
+    width: 100vw;
+}
+.inline{
+    display: inline-block;
+}
+.center{
+    text-align: center;
+}
+@font-face {
+    font-family: 'iconfont';
+    src: url('../fonts/iconfont.eot');
+    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/iconfont.woff') format('woff'),
+    url('../fonts/iconfont.ttf') format('truetype'),
+    url('../fonts/iconfont.svg#iconfont') format('svg');
+}
+/*头部*/
+.header{
+    height: 15vh;
+    width: 100vw;
+    background-color: #F2F2F2;
+}
+.logo{
+    height: 15vh;
+    width: 15vh;
+    border-radius: 50%;
+}
+.logo_title{
+    line-height: 15vh;
+    margin-left: 10px;
+    font-size: 5vh;
+}
+.ma{
+    height: 15vh;
+    width: 15vh;
+}
+.calendar{
+    font-family:"iconfont" !important;
+    font-style:normal;
+    font-size: 3vh;
+    margin-right: 2px;
+}
+.show_time{                /*当前时间*/
+    line-height: 15vh;
+    font-size: 4vh;
+    margin-right: 10px;
+    /*color: blue;*/
+}
+
+/*内容部分*/
+.content{
+    height: 75vh;
+    width: 100vw;
+    background: url("../images/bg.jpg");
+    background-size: cover;
+    /*background-color: #004394;*/
+}
+.local{
+    font-family:"iconfont" !important;
+    font-style:normal;
+    font-size: 4vh;
+    margin-right: 2px;
+    color: #fff;
+}
+.meet_name{ /*会议室名*/
+    height: 10vh;
+    width: 100vw;
+    line-height: 10vh;
+    font-size: 4vh;
+    font-weight: bold;
+    padding-left: 5vw;
+    color: #eee;
+}
+.meet_content{
+    height: 55vh;
+    width: 100vw;
+    padding-bottom: 10vh;
+}
+.meet_content table{
+    height: 55vh;
+    width: 90vw;
+    margin: 0 auto;
+    border-collapse:collapse;
+    /*border: 1px solid red;*/
+}
+.meet_content th{
+    font-size: 4vh;
+    background-color: #8a6d3b;
+}
+.meet_content td{
+    font-size: 4vh;
+    text-align: center;
+    height: 10vh;
+    padding-left: 2vw;
+    background-color:#eee;
+}
+.meet_table_top{
+    height: 15vh;
+}
+/*底部部分*/
+.footer{
+    height: 10vh;
+    line-height: 10vh;
+    width: 100vw;
+    background-color: #eee;
+}
+.company{
+    font-size: 12px;
+}

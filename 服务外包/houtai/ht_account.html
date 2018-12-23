@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>会议室管理中心</title>
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="shortcut icon" href="favicon_16.ico"/>
+  <!-- <link rel="bookmark" href="favicon_16.ico"/> -->
+  <!-- site css -->
+  <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+  <link rel="stylesheet" href="dist/css/site.min.css">
+  <script src="layui/layui.js" charset="utf-8" type="text/javascript"></script>
+  <link rel="stylesheet" href="dist/css/me.css">
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+  <!--[if lt IE 9]>
+  <script src="js/html5shiv.js"></script>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
+  <script type="text/javascript" src="dist/js/site.min.js"></script>
+  <script type="text/javascript" src="dist/js/houtai.js"></script>
+</head>
+<body>
+<!--nav 顶部导航栏-->
+<nav role="navigation" class="navbar navbar-custom">
+  <div class="container-fluid">
+    <!--左边-->
+    <div class="navbar-header">
+      <a href="ht_shenhe.html" class="navbar-brand">会议室管理后台</a>
+    </div>
+    <!--右边-->
+    <div id="bs-content-row-navbar-collapse-5" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="active"><a href="getting-started.html">会议审批</a></li>
+        <li class="active"><a href="index.html">预定详情</a></li>
+        <!-- <li class="disabled"><a href="#">Link</a></li> -->
+        <li class="dropdown">
+          <a data-toggle="dropdown" class="dropdown-toggle" href="#">个人中心 <b class="caret"></b></a>
+          <ul role="menu" class="dropdown-menu">
+            <li class="dropdown-header">设置</li>
+            <li><a href="#">帮助</a></li>
+            <li class="divider"></li>
+            <li class="active"><a href="#">更多</a></li>
+            <li class="divider"></li>
+            <li class="disabled"><a href="#">退出登录</a></li>
+          </ul>
+        </li>
+      </ul>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<!--header-->
+
+<div class="container-fluid">
+  <!--documents内容-->
+  <div class="row row-offcanvas row-offcanvas-left">
+    <!--内容左边导航-->
+    <div class="col-xs-6 col-sm-3 sidebar-offcanvas" role="navigation">
+      <ul class="list-group panel">
+        <li class="list-group-item"><i class="glyphicon glyphicon-align-justify"></i> <b>功能</b></li>
+        <li class="list-group-item"><input type="text" class="form-control search-query" placeholder="查找功能"></li>
+        <li class="active">
+          <a href="#" class="list-group-item"><i class="glyphicon glyphicon-home"></i>主界面 </a>
+        </li>
+        <li>
+          <a href="#xitong" class="list-group-item " data-toggle="collapse">
+            <i class="glyphicon glyphicon-cog"></i>系统管理
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+          <div class="collapse in" id="xitong">
+            <a href="" class="list-group-item me_active">账号管理</a>
+            <a href="" class="list-group-item">组织机构管理</a>
+            <a href="" class="list-group-item">会议室管理</a>
+            <a href="" class="list-group-item">公共会议模板</a>
+            <a href="" class="list-group-item">通知模板</a>
+            <a href="" class="list-group-item">日志查询</a>
+          </div>
+        </li>
+        <li>
+          <a href="#chengxuan" class="list-group-item" data-toggle="collapse">
+            <i class="glyphicon glyphicon-user"></i>成员管理
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+          <div class="collapse" id="chengxuan">
+            <a href="" class="list-group-item">所有职员</a>
+            <a href="" class="list-group-item">公告发布</a>
+            <a href="" class="list-group-item">信息查询</a>
+          </div>
+        </li>
+        <li>
+          <a href="#huiyi" class="list-group-item" data-toggle="collapse">
+            <i class="glyphicon glyphicon-calendar"></i>会议管理
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+          <div class="collapse in" id="huiyi">
+            <a href="#" class="list-group-item">会议预定</a>
+            <a href="#" class="list-group-item">会议审核</a>
+            <a href="#" class="list-group-item">会场查看</a>
+          </div>
+        </li>
+        <li>
+          <a href="#" class="list-group-item">
+            <i class="glyphicon glyphicon-bell"></i>今日详情
+          </a>
+        </li>
+        <li>
+          <a href="#" class="list-group-item">
+            <i class="glyphicon glyphicon-indent-left"></i>查询分析
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-xs-12 col-sm-9 content">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><a href="javascript:void(0);" class="toggle-sidebar"><span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a> 个人信息</h3>
+        </div>
+        <div class="panel-body">
+          <div class="content-row">
+            <div class="row">
+              <div class="col-md-2">
+                <h4 class="me_center mz_touxiang_t">
+                  <span>owl</span>
+                </h4>
+                <div class="mz_touxiang">
+                  <img src="favicon_16.ico" id="mz_touxiang_img">
+                  <a id="mz_up_touxiang"><i class="layui-icon">&#xe67c;</i>更换头像</a>
+                </div>
+                <script>
+                    layui.use('upload', function(){
+                        var upload = layui.upload;
+                        //执行实例
+                        var uploadInst = upload.render({
+                            elem: '#mz_up_touxiang'
+                            ,url: 'file:///E:/code/houtai/upload'
+                            ,before: function(obj){
+                                //预读本地文件示例，不支持ie8
+                                obj.preview(function(index, file, result){
+                                    $('#mz_touxiang_img').attr('src', result); //图片链接（base64）
+                                });
+                            }
+                            ,done: function(res){
+                                //如果上传失败
+                                if(res.code > 0){
+                                    return layer.msg('上传失败');
+                                }
+                                //上传成功
+                            }
+                            // ,error: function(){
+                            //     //演示失败状态，并实现重传
+                            //     var demoText = $('#mz_touxiang_img');
+                            //     demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                            //     demoText.find('.demo-reload').on('click', function(){
+                            //         uploadInst.upload();
+                            //     });
+                            // }
+                        });
+                    });
+                </script>
+              </div><!-- 头像-->
+              <div class="col-md-10 me_margin_mtop me_kuochong">
+                <div class="modal fade bs-example-modal-lg me_font16" id="mz_modify_info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content" style="padding-right: 30px;">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="mz_modify_modal_t">修改个人信息</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form class="layui-form" lay-filter="formTest"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+                        <div class="layui-form-item">
+                          <label class="layui-form-label">姓名</label>
+                          <div class="layui-input-block">
+                            <input type="text" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <label class="layui-form-label">单选框</label>
+                          <div class="layui-input-block">
+                            <input type="radio" name="sex" value="0" title="男">
+                            <input type="radio" name="sex" value="1" title="女" checked>
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <label class="layui-form-label">电话</label>
+                          <div class="layui-input-block">
+                            <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">电子邮箱</label>
+                            <div class="layui-input-block">
+                              <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <label class="layui-form-label">部门</label>
+                          <div class="layui-input-block">
+                            <input type="tel" name="" lay-verify="required" autocomplete="off" class="layui-input">
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                          <label class="layui-form-label">职位</label>
+                          <div class="layui-input-block">
+                            <input type="text" name="" lay-verify="email" autocomplete="off" class="layui-input">
+                          </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">出生年月日</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="" id="mz_admin_birth" placeholder="请输入" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                            <script>
+                                layui.use('laydate', function(){
+                                    var laydate = layui.laydate;
+                                    //执行一个laydate实例
+                                    laydate.render({
+                                        elem: '#mz_admin_birth', //指定元素,
+                                    });
+                                });
+                            </script>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">参加会议数</label>
+                                <div class="layui-input-block">
+                                    <input type="number" class="layui-input" min="0">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">发起会议数</label>
+                                <div class="layui-input-block">
+                                    <input type="number" class="layui-input" min="0" >
+                                </div>
+                            </div>
+                          <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">请填写描述</label>
+                            <div class="layui-input-block">
+                              <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+                            </div>
+                          </div>
+                          <div class="layui-form-item me_center">
+                            <!--<div class="layui-input-block ">-->
+                              <button class="layui-btn" lay-submit lay-filter="*">保存信息</button>
+                              <button class="layui-btn layui-btn-primary" data-dismiss="modal">取消</button>
+                            <!--</div>-->
+                          </div>
+                          <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+                        </form>
+                        <script>
+                            layui.use('form', function(){
+                                var form = layui.form;
+                                var mz_form={
+                                    "username": "贤心" // "name": "value"
+                                    ,"sex": "女"
+                                    ,"auth": 3
+                                    ,"check[write]": true
+                                    ,"open": false
+                                    ,"desc": "我爱layui"
+                                };
+                                //formTest 即 class="layui-form" 所在元素对应的 lay-filter="" 对应的值
+                                form.val("formTest",mz_form);
+                            });
+                        </script>
+                      </div>
+                      <div class="modal-footer">
+                        <!--<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>-->
+                        <!--<button type="button" class="btn btn-primary">保存信息</button>-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <ul id="mz_admin_info">
+                  <li>
+                    ID：<span>qq_154678787</span><a class="pull-right" data-toggle="modal" data-target="#mz_modify_info">修改信息</a>
+                  </li>
+                  <li>姓名：<span>张大山</span></li>
+                  <li>性别：<span>男</span></li>
+                  <li>生日：<span>1995-03-08</span></li>
+                  <li>职位：<span>生活部-部长</span></li>
+                  <li>联系电话：<span>1008611</span></li>
+                  <li>邮箱：<span>mingzhi@163.com</span></li>
+                  <li>参加会议数：<span>10</span></li>
+                  <li>发起会议数：<span>2</span></li>
+                  <li>
+                    简介：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="mz_info_intro">
+                      就飞快的将疯狂夺金法鸡 就飞快的将疯狂夺金法鸡 就飞快的将疯狂夺金法鸡
+                    就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡
+                    就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡
+                    就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡
+                    就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡
+                    </span>
+                  </li>
+                </ul>
+              </div><!-- 详细信息-->
+            </div>
+          </div>
+        </div><!-- panel body -->
+      </div>
+    </div><!-- content -->
+  </div>
+</div>
+<!--footer-->
+</body>
+</html>

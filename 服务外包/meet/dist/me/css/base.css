@@ -1,0 +1,98 @@
+.me_active{
+    color: #1E9FFF;
+}
+
+a{
+    cursor: pointer;
+}
+a:hover{
+    text-decoration: none;
+    color: #333;
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+.center{
+    text-align: center;
+}
+.me_border{
+    border: 1px solid #ccc;
+}
+.margin_l10{
+    margin-left: 10px;
+}
+/*头部*/
+header{
+    height: 14vh;
+    background: #eee;
+    width: 100%;
+}
+.logo{
+    margin: 2vh;
+    height: 10vh;
+}
+.logo img{
+    height: 10vh;
+    width: 10vh;
+    border-radius: 50%;
+}
+.logo h5{
+    font-size: 4vh;
+    margin-top: 3vh;
+    margin-left: 15px;
+}
+.head_a{
+    height: 14vh;
+    line-height: 14vh;
+}
+.head_a a{
+    font-size: 3vh;
+    margin: 0 1.5vw;
+    display: inline-block;
+}
+
+/*footer*/
+footer{
+    position: relative;
+    background-color: #eee;
+    text-align: center;
+}
+footer h5{
+    height: 8vh;
+    font-size: 3vh;
+    line-height: 8vh;
+}
+footer p{
+    font-size: 1vh;
+    color: #1E9FFF;
+    padding-bottom: 10px;
+}
+
+
+/*meet_detail.html*/
+.detail_main{
+    width: 96%;
+    margin: 0 auto;
+}
+.detail_title{
+    margin-top: 2vh;
+    font-size: 3vh;
+}
+.detail_title_i{
+    margin-right: 5px;
+}
+
+.pri1{
+    overflow: scroll;
+    height: 300px;
+    width: 800px;
+}
+.pri1 th div{
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}

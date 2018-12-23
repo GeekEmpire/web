@@ -1,0 +1,15 @@
+.mz_nav_heading{
+    margin-right: 20px;
+}
+.mz_left_navlists{
+    margin-top: 50px;
+    position: absolute;
+    width: 200px;
+    height: 600px;
+    border-radius: 0px;
+}
+.mz_content{
+    margin-left: 200px;
+    /*background-color: red;*/
+
+}

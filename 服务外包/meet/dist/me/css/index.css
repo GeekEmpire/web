@@ -1,0 +1,129 @@
+/*中间内容部分*/
+.me_content{  /*会议室查询*/
+    height: 86vh;
+    padding: 8vh;
+    width: 100%;
+    background: url("../../../images/0.jpg");
+    background-size: cover;
+    position: relative;
+}
+.search_c{
+    width: 65%;
+    height: 40vh;
+    background-color: #eee;
+    border: 1px solid #fff;
+    margin:8% 0;
+    padding:7vh 2%;
+    position: relative;
+}
+.search_c input{
+    height: 10vh;
+    font-size: 3vh;
+    /*margin-bottom: 2vh;*/
+    float: left;
+    width: 100%;
+    /*margin-left: 2.5%;*/
+    padding-left: 7vh;
+}
+.search_c select{
+    width: 30%;
+    height: 10vh;
+    font-size: 3vh;
+    margin-bottom: 2vh;
+    padding-left: 30px;
+    float: left;
+    margin-left: 2.5%;
+}
+.input_g{
+    position: relative;
+    float: left;
+    width: 30%;
+    margin-left: 2.5%;
+    margin-bottom: 2vh;
+}
+.input_g i{
+    color: #1E9FFF;
+}
+.input_g > i{
+    position: absolute;
+    left: 2vh;
+    font-size: 4vh;
+    height: 10vh;
+    line-height: 10vh;
+}
+.input2 .input_people{
+    width: 20%;
+}
+.input2 .input-topic{
+    width: 55%;
+}
+.search_submit{
+    font-size: 1vw;
+    margin-left: 5%;
+    margin-top: 2vh;
+}
+.search_other{
+    margin-top: 3vh;
+}
+
+.meet_c{  /*近期会议*/
+    width: 30%;
+    background-color: #fff;
+    height: 70vh;
+    margin-left: 5%;
+    position: relative;
+}
+.meet_title{
+    font-size: 3vh;
+    text-align: center;
+    margin: 10px 0;
+}
+.meet_main{
+    background-color: #fff;
+    width: 90%;
+    height: 60vh;
+    margin: 0 auto;
+}
+.meet_more{
+    position: absolute;
+    bottom: 1vh;
+    width: 90%;
+    text-align: center;
+    margin-bottom: 5px;
+}
+.meet_more a{
+    font-size: 2vh;
+    color: #1E9FFF;
+}
+
+.me_content2{
+    margin-top: 30px;
+    height: 100vh;
+}
+.img_swiper{
+    position: relative;
+}
+.swiper_title{
+    position: absolute;
+    bottom: 5%;
+    left: 3%;
+    color: #fff;
+    font-size: 4vh;
+}
+
+
+/*公告板*/
+.notice{
+    height: 30vh;
+    margin-top: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+.notice_title{
+    font-size: 3vh;
+    text-align: center;
+    margin-top: 10px;
+}
+.notice_content{
+
+}
