@@ -1,6 +1,18 @@
 body{
     font-family: 'Microsoft YaHei',sans-serif;
 }
+.maizi_icon{
+    width: 40px;
+    height: 40px;
+    background: #40d2b1;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    margin-right: 15px;
+}
+
+/*navbar*/
 .navbar-default{
     background-color: #fff;
     border: none;
@@ -12,6 +24,11 @@ body{
     color: #40D2B1;
     height: 70px;
     line-height: 35px;
+}
+.navbar-search{
+    width: 250px;
+    margin-top: 17px;
+    margin-left: 15px;
 }
 .navbar-default .navbar-nav>li>a {
     font-size: 16px;
@@ -30,3 +47,215 @@ body{
 .navbar-default .navbar-toggle .icon-bar{
     background-color: #1c9982;
 }
+@media (min-width: 768px) and (max-width: 992px) {
+    /*让输入框自适应*/
+    .navbar-search {
+        width: 155px;
+    }
+
+    #header_collapse li a {
+        padding: 15px 9px;
+    }
+}
+@media (max-width: 768px){
+    .navbar-default .navbar-nav>li>a{
+        height: 40px;
+    }
+}
+    /*#home*/
+#home{
+    margin-top: 70px;
+    background: url("../images/bg.jpg");
+    background-size: cover;
+}
+#home .lvjing{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    padding: 90px 0;
+    text-align: center;
+    color: #fff;
+}
+#home h1{
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 0px;
+}
+#home p{
+    font-weight: 400;
+    line-height: 35px;
+}
+#home img{
+    /*width: 880px;*/
+}
+
+/*bbs*/
+#bbs{
+    padding: 80px 0;
+    text-align: center;
+}
+#bbs .col-md-4{
+    padding: 30px 5px;
+}
+#bbs .col-md-4:hover{
+    background-color: #f1f1f1;
+    box-shadow: 1px 1px 4px #ccc;
+}
+#bbs a{
+color: #222;
+text-decoration: none;
+}
+#bbs img{
+    width: 90px;
+    height: 90px;
+    margin: 0 auto;
+}
+#bbs h3{
+    font-weight: bold;
+}
+
+/*html5+bootstrap*/
+#html5{
+    background: #f8f8f8;
+    padding: 80px 0;
+}
+#bootstrap{
+    background: #fff;
+}
+#html5,#bootstrap{
+    padding: 80px 0;
+}
+#html5 h2,#bootstrap h2{
+    font-weight: bold;
+}
+#html5 p,#bootstrap p{
+    line-height: 22px;
+}
+#html5 img,#bootstrap img{
+    width: 480px;
+    height: 260px;
+    margin: 0 auto;
+}
+
+/*course*/
+#course{
+    background: #f8f8f8;
+    padding: 50px 0;
+    text-align: center;
+}
+#course h2{
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+.course{
+    background: #fff;
+    margin-bottom: 25px;
+}
+.course:hover{
+    box-shadow: 1px 1px 4px #ccc;
+}
+.course img{
+    margin: 0 auto;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.course img:hover{
+    opacity: 0.9;
+}
+.course .btn{
+    background-color: transparent;
+    border: 1px solid #40D2B1;
+    border-radius: 0px;
+    color: #40D2B1;
+    margin: 15px 0;
+    transition: 0.3s;
+}
+.course .btn:hover{
+    color: #fff;
+    background: #40D2B1;
+}
+
+/*app*/
+#app{
+    padding: 80px 0;
+}
+#app h2{
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+#app .glyphicon-download{
+    margin-right: 5px;
+}
+#app .btn{
+    background-color: #40D2B1;
+    border: 1px solid #40D2B1;
+    border-radius: 0px;
+    color: #fff;
+    margin: 10px 0;
+    transition: 0.3s;
+}
+#app .btn:hover{
+    background: #288d76;
+}
+
+/*contact*/
+#contact{
+    /*padding: 80px 0;*/
+    background: url("../images/bg.jpg") no-repeat;
+    background-size: cover;
+
+}
+#contact .lvjing{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    padding: 80px 0;
+    text-align: left;
+    color: #fff;
+}
+#contact h2{
+    font-weight: bold;
+    margin-bottom: 30px;
+    margin-top: 0px;
+}
+#contact p{
+    text-align: left;
+    margin-bottom: 20px;
+}
+#contact address p{
+    text-align: left;
+    line-height: 20px;
+}
+#contact .form-control{
+    border-radius: 0;
+    border: 0;
+    height: 50px;
+    margin-bottom: 20px;
+}
+#contact textarea{
+    height: auto!important;
+}
+#contact input[type="submit"]{
+    background: #40d2b1;
+    color: #fff;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+#contact input[type="submit"]:hover{
+    background: #288d76;
+}
+
+/*footer*/
+footer{
+    text-align: center;
+    font-weight: 400;
+    padding:20px
+}
+
+
+
+
+
+
+
+
