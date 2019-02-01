@@ -1,21 +1,20 @@
-//添加会议室
 $('#mz_add_meet').on("click", function () {
     layui.use('form', function(){
         var form = layui.form;
 
-        // form.val("initForm", {
-        //     "username": "贤心" // "name": "value"
-        //     ,"sex": "女"
-        //     ,"password": "123434"
-        //     ,"check[write]": true
-        //     ,"open": false
-        //     ,"desc": "我爱layui"
-        // })
+        form.val("initForm", {
+            "username": "贤心" // "name": "value"
+            ,"sex": "女"
+            ,"password": "123434"
+            ,"check[write]": true
+            ,"open": false
+            ,"desc": "我爱layui"
+        })
         //各种基于事件的操作，下面会有进一步介绍
     });
     layer.open({
         type: 1
-        ,title: "添加会议室" //不显示标题栏
+        ,title: "添加员工" //不显示标题栏
         ,closeBtn: true
         ,area: '500px'
         ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
@@ -32,26 +31,24 @@ $('#mz_add_meet').on("click", function () {
     });
 });
 
-
-//table数据渲染
 layui.use('table', function(){
     var table = layui.table;
     table.render({
         elem: '#mz_meet_table'
-        ,url:'./upload/meet_table.json'
+        ,url:'/houtai/upload/user_table.json'
         ,toolbar: '#toolbarMeet'
         ,title: '用户数据表'
         ,id:'tableReload'
         ,cols: [[
             {type: 'checkbox', fixed: 'left'}
             ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
-            ,{field:'imageUrl', title:'图片和设备', width:120, templet: '#switchTpl', unresize: true}
-            ,{field:'username', title:'名称', width:120}
-            ,{field:'address', title:'位置', width:150}
-            ,{field:'space', title:'可容量人数', width:120, sort: true}
-            ,{field:'state', title:'状态', width:100}
-            ,{field:'auto', title:'是否需要审核',width:120}
-            ,{fixed: 'right', title:'操作', toolbar: '#barMeet', width:120}
+            ,{field:'name', title:'用户名', width:150}
+            ,{field:'phone', title:'手机号', width:150}
+            ,{field:'email', title:'邮箱', width:150}
+            ,{field:'password', title:'密码', width:150, sort: true}
+            ,{field:'avatar', title:'头像', width:150}
+            ,{field:'role', title:'权限',width:120}
+            ,{fixed: 'right', title:'操作', toolbar: '#barMeet', width:150}
         ]]
         ,page: true
     });
@@ -94,47 +91,16 @@ layui.use('table', function(){
                 obj.del();
                 layer.close(index);//向服务端发送删除指令
             });
-        } else if(obj.event === 'edit'){  //修改
-            // layer.prompt({
-            //     formType: 2
-            //     ,value: data.email
-            // }, function(value, index){
-            //     obj.update({
-            //         email: value
-            //     });
-            //     layer.close(index);
-            // });
-            layui.use('form', function(){
-                var form = layui.form;
-
-                form.val("initForm", {
-                    "username": "贤心" // "name": "value"
-                    ,"sex": "女"
-                    ,"password": "123434"
-                    ,"check[write]": true
-                    ,"open": false
-                    ,"desc": "我爱layui"
-                })
-                //各种基于事件的操作，下面会有进一步介绍
+        } else if(obj.event === 'edit'){
+            layer.prompt({
+                formType: 2
+                ,value: data.email
+            }, function(value, index){
+                obj.update({
+                    email: value
+                });
+                layer.close(index);
             });
-            layer.open({
-                type: 1
-                ,title: "添加会议室" //不显示标题栏
-                ,closeBtn: true
-                ,area: '500px'
-                ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-                ,btn: ['确定', '取消']
-                ,btnAlign: 'c'
-                ,moveType: 1 //拖拽模式，0或者1
-                ,content: $('#mz_add_info')
-                ,yes:function (index, layero) {
-                    console.log(layero);
-                }
-                ,btn2:function (index, layero) {
-                    console.log(1);
-                }
-            });
-            console.log(obj)
         }
     });
     var $ = layui.$, active = {

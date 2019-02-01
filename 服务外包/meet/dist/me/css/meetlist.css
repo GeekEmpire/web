@@ -1,5 +1,29 @@
-.top{
-    height: 10vh;
+.me_content{
+    position: relative;
+}
+/*.top , .search{*/
+    /*height: 10vh;*/
+/*}*/
+.area{
+    margin:20px 0 0 300px;
+    font-size: 16px;
+}
+.area select{
+    height: 25px;
+    width: 100px;
+}
+
+.search{
+    padding-top:20px;
+    margin-right: 20px;
+}
+.pattern{
+    position: absolute;
+    top: 20px;
+    left: 50%;
+}
+.pattern select{
+    height: 25px;
 }
 .search_flag{
     float: left;

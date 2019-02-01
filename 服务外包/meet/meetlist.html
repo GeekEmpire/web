@@ -13,7 +13,6 @@
     <script src="dist/me/js/jquery-3.3.1.js" type="text/javascript"></script>
     <script src="dist/bootstrap/js/bootstrap.js" type="text/javascript"></script>
     <script src="dist/layui/layui.js" type="text/javascript"></script>
-    <script src="dist/me/js/base.js" type="text/javascript"></script>
     <script src="dist/me/js/meetlist.js" type="text/javascript"></script>
     <title>会议预约系统</title>
 </head>
@@ -34,12 +33,37 @@
     </div>
 </header>
 <div class="me_content">
-    <div class="top">
-        <div class="search_flag"><h5>开始时间</h5></div>
-        <div class="search_flag"><h5>结束时间</h5></div>
-        <div class="search_flag"><h5>参加人数</h5></div>
-        <div class="search_flag"><h5>x栋x层</h5></div>
-        <div class="search_flag"><h5>类型</h5></div>
+    <!--<div class="top">-->
+        <!--<div class="search_flag"><h5>开始时间</h5></div>-->
+        <!--<div class="search_flag"><h5>结束时间</h5></div>-->
+        <!--<div class="search_flag"><h5>参加人数</h5></div>-->
+        <!--<div class="search_flag"><h5>x栋x层</h5></div>-->
+        <!--<div class="search_flag"><h5>类型</h5></div>-->
+    <!--</div>-->
+    <div class="area fl">
+        选择区域：
+        <div class="layui-input-inline">
+            <select>
+                <option>知行楼</option>
+                <option>崇信楼</option>
+                <option>三楼</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="pattern">
+        选择搜索方式：
+        <select>
+            <option>会议室名</option>
+            <option>容量</option>
+        </select>
+    </div>
+    <div class="search fr">
+        搜索会议室名：
+        <div class="layui-inline">
+            <input class="layui-input" name="id" id="searchReload" autocomplete="off">
+        </div>
+        <button class="layui-btn" data-type="reload">搜索</button>
     </div>
     <div class="middle">
         <div class="layui-row meetlists">
@@ -47,7 +71,7 @@
                 <h5 class="list1_title">精品推荐 : </h5>
                 <ul class="list1_content">
                     <li>
-                        <a>
+                        <a href="meet_show.html">
                             <img src="images/huiyi2.jpg">
                             <h5><i class="layui-icon">&#xe66c;</i>15#215</h5>
                             <p>
@@ -62,7 +86,7 @@
                         </a>
                     </li>
                     <li>
-                        <a>
+                        <a href="meet_show.html">
                             <img src="images/huiyi1.jpg">
                             <h5><i class="layui-icon">&#xe66c;</i>15#215</h5>
                             <p>
@@ -77,7 +101,7 @@
                         </a>
                     </li>
                     <li>
-                        <a>
+                        <a href="meet_show.html">
                             <img src="images/huiyi2.jpg">
                             <h5><i class="layui-icon">&#xe66c;</i>15#215</h5>
                             <p>
@@ -92,7 +116,7 @@
                         </a>
                     </li>
                     <li>
-                        <a>
+                        <a href="meet_show.html">
                             <img src="images/huiyi3.jpg">
                             <h5><i class="layui-icon">&#xe66c;</i>15#215</h5>
                             <p>
@@ -107,7 +131,7 @@
                         </a>
                     </li>
                     <li>
-                        <a>
+                        <a href="meet_show.html">
                             <img src="images/huiyi4.jpg">
                             <h5><i class="layui-icon">&#xe66c;</i>15#215</h5>
                             <p>
@@ -122,7 +146,7 @@
                         </a>
                     </li>
                     <li>
-                        <a>
+                        <a href="meet_show.html">
                             <img src="images/huiyi1.jpg">
                             <h5><i class="layui-icon">&#xe66c;</i>15#215</h5>
                             <p>
@@ -137,7 +161,7 @@
                         </a>
                     </li>
                     <li>
-                        <a>
+                        <a href="meet_show.html">
                             <img src="images/huiyi2.jpg">
                             <h5><i class="layui-icon">&#xe66c;</i>15#215</h5>
                             <p>
@@ -152,7 +176,7 @@
                         </a>
                     </li>
                     <li>
-                        <a>
+                        <a href="meet_show.html">
                             <img src="images/huiyi3.jpg">
                             <h5><i class="layui-icon">&#xe66c;</i>15#215</h5>
                             <p>
@@ -163,7 +187,6 @@
                                 <span>使用次数：20</span>
                                 <span>热门时间段：14:00-16:00</span>
                             </div>
-
                         </a>
                     </li>
 

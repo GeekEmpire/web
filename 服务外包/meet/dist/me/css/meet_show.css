@@ -1,0 +1,80 @@
+/*返回*/
+.goback{
+    margin: 15px 15px;
+    font-size: 18px;
+    font-weight: 300;
+}
+.goback a{
+    color: #000;
+}
+.goback a:hover{
+    color: #2B86E3;
+}
+
+/*图片展示*/
+.img_describe{
+    position: absolute;
+    left: 30px;
+    bottom: 30px;
+    font-size: 24px;
+    color: white;
+}
+
+/*标签*/
+.pflags{
+    position: relative;
+    height: 40px;
+}
+.pflag{
+    float: left;
+    border: 1px solid #1E9FFF;
+    border-radius: 5px;
+    height: 22px;
+    padding: 8px 15px;
+    margin-left: 30px;
+    margin-top: 15px;
+    font-size: 16px;
+}
+.pflag:hover{
+    cursor: pointer;
+}
+
+/*详细描述*/
+.meet_describe{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.meet_describe p{
+    color: #666;
+    font-size: 16px;
+    text-indent:2em;
+}
+
+.meet_apply{
+    margin: 20px 0!important;
+    position: relative;
+    display: block;
+}
+.meet_apply > a{
+    font-size: 16px;
+    color: red;
+    margin: 15px 30px;
+}
+.meet_apply a:hover{
+    color: #2B86E3;
+}
+.meet_apply>div>a{
+    margin-left: 30px;
+    color: #1E9FFF;
+}
+
+/*<!--日历加表格显示预约情况-->*/
+.calendar_table{
+    position: relative;
+    margin-top: 80px;
+    margin-bottom: 30px;
+}
+.table_list{
+    position: relative;
+    width: 830px;
+}

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>jQuery轮播图</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="libs/me.css" />
+</head>
+<body>
+    <div class="main">
+        <div class="bigimg" id="bigimg">
+            <img src="images/b1.jpg" alt="第1张图的描述信息" class="current" />
+            <img src="images/b2.jpg" alt="第2张图的描述信息" />
+            <img src="images/b3.jpg" alt="第3张图的描述信息" />
+            <img src="images/b4.jpg" alt="第4张图的描述信息" />
+            <img src="images/b5.jpg" alt="第5张图的描述信息" />
+            <img src="images/b6.jpg" alt="第6张图的描述信息" />
+            <img src="images/b7.jpg" alt="第7张图的描述信息" />
+            <img src="images/b8.jpg" alt="第8张图的描述信息" />
+            <img src="images/b9.jpg" alt="第9张图的描述信息" />
+            <img src="images/b10.jpg" alt="第10张图的描述信息" />
+            <div class="tip" id="tip">
+                <h3>第1张图的描述信息</h3>
+                <a class="l" href="javascript:;"> < </a>
+                <a class="r" href="javascript:;"> > </a>
+            </div>
+        </div>
+        <div class="smallimg" id="smallimg">
+            <ul>
+                <li>
+                    <img src="images/small01.jpg" />
+                    <span class="mask" style="display:none;"></span>
+                    <span class="border" style="display:block;"></span>
+                </li>
+                <li>
+                    <img src="images/small02.jpg" />
+                    <span class="mask"></span>
+                    <span class="border"></span>
+                </li>
+                <li>
+                    <img src="images/small03.jpg" />
+                    <span class="mask"></span>
+                    <span class="border"></span>
+                </li>
+                <li>
+                    <img src="images/small04.jpg" />
+                    <span class="mask"></span>
+                    <span class="border"></span>
+                </li>
+                <li>
+                    <img src="images/small05.jpg" />
+                    <span class="mask"></span>
+                    <span class="border"></span>
+                </li>
+                <li>
+                    <img src="images/small06.jpg" />
+                    <span class="mask"></span>
+                    <span class="border"></span>
+                </li>
+                <li>
+                    <img src="images/small07.jpg" />
+                    <span class="mask"></span>
+                    <span class="border"></span>
+                </li>
+                <li>
+                    <img src="images/small08.jpg" />
+                    <span class="mask"></span>
+                    <span class="border"></span>
+                </li>
+                <li>
+                    <img src="images/small09.jpg" />
+                    <span class="mask"></span>
+                    <span class="border"></span>
+                </li>
+                <li>
+                    <img src="images/small10.jpg" />
+                    <span class="mask"></span>
+                    <span class="border"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="./libs/jquery-1.12.4.min.js"></script>
+    <script>
+        var t;
+        $(function(){
+            var $bigimg = $('#bigimg img');
+            var $smallimg = $('#smallimg img');
+            var $smallborder = $('#smallimg .border');
+            var $smallmask = $('#smallimg .mask');
+            var $h3 = $('#tip h3');           
+            var $l = $('#tip .l');
+            var $r = $('#tip .r');
+            var $key=0;
+
+
+            function play(index){
+                // console.log(index);
+                index = index%10;
+                $h3.text("第"+(index+1)+"张图片的描述信息");
+                $bigimg.eq(index).show().siblings('img').hide();
+                $smallborder.eq(index).show().parents('li').siblings().children('.border').hide();
+                $smallmask.eq(index).hide().parent().siblings().children('.mask').show();
+            }
+            play(0);
+            //手动轮播
+            $('#smallimg').find('li').mouseenter(function(res){
+                $key = $(this).index();
+                 clearInterval(t);
+                 t = null;
+                 play($key);
+            });
+
+            // 自动轮播
+            function autoplay(){
+                $key= ($key+1)%10;
+                play($key);
+            }
+            t=setInterval(autoplay,1000);
+
+            // 鼠标离开自动轮播
+            $('.main').mouseleave(function(){
+                // t=setInterval(autoplay,1000);
+                if(t==null)
+                    t=setInterval(autoplay,1000);
+            });
+
+            // 箭头控制轮播
+            // 向左
+            $l.mouseenter(function () {
+                clearInterval(t);
+                t = null;
+            });
+            $r.mouseenter(function () {
+                clearInterval(t);
+                t = null;
+            });
+            $l.mouseleave(function () {
+                if(t==null)
+                    t=setInterval(autoplay,1000);
+            });
+            $r.mouseleave(function () {
+                if(t==null)
+                    t=setInterval(autoplay,1000);
+            });
+            $l.click(function(){
+                --$key
+                play($key);
+            });
+            // 向右
+            $r.click(function(){
+                ++$key
+                play($key);
+            });
+           
+        });  
+    
+
+    </script>
+         
+</body>
+</html>

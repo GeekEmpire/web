@@ -1,0 +1,67 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+.main{
+    width: 700px;
+    margin: 50px auto 0;
+    /*text-align: center;*/
+}
+#bigimg{
+    position: relative;
+    width: 700px;
+    line-height: 0;
+}
+#bigimg #tip h3{
+    position: absolute;
+    left: 50px;
+    bottom: 30px;
+}
+#bigimg #tip .l{
+    font-size: 50px;
+    position: absolute;
+    left: 0;
+    top: 58%;
+    color: #fff;
+}
+#bigimg #tip .r{
+    font-size: 50px;
+    position: absolute;
+    right: 0;
+    top: 58%;
+    color: #fff;
+}
+
+#smallimg{
+    height: 70px;
+}
+#smallimg li{
+    position: relative;
+    float: left;
+    width: 70px;
+}
+#smallimg img{
+    width: 70px;
+}
+#smallimg .border{
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    height: 15%;
+    width: 100%;
+    background: #141a3a;
+}
+#smallimg .mask{
+    position: absolute;
+    top: 0;
+    width: 70px;
+    height: 70px;
+    background: black;
+    opacity: 0.7;
+}
