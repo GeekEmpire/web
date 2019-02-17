@@ -46,9 +46,10 @@ layui.use('table', function(){
             {type: 'checkbox', fixed: 'left'}
             ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
             ,{field:'imageUrl', title:'图片和设备', width:120, templet: '#switchTpl', unresize: true}
-            ,{field:'username', title:'名称', width:120}
+            ,{field:'username', title:'名称', width:90}
             ,{field:'address', title:'位置', width:150}
-            ,{field:'space', title:'可容量人数', width:120, sort: true}
+            ,{field:'space', title:'容量', width:90, sort: true}
+            ,{field:'detail', title:'描述', width:100}
             ,{field:'state', title:'状态', width:100}
             ,{field:'auto', title:'是否需要审核',width:120}
             ,{fixed: 'right', title:'操作', toolbar: '#barMeet', width:120}
@@ -119,7 +120,7 @@ layui.use('table', function(){
             });
             layer.open({
                 type: 1
-                ,title: "添加会议室" //不显示标题栏
+                ,title: "修改会议室"
                 ,closeBtn: true
                 ,area: '500px'
                 ,id: 'LAY_layuipro' //设定一个id，防止重复弹出

@@ -16,6 +16,7 @@
   <![endif]-->
   <script type="text/javascript" src="dist/js/site.min.js"></script>
   <script type="text/javascript" src="dist/js/houtai.js"></script>
+  <script src="dist/js/vue.min.js"></script>
 </head>
 <body>
 <!--nav 顶部导航栏-->
@@ -48,7 +49,11 @@
   </div><!-- /.container-fluid -->
 </nav>
 <!--header-->
-
+<!--<script>-->
+  <!--function change() {-->
+      <!--$(".main_cotent").load("./page/header.html");-->
+  <!--}-->
+<!--</script>-->
 <div class="container-fluid">
   <!--documents内容-->
   <div class="row row-offcanvas row-offcanvas-left">
@@ -67,11 +72,8 @@
           </a>
           <div class="collapse" id="xitong">
             <a href="ht_account.html" class="list-group-item">账号管理</a>
-            <a href="" class="list-group-item">组织机构管理</a>
-            <a href="ht_meet.html" class="list-group-item">会议室管理</a>
-            <a href="" class="list-group-item">公共会议模板</a>
-            <a href="" class="list-group-item">通知模板</a>
-            <a href="" class="list-group-item">日志查询</a>
+            <a href="" class="list-group-item">雇主信息</a>
+            <a href="" class="list-group-item">服务记录</a>
           </div>
         </li>
         <li>
@@ -80,9 +82,8 @@
             <span class="glyphicon glyphicon-chevron-right"></span>
           </a>
           <div class="collapse" id="chengxuan">
-            <a href="" class="list-group-item">所有职员</a>
-            <a href="" class="list-group-item">公告发布</a>
-            <a href="" class="list-group-item">信息查询</a>
+            <a href="ht_users.html" class="list-group-item">所有职员</a>
+            <a href="" class="list-group-item">公告管理</a>
           </div>
         </li>
         <li>
@@ -91,9 +92,10 @@
             <span class="glyphicon glyphicon-chevron-right"></span>
           </a>
           <div class="collapse" id="huiyi">
-            <a href="#" class="list-group-item">会议预定</a>
             <a href="ht_shenhe.html" class="list-group-item">会议审核</a>
+            <a href="ht_meet.html" class="list-group-item">会议室管理</a>
             <a href="#" class="list-group-item">会场查看</a>
+            <a href="#" class="list-group-item">会议室标签</a>
           </div>
         </li>
         <li>
@@ -108,13 +110,17 @@
         </li>
       </ul>
     </div>
+
+    <!--主要内容-->
     <div class="col-xs-12 col-sm-9 content">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title"><a href="javascript:void(0);" class="toggle-sidebar"><span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a> 主界面</h3>
         </div>
         <div class="panel-body">
-          <div class="content-row">
+          <div class="content-row" id="main_content">
+
+            <!--公告板-->
             <div class="row">
               <div class="col-md-12 me_border mz_ggb">
                 <h5>公告板<i class="glyphicon glyphicon-comment me_margin_leftsm"></i></h5>
@@ -123,45 +129,43 @@
                     <div class="panel-heading">
                       <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne">
-                          <span>2018-3-1-10:00</span>
+                          <span>2018-2-1-10:00</span>
                           <span class="me_margin_left">发布人：管理员1号</span>
+                          <span class="me_margin_left">标题：放假提醒</span>
                         </a>
                       </h4>
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse">
                       <div class="panel-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        即将进入春节假期，会议室从2018-02-04开始停止对外开发，直至2018-02-17恢复使用，
+                        如需需要可以提前预定，祝大家节日快乐。
                       </div>
                     </div>
                   </div>
-                  <div class="panel">
+
+                  <!--vue-->
+                  <div class="panel" v-for="(item,i) in notices" :key="item.id">
                     <div class="panel-heading">
                       <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo">发布时间+发布人</a>
+                        <a data-toggle="collapse" data-parent="#accordion1" v-bind:href="('#c'+(i+1))">
+                          <span>{{item.time}}</span>
+                          <span class="me_margin_left">发布人：{{item.people}}</span>
+                          <span class="me_margin_left">标题：{{item.title}}</span>
+                        </a>
                       </h4>
                     </div>
-                    <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-collapse collapse" :id="('c'+(i+1))">
                       <div class="panel-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                      </div>
-                    </div>
-                  </div>
-                  <div class="panel">
-                    <div class="panel-heading">
-                      <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion1" href="#collapseThree">发布时间+发布人</a>
-                      </h4>
-                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse">
-                      <div class="panel-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        <span>#{{i+1}}: </span>{{item.content}}
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div><!--公告板-->
+            </div><!--公告板end-->
+
             <div class="row">
+              <!--代审核列表-->
               <div class="col-md-6">
                 <h5 class="me_center">代审核列表<a class=" glyphicon glyphicon-eye-open me_margin_leftsm" href="ht_shenhe.html"></a></h5>
                 <div class="table ">
@@ -169,7 +173,7 @@
                     <tr>
                       <th>申请人</th>
                       <th>会议室</th>
-                      <th>申请时间</th>
+                      <th>使用时间</th>
                       <th>操作</th>
                     </tr>
                     <tr>
@@ -208,24 +212,21 @@
                         <button>拒绝</button>
                       </td>
                     </tr>
-                    <tr>
-                      <td>1233</td>
-                      <td>1233</td>
-                      <td>1233</td>
+
+                    <tr v-for="(item,i) in notices">
+                      <td>{{item.id}}</td>
+                      <td>{{item.people}}</td>
+                      <td>{{item.time}}</td>
                       <td>
-                        <button>批准</button>
-                        <button>拒绝</button>
+                        <button @click="agree">批准</button>
+                        <button @click="refuse">拒绝</button>
                       </td>
-                    </tr>
-                    <tr>
-                      <td>1233</td>
-                      <td>1233</td>
-                      <td>1233</td>
-                      <td>1233</td>
                     </tr>
                   </table>
                 </div>
-              </div><!--待审核列表-->
+              </div><!--待审核列表end-->
+
+              <!--待参加会议-->
               <div class="col-md-6">
                 <h5 class="me_center">待参加会议</h5>
                 <div class="panel-group panel-group-lists" id="accordion2">
@@ -278,7 +279,7 @@
                     </div>
                   </div>
                 </div>
-              </div><!--待参加会议-->
+              </div><!--待参加会议end-->
             </div>
           </div>
         </div><!-- panel body -->
@@ -287,5 +288,32 @@
   </div>
 </div>
 <!--footer-->
+
+<script>
+  var vm = new Vue({
+      el: '#main_content',
+      data:{
+          notices : { },
+          others: ""
+      },
+      methods:{
+          agree(){
+
+          },
+          refuse(){
+              $.ajax({url:"./upload/1.json",success:function(result){
+                      vm.notices = result.data;
+                  }});
+          }
+      },
+      created: function () {
+          $.ajax({url:"./upload/notice.json",success:function(result){
+              vm.notices = result.data;
+              // console.log(result);
+              // console.log(vm.notices);
+          }});
+      },
+  })
+</script>
 </body>
 </html>

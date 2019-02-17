@@ -115,3 +115,21 @@ a{
 	margin: 10px;
 }
 
+
+
+/*tag*/
+.tag{
+	height: 35px;
+	line-height: 35px;
+	width: 10%;
+	text-align: center;
+	border-radius: 5px;
+	color: #428bca;
+	font-size: 14px;
+	border: 1px solid #3bafda;
+	margin-right: 4%;
+	margin-bottom: 30px;
+	float: left;
+	cursor: pointer;
+}
+

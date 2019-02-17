@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>会议室管理中心</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="favicon_16.ico"/>
+    <!-- <link rel="bookmark" href="favicon_16.ico"/> -->
+    <!-- site css -->
+    <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="dist/css/site.min.css">
+    <link rel="stylesheet" href="dist/css/me.css">
+    <script src="layui/layui.js" charset="utf-8" type="text/javascript"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="dist/js/site.min.js"></script>
+    <script src="dist/js/jquery-3.3.1.min.js"></script>
+    <!--<script src="dist/js/vue.min.js"></script>-->
+</head>
+
+<body>
+<!--nav 顶部导航栏-->
+<nav role="navigation" class="navbar navbar-custom">
+    <div class="container-fluid">
+        <!--左边-->
+        <div class="navbar-header">
+            <a href="ht_shenhe.html" class="navbar-brand">会议室管理后台</a>
+        </div>
+        <!--右边-->
+        <div id="bs-content-row-navbar-collapse-5" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="getting-started.html">会议审批</a></li>
+                <li class="active"><a href="index.html">预定详情</a></li>
+                <!-- <li class="disabled"><a href="#">Link</a></li> -->
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">个人中心 <b class="caret"></b></a>
+                    <ul role="menu" class="dropdown-menu">
+                        <li class="dropdown-header">设置</li>
+                        <li><a href="#">帮助</a></li>
+                        <li class="divider"></li>
+                        <li class="active"><a href="#">更多</a></li>
+                        <li class="divider"></li>
+                        <li class="disabled"><a href="#">退出登录</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<!--header-->
+
+<div class="container-fluid">
+    <!--documents内容-->
+    <div class="row row-offcanvas row-offcanvas-left">
+        <!--内容左边导航-->
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" role="navigation">
+            <ul class="list-group panel">
+                <li class="list-group-item"><i class="glyphicon glyphicon-align-justify"></i> <b>功能</b></li>
+                <li class="list-group-item"><input type="text" class="form-control search-query" placeholder="查找功能"></li>
+                <li class="active">
+                    <a href="#" class="list-group-item"><i class="glyphicon glyphicon-home"></i>主界面 </a>
+                </li>
+                <li>
+                    <a href="#xitong" class="list-group-item " data-toggle="collapse">
+                        <i class="glyphicon glyphicon-cog"></i>系统管理
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                    <div class="collapse in" id="xitong">
+                        <a href="ht_account.html" class="list-group-item">账号管理</a>
+                        <a href="ht_company.html" class="list-group-item ">雇主信息</a>
+                        <a href="ht_service.html" class="list-group-item me_active">服务记录</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#chengxuan" class="list-group-item" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-user"></i>成员管理
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                    <div class="collapse " id="chengxuan">
+                        <a href="ht_users.html" class="list-group-item">所有职员</a>
+                        <a href="ht_notice.html" class="list-group-item ">公告管理</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#huiyi" class="list-group-item" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-calendar"></i>会议管理
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                    <div class="collapse" id="huiyi">
+                        <a href="ht_shenhe.html" class="list-group-item">会议审核</a>
+                        <a href="ht_meet.html" class="list-group-item">会议室管理</a>
+                        <a href="#" class="list-group-item">会场查看</a>
+                        <a href="ht_tag.html" class="list-group-item">会议室标签</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" class="list-group-item">
+                        <i class="glyphicon glyphicon-bell"></i>今日详情
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="list-group-item">
+                        <i class="glyphicon glyphicon-indent-left"></i>查询分析
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+        <!--右边内容-->
+        <div class="col-xs-12 col-sm-9 content" >
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><a href="javascript:void(0);" class="toggle-sidebar"><span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a> 服务</h3>
+                    <!--<a href="#">刷新</a>-->
+                </div>
+                <div class="panel-body">
+                    <div class="content-row">
+                        <h5>今日服务（未响应）</h5>
+                        <div class="col-md-12">
+                            <!-- table-model -->
+                            <table class="layui-hide" id="mz_service_table" lay-filter="mz_service_table"></table>
+                            <script type="text/html" id="barMeet">
+                                <a class="layui-btn layui-btn-xs" lay-event="edit">完成</a>
+                            </script>
+                        </div>
+
+                        <!--隔开--><div class="col-md-12 "></div>
+
+
+                        <h5>今日服务：（已响应）</h5>
+                        <div class="col-md-12">
+                            <!-- table-model -->
+                            <table class="layui-hide" id="mz_serviced_table" lay-filter="mz_serviced_table"></table>
+                            <script type="text/html" id="barMeet2">
+                                <a class="layui-btn layui-btn-xs" lay-event="edit">公布</a>
+                                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                            </script>
+                        </div>
+                    </div>
+                </div><!-- panel body -->
+            </div>
+        </div><!-- content -->
+    </div>
+</div>
+<!--footer-->
+<div class="site-footer">
+    <div class="container">
+        <!--<div class="download">-->
+        <!--<span class="download__infos">You simply have to <b>try it</b>.</span>&nbsp;&nbsp;&nbsp;&nbsp;-->
+        <!---->
+        <!--&lt;!&ndash; SmartAddon BEGIN &ndash;&gt;-->
+        <!--<script type="text/javascript">-->
+        <!--(function() {-->
+        <!--var s=document.createElement('script');s.type='text/javascript';s.async = true;-->
+        <!--s.src='http://s1'+'.smartaddon.com/share_addon.js';-->
+        <!--var j =document.getElementsByTagName('script')[0];j.parentNode.insertBefore(s,j);-->
+        <!--})();-->
+        <!--</script>-->
+
+        <!---->
+        <!--&lt;!&ndash; SmartAddon END &ndash;&gt;-->
+        <!--</div>-->
+        <hr class="dashed" />
+        <div class="row">
+            <div class="col-md-4">
+                <h3>参与其中</h3>
+                <p>如果需要使用我们的会议室及欢迎联系我们，或将你们的联系方式发送给我们</p>
+            </div>
+            <div class="col-md-4">
+                <h3>有助于</h3>
+                <p>我们的会议室，提供舒适的环境、先进的设备、贴心的服务，即约即用，乃开会必备之首选</p>
+            </div>
+            <div class="col-md-4">
+                <h3>发现问题?</h3>
+                <p>如果发现网站存在错误，欢迎联系我们，我们将认真改正，并会给予相应的报酬，谢谢合作</p>
+            </div>
+        </div>
+        <hr class="dashed" />
+        <div class="row">
+            <div class="col-md-6">
+                <h3>联系我们</h3>
+                <ul>
+                    <li>Tweet us at  @YourTwitter &nbsp;&nbsp;&nbsp;&nbsp;Email us at <span class="connect">info@yourdomain.com</span></li>
+                    <li>
+                        <i class="icon" data-icon="&#xe121"></i>
+                        <i class="icon" data-icon="&#xe10b"></i>
+                        <i class="icon" data-icon="&#xe110"></i>
+                        <i class="icon" data-icon="&#xe10e"></i>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <!-- Begin MailChimp Signup Form -->
+
+                <div id="mc_embed_signup">
+                    <h3 style="margin-bottom: 15px;">发送您的邮箱</h3>
+                    <form action="" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" novalidate>
+                        <input style="margin-bottom: 10px;" type="email" value="" name="EMAIL" class="email form-control" id="mce-EMAIL" placeholder="email address" required>
+                        <span class="clear"><input type="submit" value="发送" name="subscribe" id="mc-embedded-subscribe" class="btn btn-primary"></span>
+                    </form>
+                </div>
+                <!--End mc_embed_signup-->
+            </div>
+        </div>
+        <hr class="dashed" />
+        <div class="copyright clearfix">
+            <p><b>会议室管理平台</b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="getting-started.html">Getting Started</a>&nbsp;&bull;&nbsp;<a href="index.html">首页</a>&nbsp;&bull;&nbsp; Free PSD &nbsp;&bull;&nbsp;中国大学生制作 <a href="#" >会议室管理</a> - Collect from <a>欢迎您的使用</a> </p>
+        </div>
+    </div>
+</div>
+<script>
+    // 数据表
+    layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+            elem: '#mz_service_table'     //未审核
+            ,url:'http://localhost:63342/服务外包/houtai/upload/2.json'
+            ,title: '未审核数据表'
+            ,cellMinWidth: 100
+            ,id:'noticeTable'
+            ,cols: [[
+                {field:'id', title:'ID', unresize: true, sort: true}
+                ,{field:'name', title:'发起人' ,unresize: true}
+                ,{field:'location', title:'位置' ,unresize: true}
+                ,{field:'time', title:'时间', unresize: true}
+                ,{field:'title', title:'事件', unresize: true}
+                ,{field:'content', title:'状态', sort: true, unresize: true}
+                ,{fixed: 'right', title:'操作', toolbar: '#barMeet', width:120, unresize: true}
+            ]]
+            ,page: false
+        });
+        table.render({
+            elem: '#mz_serviced_table'     //未审核
+            ,url:'http://localhost:63342/服务外包/houtai/upload/2.json'
+            ,title: '未审核数据表'
+            ,cellMinWidth: 100
+            ,id:'noticeTable'
+            ,cols: [[
+                {field:'id', title:'ID', unresize: true, sort: true}
+                ,{field:'name', title:'发起人' ,unresize: true}
+                ,{field:'location', title:'位置' ,unresize: true}
+                ,{field:'time', title:'时间', unresize: true}
+                ,{field:'title', title:'事件', unresize: true}
+                ,{field:'content', title:'状态', sort: true, unresize: true}
+                ,{fixed: 'right', title:'操作', toolbar: '#barMeet', width:120, unresize: true}
+            ]]
+            ,page: true
+        });
+
+        //监听行工具事件
+
+        table.on('tool(mz_noticed_table)', function(obj){
+            var data = obj.data;
+            //console.log(obj)
+            var re;
+            if(obj.event === 'del'){
+
+                layer.prompt({
+                    formType: 2,
+                    title: '请输入拒绝理由'
+                }, function(value, index){
+                    obj.update({
+
+                    });
+                    table.reload('noticedTable', {
+                        url: 'http://localhost:63342/服务外包/houtai/upload/1.json',
+                        page: {
+                            curr: 1//重新从第 1 页开始
+                        }
+                        ,where: {
+                            key: {
+                                id: searchReload.val(),
+                                way: searchWay.val()
+                            }
+                        }
+                    });
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if(obj.event === 'edit'){
+                layer.confirm('确认？',function (index) {
+                    obj.del();
+                    layer.close(index);//关闭弹出层
+                })
+            }
+        });
+
+        //搜索监听，重载
+        var $ = layui.$, active = {
+            reload: function(){
+                var searchReload = $('#searchReload');
+                var searchWay = $('#mz_search_w');
+                //执行重载
+                table.reload('noticeingTable', {
+                    url: 'http://localhost:63342/服务外包/houtai/upload/1.json',
+                    page: {
+                        curr: 1//重新从第 1 页开始
+                    }
+                    ,where: {
+                        key: {
+                            id: searchReload.val(),
+                            way: searchWay.val()
+                        }
+                    }
+                });
+            }
+        };
+        $('.searchTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
+
+</body>
+</html>
