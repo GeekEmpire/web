@@ -45,7 +45,7 @@ layui.use('table', function(){
         ,cols: [[
             {type: 'checkbox', fixed: 'left'}
             ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
-            ,{field:'imageUrl', title:'图片和设备', width:120, templet: '#switchTpl', unresize: true}
+            ,{field:'imageUrl', title:'查看详情', width:120, templet: '#switchTpl', unresize: true}
             ,{field:'username', title:'名称', width:90}
             ,{field:'address', title:'位置', width:150}
             ,{field:'space', title:'容量', width:90, sort: true}

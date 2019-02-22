@@ -4,6 +4,9 @@
 a{
 	cursor: pointer;
 }
+.me_none{
+	display: none;
+}
 .me_fl{
 	float: left;
 }
@@ -46,6 +49,7 @@ a{
 .me_border{
 	border: 1px solid #ccc;
 }
+
 /*主页*/
 .mz_ggb{
 	height: 220px;
@@ -76,6 +80,8 @@ a{
 .layui-upload-choose{
 	display: none;
 }
+
+
 
 /*账号管理，修改信息*/
 #mz_admin_info li{
@@ -108,11 +114,27 @@ a{
 	}
 }/* 账号管理结束*/
 
+
+/*shenhe*/
 .mz_shenghe_hr{
 	display: block;
 	width: 80%;
 	height: 2px;
 	margin: 10px;
+}
+
+/*user*/
+.searchTable{
+	position: relative;
+	margin-left: 15px;
+}
+.search_way{
+	position: absolute;
+	top: 0px;
+	left: 50%;
+}
+.search_way select{
+	height: 25px;
 }
 
 
@@ -133,3 +155,24 @@ a{
 	cursor: pointer;
 }
 
+
+
+/*notice*/
+/*显示详细公告内容，弹出框*/
+.show_notice_content{
+	font-size: 18px;
+	margin: 20px 13px 0 20px;
+	line-height: 25px;
+	color: #666;
+	text-indent: 2em;
+}
+
+
+
+/* ht_company*/
+.user_c{
+	width: 240px;
+	height: 500px;
+	margin-left: 35px;
+	background-color: #1E9FFF;
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="dist/me/css/base.css">
+    <script src="dist/js/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script src="layui/layui.js" type="text/javascript"></script>
+    <title>会议室详情介绍</title>
+    <style>
+        /*返回*/
+        .goback{
+            margin: 15px 15px;
+            font-size: 18px;
+            font-weight: 300;
+        }
+        .goback a{
+            color: #000;
+        }
+        .goback a:hover{
+            color: #2B86E3;
+        }
+
+        /*图片展示*/
+        .img_describe{
+            position: absolute;
+            left: 30px;
+            bottom: 30px;
+            font-size: 24px;
+            color: white;
+        }
+
+        /*标签*/
+        .pflags{
+            position: relative;
+            height: 40px;
+        }
+        .pflag{
+            float: left;
+            border: 1px solid #1E9FFF;
+            border-radius: 5px;
+            height: 22px;
+            padding: 8px 15px;
+            margin-left: 30px;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+        .pflag:hover{
+            cursor: pointer;
+        }
+
+        /*详细描述*/
+        .meet_describe{
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .meet_describe p{
+            color: #666;
+            font-size: 16px;
+            text-indent:2em;
+        }
+
+        .meet_apply{
+            margin: 20px 0!important;
+            position: relative;
+            display: block;
+        }
+        .meet_apply > a{
+            font-size: 16px;
+            color: red;
+            margin: 15px 30px;
+            border: 1px solid #c9c9c9;
+            padding: 7px 15px;
+            border-radius: 5px;
+        }
+        .meet_apply a:hover{
+            color: #2B86E3;
+        }
+        .meet_apply>div>a{
+            margin-left: 30px;
+            color: #1E9FFF;
+
+        }
+        .meet_apply p{
+            margin-right: 60px;
+            color: #222;
+        }
+        .fl{
+            float: left;
+        }
+        .fr{
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="goback">
+        <a href="ht_meet.html">返回会议室管理</a>
+    </div>
+    <div class="layui-container">
+        <div class="layui-carousel" id="slider_img">
+            <div carousel-item class="img_swiper">
+                <img src="dist/img/huiyi1.jpg">
+                <img src="dist/img/huiyi2.jpg">
+                <img src="dist/img/huiyi3.jpg">
+                <img src="dist/img/huiyi4.jpg">
+            </div>
+            <div class="img_describe">会议室一览</div>
+        </div>
+        <!-- 条目中可以是任意内容，如：<img src=""> -->
+        <div class="pflags">
+            <div class="pflag"><h5>50人</h5></div>
+            <div class="pflag"><h5>配有WiFi</h5></div>
+            <div class="pflag"><h5>4k超高清矩阵</h5></div>
+            <div class="pflag"><h5>9个发表单元</h5></div>
+            <div class="pflag"><h5>可投屏</h5></div>
+        </div>
+        <br>
+        <div class="meet_describe">
+            <p>
+                中国领先的会议场地、活动资源在线预订平台。南京会议场地、南京会议酒店、南京年会场地
+                、南京年会酒店、南京酒店会议室、南京酒店宴会厅、南京酒店会场预订，会议场地租赁，就上
+                会小二，开会+住宿+用餐一站式会议服务平台，开启28分钟疾速场地直订服务，免费获3-6套会议
+                报价方案，轻松搞定公司年会场地、培训会场地、发布会场地、研讨会场地、招商会场地、答谢
+                会场地、经销商会议场地、工作总结会场地、沙龙/休闲会议场地。
+            </p>
+        </div>
+        <div class="meet_apply">
+            <div class="fl">
+                <p class="fl">预计预定成功率：80%</p>
+                <p class="fl" >累计预定次数：80次</p>
+                <!--<a class="fl">查看该会议室近期预约</a>-->
+            </div>
+            <a class="fr" href="apply.html">立即预定</a>
+        </div>
+    </div>
+
+    <script>
+        layui.use('carousel', function(){
+            var carousel = layui.carousel;
+            //建造实例
+            carousel.render({
+                elem: '#slider_img'
+                ,width: '100%' //设置容器宽度
+                ,arrow: 'always' //始终显示箭头
+                // ,anim: 'updown' //切换动画方式
+                ,height:'450px'
+            });
+        });
+    </script>
+</body>
+</html>

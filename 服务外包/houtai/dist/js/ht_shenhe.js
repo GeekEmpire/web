@@ -1,3 +1,28 @@
+function show_people(id){
+    layui.use('form', function(){
+        var form = layui.form;
+
+        form.val("initForm", {
+            // "username": "贤心" // "name": "value"
+            // ,"sex": "女"
+            // ,"password": "123434"
+            // ,"check[write]": true
+            // ,"open": false
+            // ,"desc": "我爱layui"
+        })
+        //各种基于事件的操作，下面会有进一步介绍
+    });
+    layer.open({
+        type: 1
+        ,title: ['发起人信息查看', 'font-size:18px;']
+        ,area: ['600px','500px']
+        ,id: 'show_people_detail' //设定一个id，防止重复弹出
+        // ,btn: ['确定', '取消']
+        ,btnAlign: 'c'
+        ,moveType: 1 //拖拽模式，0或者1
+        ,content: $('#people_detail')
+    });
+}
 // 数据表
 layui.use('table', function(){
     var table = layui.table;
@@ -30,7 +55,7 @@ layui.use('table', function(){
             {type: 'checkbox', fixed: 'left'}
             ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
             ,{field:'name', title:'申请人', width:80, unresize: true,
-                templet: '<div><a href="#" class="layui-table-link">{{d.name}}</a></div>'}
+                templet: '<div><a href="#" onclick=show_people("{{d.id}}") class="layui-table-link">{{d.name}}</a></div>'}
             ,{field:'attendance', title:'人数', width:50, unresize: true}
             ,{field:'applay_time', title:'提交时间', width:120, unresize: true}
             ,{field:'useTime', title:'申请时间段', width:120, sort: true, unresize: true}

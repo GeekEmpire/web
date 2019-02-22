@@ -18,38 +18,55 @@
     <![endif]-->
     <script type="text/javascript" src="dist/js/site.min.js"></script>
     <script type="text/javascript" src="dist/js/houtai.js"></script>
+    <script src="dist/js/vue.min.js"></script>
 </head>
 <body>
-<!--nav 顶部导航栏-->
-<nav role="navigation" class="navbar navbar-custom">
-    <div class="container-fluid">
-        <!--左边-->
-        <div class="navbar-header">
-            <a href="ht_shenhe.html" class="navbar-brand">会议室管理后台</a>
-        </div>
-        <!--右边-->
-        <div id="bs-content-row-navbar-collapse-5" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="getting-started.html">会议审批</a></li>
-                <li class="active"><a href="index.html">预定详情</a></li>
-                <!-- <li class="disabled"><a href="#">Link</a></li> -->
-                <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">个人中心 <b class="caret"></b></a>
-                    <ul role="menu" class="dropdown-menu">
-                        <li class="dropdown-header">设置</li>
-                        <li><a href="#">帮助</a></li>
-                        <li class="divider"></li>
-                        <li class="active"><a href="#">更多</a></li>
-                        <li class="divider"></li>
-                        <li class="disabled"><a href="#">退出登录</a></li>
-                    </ul>
-                </li>
-            </ul>
+<!-- 顶部导航 -->
+<div class="headerpage"></div>
+<!--顶部导航 over-->
 
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
-<!--header-->
+<!--添加会议室，弹出框-->
+<div id="mz_add_info" style="display: none;padding-right: 45px">
+    <form class="layui-form me_margin_top" action="" lay-filter="initForm">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-block">
+                <input type="text" name="username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机号</label>
+            <div class="layui-input-inline">
+                <input type="password" name="text" required lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">登陆使用</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="text" name="password" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-block">
+                <input type="text" name="password" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">公司部门</label>
+            <div class="layui-input-inline">
+                <select name="city" lay-verify="required">
+                    <option value=""></option>
+                    <option value="0">是</option>
+                    <option value="1">否</option>
+                </select>
+            </div>
+        </div>
+    </form>
+</div>
+
+
 <div class="container-fluid">
     <!--documents内容-->
     <div class="row row-offcanvas row-offcanvas-left">
@@ -68,31 +85,31 @@
                     </a>
                     <div class="collapse" id="xitong">
                         <a href="ht_account.html" class="list-group-item">账号管理</a>
-                        <a href="" class="list-group-item">组织机构管理</a>
-                        <a href="" class="list-group-item">日志查询</a>
+                        <a href="ht_company.html" class="list-group-item">雇主信息</a>
+                        <a href="ht_notice.html" class="list-group-item">公告管理</a>
                     </div>
                 </li>
-                <li>
-                    <a href="#chengxuan" class="list-group-item" data-toggle="collapse">
-                        <i class="glyphicon glyphicon-user"></i>成员管理
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                    <div class="collapse in" id="chengxuan">
-                        <a href="#" class="list-group-item me_active">所有职员</a>
-                        <a href="" class="list-group-item">公告发布</a>
-                    </div>
-                </li>
+
                 <li>
                     <a href="#huiyi" class="list-group-item" data-toggle="collapse">
                         <i class="glyphicon glyphicon-calendar"></i>会议管理
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                     <div class="collapse" id="huiyi">
-                        <a href="#" class="list-group-item">会议预定</a>
                         <a href="ht_shenhe.html" class="list-group-item">会议审核</a>
                         <a href="ht_meet.html" class="list-group-item">会议室管理</a>
-                        <a href="#" class="list-group-item">会场查看</a>
+                        <a href="ht_tag.html" class="list-group-item">会议室标签</a>
                     </div>
+                </li>
+                <li>
+                    <a href="ht_users.html" class="list-group-item">
+                        <i class="glyphicon glyphicon-user"></i>成员管理
+                    </a>
+                </li>
+                <li>
+                    <a href="ht_service.html" class="list-group-item">
+                        <i class="glyphicon glyphicon-flash"></i>客户服务
+                    </a>
                 </li>
                 <li>
                     <a href="#" class="list-group-item">
@@ -117,98 +134,44 @@
                 </div>
 
                 <!--弹出框-->
-                <div class="modal fade" id="tableModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"><!--table-model-->
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">提示</h4>
-                            </div>
-                            <div class="modal-body">
-                                <h5 class="me_margin_left">请确认该操作</h5>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal" id="tableModal-yes">确定</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="modal fade" id="tableModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">&lt;!&ndash;table-model&ndash;&gt;-->
+                    <!--<div class="modal-dialog" role="document">-->
+                        <!--<div class="modal-content">-->
+                            <!--<div class="modal-header">-->
+                                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+                                <!--<h4 class="modal-title" id="myModalLabel">提示</h4>-->
+                            <!--</div>-->
+                            <!--<div class="modal-body">-->
+                                <!--<h5 class="me_margin_left">请确认该操作</h5>-->
+                            <!--</div>-->
+                            <!--<div class="modal-footer">-->
+                                <!--<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>-->
+                                <!--<button type="button" class="btn btn-primary" data-dismiss="modal" id="tableModal-yes">确定</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
 
                 <!--具体内容-->
                 <div class="panel-body">
-                    <!--添加会议室，弹出框-->
-                    <div id="mz_add_info" style="display: none;padding-right: 45px">
-                        <form class="layui-form me_margin_top" action="" lay-filter="initForm">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">用户名</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">手机号</label>
-                                <div class="layui-input-inline">
-                                    <input type="password" name="text" required lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
-                                </div>
-                                <div class="layui-form-mid layui-word-aux">登陆使用</div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">密码</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="password" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">邮箱</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="password" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">公司部门</label>
-                                <div class="layui-input-inline">
-                                    <select name="city" lay-verify="required">
-                                        <option value=""></option>
-                                        <option value="0">是</option>
-                                        <option value="1">否</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
                     <div class="content-row">
                         <div class="col-md-12">
                             <!-- table-model -->
-                            <div class="searchTable"><!--搜索-->
-                                搜索ID：
+                            <div class="searchTable" id="app_search"><!--搜索-->
+                                按{{way}}搜索：
                                 <div class="layui-inline">
                                     <input class="layui-input" name="id" id="searchReload" autocomplete="off">
                                 </div>
                                 <div class="search_way">
                                     搜索方式：
-                                    <select name="city" lay-verify="required">
+                                    <select name="city" lay-verify="required" @change="change">
                                         <option value="0">按用户名</option>
                                         <option value="1">按手机号</option>
                                         <option value="2">按邮箱</option>
-                                        <option value="3">按公司部门</option>
+                                        <option value="3">按公司</option>
                                     </select>
-                                    <style>
-                                        .search_way{
-                                            position: absolute;
-                                            top: 0px;
-                                            left: 50%;
-                                        }
-                                        .search_way select{
-                                            height: 25px;
-                                        }
-                                    </style>
                                 </div>
-
-
                                 <button class="layui-btn" data-type="reload">搜索</button>
-
                                 <button class="layui-btn me_fr" id="mz_add_meet">添加员工</button>
                                 <!--<button class="layui-btn me_fr" id="mz_add_meet" data-toggle="modal" data-target="#tableModal">添加会议室</button>-->
                             </div>
@@ -233,10 +196,39 @@
         </div><!-- content -->
     </div>
 </div>
+
+
 <!--footer-->
-<!--<div class="site-footer">-->
-<!---->
-<!--</div>-->
+<div class="footerpage"></div>
+<!--footer over-->
+<script>
+    $(function(){
+        /*公共部分
+         * 导航栏
+         * footer
+         * 侧边栏
+         */
+        $(".headerpage").load("./page/header.html");
+        // $(".leftpage").load("./page/main_left.html");
+        $(".footerpage").load("./page/footer.html");
+    });
+    var vm = new Vue({
+        el: '#app_search',
+        data:{
+            way: '用户名',
+            v: 0
+        },
+        methods:{
+            change(select){
+                this.v = select.target.value;
+                if(this.v==0){ this.way='用户名'}
+                if(this.v==1) { this.way = '手机号'}
+                if(this.v==2) { this.way = '邮箱'}
+                if(this.v==3) { this.way = '公司'}
+            }
+        }
+    })
+</script>
 <script type="text/javascript" src="dist/js/ht_users.js"></script>
 </body>
 </html>

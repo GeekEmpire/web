@@ -35,7 +35,7 @@ layui.use('table', function(){
     var table = layui.table;
     table.render({
         elem: '#mz_meet_table'
-        ,url:'/houtai/upload/user_table.json'
+        ,url:'http://localhost:63342/服务外包/houtai/upload/1.json'
         ,toolbar: '#toolbarMeet'
         ,title: '用户数据表'
         ,id:'tableReload'

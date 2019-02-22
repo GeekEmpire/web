@@ -26,20 +26,13 @@
         <a href="index.html">首页</a>
         <a href="#" class="me_active">会议室</a>
         <a href="#">精彩回顾</a>
-        <a href="#">我的会议</a>
+        <a href="mymeet.html">我的会议</a>
         <a href="#">会议文档</a>
         <a href="#">注册</a>
         <a href="#">登录</a>
     </div>
 </header>
 <div class="me_content">
-    <!--<div class="top">-->
-        <!--<div class="search_flag"><h5>开始时间</h5></div>-->
-        <!--<div class="search_flag"><h5>结束时间</h5></div>-->
-        <!--<div class="search_flag"><h5>参加人数</h5></div>-->
-        <!--<div class="search_flag"><h5>x栋x层</h5></div>-->
-        <!--<div class="search_flag"><h5>类型</h5></div>-->
-    <!--</div>-->
     <div class="area fl">
         选择区域：
         <div class="layui-input-inline">
@@ -51,8 +44,15 @@
         </div>
     </div>
 
+    <div class="sort fl">
+        排序方式：
+        <select>
+            <option>热度升序</option>
+            <option>热度降序</option>
+        </select>
+    </div>
     <div class="pattern">
-        选择搜索方式：
+        搜索方式：
         <select>
             <option>会议室名</option>
             <option>容量</option>

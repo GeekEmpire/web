@@ -9,11 +9,11 @@
 }
 .search_c{
     width: 65%;
-    height: 40vh;
+    height: 35vh;
     background-color: #eee;
     border: 1px solid #fff;
     margin:8% 0;
-    padding:7vh 2%;
+    padding:6vh 2%;
     position: relative;
 }
 .search_c input{
@@ -110,8 +110,6 @@
     color: #fff;
     font-size: 4vh;
 }
-
-
 /*公告板*/
 .notice{
     height: 30vh;
@@ -123,7 +121,4 @@
     font-size: 3vh;
     text-align: center;
     margin-top: 10px;
-}
-.notice_content{
-
 }

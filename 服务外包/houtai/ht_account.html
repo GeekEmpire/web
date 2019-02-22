@@ -21,34 +21,7 @@
 </head>
 <body>
 <!--nav 顶部导航栏-->
-<nav role="navigation" class="navbar navbar-custom">
-  <div class="container-fluid">
-    <!--左边-->
-    <div class="navbar-header">
-      <a href="ht_shenhe.html" class="navbar-brand">会议室管理后台</a>
-    </div>
-    <!--右边-->
-    <div id="bs-content-row-navbar-collapse-5" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="getting-started.html">会议审批</a></li>
-        <li class="active"><a href="index.html">预定详情</a></li>
-        <!-- <li class="disabled"><a href="#">Link</a></li> -->
-        <li class="dropdown">
-          <a data-toggle="dropdown" class="dropdown-toggle" href="#">个人中心 <b class="caret"></b></a>
-          <ul role="menu" class="dropdown-menu">
-            <li class="dropdown-header">设置</li>
-            <li><a href="#">帮助</a></li>
-            <li class="divider"></li>
-            <li class="active"><a href="#">更多</a></li>
-            <li class="divider"></li>
-            <li class="disabled"><a href="#">退出登录</a></li>
-          </ul>
-        </li>
-      </ul>
-
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+<div class="headerpage"></div>
 <!--header-->
 
 <div class="container-fluid">
@@ -67,33 +40,33 @@
             <i class="glyphicon glyphicon-cog"></i>系统管理
             <span class="glyphicon glyphicon-chevron-right"></span>
           </a>
-          <div class="collapse in" id="xitong">
-            <a href="#" class="list-group-item me_active">账号管理</a>
-            <a href="" class="list-group-item">组织机构管理</a>
-            <a href="" class="list-group-item">日志查询</a>
+          <div class="collapse" id="xitong">
+            <a href="ht_account.html" class="list-group-item">账号管理</a>
+            <a href="ht_company.html" class="list-group-item">雇主信息</a>
+            <a href="ht_notice.html" class="list-group-item">公告管理</a>
           </div>
         </li>
-        <li>
-          <a href="#chengxuan" class="list-group-item" data-toggle="collapse">
-            <i class="glyphicon glyphicon-user"></i>成员管理
-            <span class="glyphicon glyphicon-chevron-right"></span>
-          </a>
-          <div class="collapse" id="chengxuan">
-            <a href="ht_users.html" class="list-group-item">所有职员</a>
-            <a href="" class="list-group-item">公告发布</a>
-          </div>
-        </li>
+
         <li>
           <a href="#huiyi" class="list-group-item" data-toggle="collapse">
             <i class="glyphicon glyphicon-calendar"></i>会议管理
             <span class="glyphicon glyphicon-chevron-right"></span>
           </a>
           <div class="collapse" id="huiyi">
-            <a href="#" class="list-group-item">会议预定</a>
             <a href="ht_shenhe.html" class="list-group-item">会议审核</a>
             <a href="ht_meet.html" class="list-group-item">会议室管理</a>
-            <a href="#" class="list-group-item">会场查看</a>
+            <a href="ht_tag.html" class="list-group-item">会议室标签</a>
           </div>
+        </li>
+        <li>
+          <a href="ht_users.html" class="list-group-item">
+            <i class="glyphicon glyphicon-user"></i>成员管理
+          </a>
+        </li>
+        <li>
+          <a href="ht_service.html" class="list-group-item">
+            <i class="glyphicon glyphicon-flash"></i>客户服务
+          </a>
         </li>
         <li>
           <a href="#" class="list-group-item">
@@ -298,5 +271,14 @@
   </div>
 </div>
 <!--footer-->
+
+<script>
+    $(function(){
+        /*公共部分
+         * 导航栏
+         */
+        $(".headerpage").load("./page/header.html");
+    });
+</script>
 </body>
 </html>
