@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>会议室管理中心</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="favicon_16.ico"/>
+    <!-- <link rel="bookmark" href="favicon_16.ico"/> -->
+    <!-- site css -->
+    <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="dist/css/site.min.css">
+    <link rel="stylesheet" href="dist/css/me.css">
+    <script src="layui/layui.js" charset="utf-8" type="text/javascript"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="dist/js/site.min.js"></script>
+    <script src="dist/js/jquery-3.3.1.min.js"></script>
+    <script src="dist/js/vue.min.js"></script>
+</head>
+
+
+<body>
+<!-- 顶部导航 -->
+<div class="headerpage"></div>
+<!--顶部导航 over-->
+
+<div class="container-fluid">
+    <!--documents内容-->
+    <div class="row row-offcanvas row-offcanvas-left">
+        <!--内容左边导航-->
+
+
+        <!--右边内容-->
+        <div class="col-xs-12 col-sm-9 content" >
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><a href="javascript:void(0);" class="toggle-sidebar"><span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a> 雇主信息</h3>
+                    <!--<a href="#">刷新</a>-->
+                </div>
+                <div class="panel-body">
+                    <a id="clickit">点击</a>
+                    <div id="div1"></div>
+                </div><!-- panel body -->
+            </div>
+        </div><!-- content -->
+    </div>
+</div>
+
+
+<!--footer-->
+<script>
+    $('#clickit').on('click', function () {
+        var data = {
+            "name" : "123"
+        };
+        $.ajax({
+            type: "POST"
+            ,url:"http://lsudjh.top:8081/tag/add"
+            , contentType: 'application/json; charset=utf-8'
+            ,data: JSON.stringify(data)
+            ,dataType: "jsonp"
+            ,success:function(result){
+                $("#div1").html(result);
+            }
+        });
+    })
+    $(function(){
+        /*公共部分
+         * 导航栏
+         * footer
+         * 侧边栏
+         */
+        $(".headerpage").load("./page/header.html");
+        // $(".leftpage").load("./page/main_left.html");
+        $(".footerpage").load("./page/footer.html");
+    });
+
+    var vm = new Vue({
+        el: '#app_search',
+        data:{
+            way: '用户名',
+            v: 0
+        },
+        methods:{
+            change(select){
+                this.v = select.target.value;
+                if(this.v==0){ this.way='用户名'}
+                if(this.v==1) { this.way = '手机号'}
+                if(this.v==2) { this.way = '邮箱'}
+                if(this.v==3) { this.way = '公司'}
+            }
+        }
+    })
+
+    // 数据表
+    layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+            elem: '#mz_company_table'     //未审核
+            ,url:'http://localhost:63342/服务外包/houtai/upload/2.json'
+            ,title: '未审核数据表'
+            ,id:'companyTable'
+            ,cols: [[
+                {type: 'checkbox', fixed: 'left'}
+                ,{field:'id', title:'ID', width:100, fixed: 'left', unresize: true, sort: true}
+                ,{field:'name', title:'公司名', width:120, unresize: true}
+                ,{field:'hr', title:'HR', width:100, unresize: true}
+                ,{field:'code', title:'邀请码', width:120, unresize: true}
+                ,{field:'cost', title:'费用', sort: true, unresize: true}
+                ,{field:'other', title:'其他', sort: true,width:120}
+                ,{fixed: 'right', title:'操作', toolbar: '#barMeet', unresize: true}
+            ]]
+            ,page: true
+        });
+
+        //监听行工具事件
+        table.on('tool(mz_company_table)', function(obj){
+            var data = obj.data;
+            //console.log(obj)
+            var re;
+            if(obj.event === 'del'){
+
+                layer.prompt({
+                    formType: 2,
+                    title: '请输入拒绝理由'
+                }, function(value, index){
+                    obj.update({
+
+                    });
+                    table.reload('shenheTable', {
+                        url: 'http://localhost:63342/服务外包/houtai/upload/1.json',
+                        page: {
+                            curr: 1//重新从第 1 页开始
+                        }
+                        ,where: {
+                            key: {
+                                id: searchReload.val(),
+                                way: searchWay.val()
+                            }
+                        }
+                    });
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if(obj.event === 'edit'){
+                // layer.confirm('确认？',function (index) {
+                //     obj.del();
+                //     layer.close(index);//关闭弹出层
+                // })
+                layer.open({
+                    type: 1
+                    ,title: "添加公司"
+                    // ,closeBtn: true
+                    ,area: '500px'
+                    ,id: 'LAY_layuipro34' //设定一个id，防止重复弹出
+                    ,btn: ['确定', '取消']
+                    ,btnAlign: 'c'
+                    ,moveType: 1 //拖拽模式，0或者1
+                    ,content: $('#mz_add_info')
+                    ,yes:function (index, layero) {
+                        console.log(layero);
+                    }
+                    ,btn2:function (index, layero) {
+                        console.log(1);
+                    }
+                });
+            }  else if(obj.event === 'add'){
+                // layer.confirm('确认？',function (index) {
+                //     obj.del();
+                //     layer.close(index);//关闭弹出层
+                // })
+                layer.open({
+                    type: 1
+                    ,title: false //不显示标题栏
+                    // ,closeBtn: true
+                    ,title: ["添加员工",'font-size:16px;background-color: #1E9FFF;color: white']
+                    ,area: '720px;'
+                    ,shade: 0.8
+                    ,id: 'LAY_layuipro000' //设定一个id，防止重复弹出
+                    ,btn: ['确定', '取消']
+                    ,btnAlign: 'c'
+                    ,moveType: 1 //拖拽模式，0或者1
+                    ,content: $('#add_user')
+                    ,success: function(layero){
+                        var btn = layero.find('.layui-layer-btn');
+                        btn.find('.layui-layer-btn0').attr({
+                            href: 'http://www.layui.com/'
+                            ,target: '_blank'
+                        });
+                    }
+                });
+            }
+        });
+
+        //搜索监听，重载
+        var $ = layui.$, active = {
+            reload: function(){
+                var searchReload = $('#searchReload');
+                var searchWay = $('#mz_search_w');
+                //执行重载
+                table.reload('shenheTable', {
+                    url: 'http://localhost:63342/服务外包/houtai/upload/1.json',
+                    page: {
+                        curr: 1//重新从第 1 页开始
+                    }
+                    ,where: {
+                        key: {
+                            id: searchReload.val(),
+                            way: searchWay.val()
+                        }
+                    }
+                });
+            }
+        };
+        $('.searchTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+
+
+
+    // 添加公司
+    $('#mz_add_meet').on("click", function () {
+        layui.use('form', function(){
+            var form = layui.form;
+
+            form.val("initForm", {
+                // "username": "贤心" // "name": "value"
+                // ,"sex": "女"
+                // ,"password": "123434"
+                // ,"check[write]": true
+                // ,"open": false
+                // ,"desc": "我爱layui"
+            })
+            //各种基于事件的操作，下面会有进一步介绍
+        });
+        layer.open({
+            type: 1
+            ,title: ["添加公司",'']
+            // ,closeBtn: true
+            ,area: '500px'
+            ,id: 'LAY_layuipro34' //设定一个id，防止重复弹出
+            ,btn: ['确定', '取消']
+            ,btnAlign: 'c'
+            ,moveType: 1 //拖拽模式，0或者1
+            ,content: $('#mz_add_info')
+            ,yes:function (index, layero) {
+                console.log(layero);
+            }
+            ,btn2:function (index, layero) {
+                console.log(1);
+            }
+        });
+    });
+</script>
+<div class="footerpage"></div>
+<!--footer over-->
+
+</body>
+</html>

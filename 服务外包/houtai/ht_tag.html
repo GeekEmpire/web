@@ -22,36 +22,10 @@
 </head>
 
 <body>
-<!--nav 顶部导航栏-->
-<nav role="navigation" class="navbar navbar-custom">
-    <div class="container-fluid">
-        <!--左边-->
-        <div class="navbar-header">
-            <a href="ht_shenhe.html" class="navbar-brand">会议室管理后台</a>
-        </div>
-        <!--右边-->
-        <div id="bs-content-row-navbar-collapse-5" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="getting-started.html">会议审批</a></li>
-                <li class="active"><a href="index.html">预定详情</a></li>
-                <!-- <li class="disabled"><a href="#">Link</a></li> -->
-                <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">个人中心 <b class="caret"></b></a>
-                    <ul role="menu" class="dropdown-menu">
-                        <li class="dropdown-header">设置</li>
-                        <li><a href="#">帮助</a></li>
-                        <li class="divider"></li>
-                        <li class="active"><a href="#">更多</a></li>
-                        <li class="divider"></li>
-                        <li class="disabled"><a href="#">退出登录</a></li>
-                    </ul>
-                </li>
-            </ul>
 
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
-<!--header-->
+<!-- 顶部导航 -->
+<div class="headerpage"></div>
+<!--顶部导航 over-->
 
 <div class="container-fluid">
     <!--documents内容-->
@@ -125,7 +99,7 @@
 
                         </div>
                         <div class="col-md-6">
-                            <input class="form-control input-lg" type="text" v-model="tag">
+                            <input class="form-control input-lg" type="text" v-model="tag" @keyup.13="add">
                         </div>
                         <div class="col-md-3">
                             <button class="btn btn-info btn-block" style="margin-top: 3px" @click="add">添加</button>
@@ -137,16 +111,9 @@
                             <h5 class="me_center 44me_margin_mtop">所有标签</h5>
                         </div>
                         <div class="col-md-12" >
-                            <div class="tag">空调</div>
-                            <div class="tag">音响</div>
-                            <div class="tag">高清显示屏</div>
-                            <div class="tag">VR</div>
-                            <div class="tag">智能AI</div>
-                            <div class="tag">大圆桌</div>
-                            <div class="tag">话筒</div>
                             <div class="tag" v-for="(item,i) in tags" @mouseenter="enter" @click="del(item)"
                                  data-toggle="tooltip" data-placement="left" title="点击删除">
-                                {{item}}
+                                {{item.name}}
                             </div>
                         </div>
                     </div>
@@ -155,97 +122,97 @@
         </div><!-- content -->
     </div>
 </div>
+
 <!--footer-->
-<div class="site-footer">
-    <div class="container">
-        <!--<div class="download">-->
-        <!--<span class="download__infos">You simply have to <b>try it</b>.</span>&nbsp;&nbsp;&nbsp;&nbsp;-->
-        <!---->
-        <!--&lt;!&ndash; SmartAddon BEGIN &ndash;&gt;-->
-        <!--<script type="text/javascript">-->
-        <!--(function() {-->
-        <!--var s=document.createElement('script');s.type='text/javascript';s.async = true;-->
-        <!--s.src='http://s1'+'.smartaddon.com/share_addon.js';-->
-        <!--var j =document.getElementsByTagName('script')[0];j.parentNode.insertBefore(s,j);-->
-        <!--})();-->
-        <!--</script>-->
-
-        <!---->
-        <!--&lt;!&ndash; SmartAddon END &ndash;&gt;-->
-        <!--</div>-->
-        <hr class="dashed" />
-        <div class="row">
-            <div class="col-md-4">
-                <h3>Get involved</h3>
-                <p>Bootflat is hosted on and open for everyone to contribute. Please give us some feedback and join the development!</p>
-            </div>
-            <div class="col-md-4">
-                <h3>Contribute</h3>
-                <p>You want to help us and participate in the development or the documentation? Just fork Bootflat on  and send us a pull request.</p>
-            </div>
-            <div class="col-md-4">
-                <h3>Found a bug?</h3>
-                <p>Open a new issue  on GitHub. Please search for existing issues first and make sure to include all relevant information.</p>
-            </div>
-        </div>
-        <hr class="dashed" />
-        <div class="row">
-            <div class="col-md-6">
-                <h3>Talk to us</h3>
-                <ul>
-                    <li>Tweet us at  @YourTwitter &nbsp;&nbsp;&nbsp;&nbsp;Email us at <span class="connect">info@yourdomain.com</span></li>
-                    <li>
-                        <i class="icon" data-icon="&#xe121"></i>
-                        <i class="icon" data-icon="&#xe10b"></i>
-                        <i class="icon" data-icon="&#xe110"></i>
-                        <i class="icon" data-icon="&#xe10e"></i>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-6">
-                <!-- Begin MailChimp Signup Form -->
-
-                <div id="mc_embed_signup">
-                    <h3 style="margin-bottom: 15px;">Newsletter</h3>
-                    <form action="" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" novalidate>
-                        <input style="margin-bottom: 10px;" type="email" value="" name="EMAIL" class="email form-control" id="mce-EMAIL" placeholder="email address" required>
-                        <span class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn btn-primary"></span>
-                    </form>
-                </div>
-                <!--End mc_embed_signup-->
-            </div>
-        </div>
-        <hr class="dashed" />
-        <div class="copyright clearfix">
-            <p><b>Bootflat</b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="getting-started.html">Getting Started</a>&nbsp;&bull;&nbsp;<a href="index.html">Documentation</a>&nbsp;&bull;&nbsp; Free PSD &nbsp;&bull;&nbsp; Color Picker.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a> </p>
-        </div>
-    </div>
-</div>
+<div class="footerpage"></div>
+<!--footer over-->
 
 <script>
+    $(function(){
+        /*公共部分
+         * 导航栏
+         * footer
+         * 侧边栏
+         */
+        $(".headerpage").load("./page/header.html");
+        // $(".leftpage").load("./page/main_left.html");
+        $(".footerpage").load("./page/footer.html");
+    });
+
+
     var vm = new Vue({
         el: '#tags',
         data: {
-            tags:[
-                "1","2","3","4",
-                "1","2","3","4"
-            ],
-            tag: ""
+            tags: [
+                {id: null, name: null}
+            ]
+            ,tag: ""
         },
         methods: {
             add(){
                 if(this.tag!=""||this.tag!=null){
-                    this.tags.push(this.tag);
-                    this.tag = "";
+                    var tagdata = {
+                        name: this.tag
+                    };
+                    $.ajax({
+                        type: "POST"
+                        ,url:"http://lsudjh.top:8081/tag/add"
+                        , contentType: 'application/json; charset=utf-8'
+                        ,data: JSON.stringify(tagdata)
+                        ,dataType: "json"
+                        ,success:function(result){
+                            vm.tag = "";
+                            alert(result.msg);
+                            vm.getAll({});
+                        }
+                        ,error: function (message) {
+                            alert(message);
+                            vm.tag = "";
+                        }
+                    });
+
                 }
+
+
+            },
+            getAll(data){
+                $.ajax({
+                    type: "POST"
+                    ,url:"http://lsudjh.top:8081/tag/listEntity"
+                    , contentType: 'application/json; charset=utf-8'
+                    ,data: JSON.stringify(data)
+                    ,dataType: "json"
+                    ,success:function(result){
+                        vm.tags = result.data.data;
+                    }
+                });
+            },
+            del(item){
+                var data = {
+                    id : item.id
+                };
+                $.ajax({
+                    type: "POST"
+                    ,url:"http://lsudjh.top:8081/tag/delete"
+                    ,contentType: 'application/json; charset=utf-8'
+                    ,data: JSON.stringify(data)
+                    ,dataType: "json"
+                    ,success:function(result){
+                        alert(result.msg);
+                        vm.getAll({});
+                    }
+                    ,error: function (message) {
+                        alert(message);
+                    }
+                });
             },
             enter(){
 
-            },
-            del(i){
-                console.log("remove"+i);
             }
-
+        },
+        created(){
+            var datalist = {};
+            this.getAll(datalist);
         }
     })
 </script>

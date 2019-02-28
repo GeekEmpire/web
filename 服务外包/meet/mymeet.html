@@ -12,14 +12,100 @@
     <script src="dist/layui/layui.js" type="text/javascript"></script>
     <title>会议预约系统</title>
 </head>
-<style>
-    h5{
-        margin-top: 20px;
-        height: 30px;
-        line-height: 30px;
-        font-size: 18px;
-    }
-</style>
+
+
+<div id="add_user">
+    <div class="user_c_l fl">
+        <div>
+            <div class="add_section fl">
+                <span>部门：</span>
+                <select name="quiz1">
+                    <option value="">请选择部门</option>
+                    <option value="浙江" selected="">全部</option>
+                    <option value="你的工号">销售部</option>
+                    <option value="你最喜欢的老师">技术部</option>
+                </select>
+            </div>
+            <div class="add_search fl">
+                <input type="text" placeholder="姓名">
+                <a><i class="layui-icon layui-icon-search"></i></a>
+            </div>
+            <a class="add_all">全选</a>
+        </div>
+        <table class="layui-table">
+            <colgroup>
+                <col width="180">
+                <col width="120">
+                <col width="25">
+                <col>
+            </colgroup>
+            <tbody>
+            <tr>
+                <td>贤心</td>
+                <td>汉族</td>
+                <td><a class="layui-icon layui-icon-ok"></a></td>
+            </tr>
+            <tr>
+                <td>张爱玲</td>
+                <td>汉族</td>
+                <td>于</td>
+            </tr>
+            <tr>
+                <td>Helen Keller</td>
+                <td>拉丁美裔</td>
+                <td>L</td>
+            </tr>
+            <tr>
+                <td>岳飞</td>
+                <td>汉族</td>
+                <td>教</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="user_c_r fl">
+        <div>
+            <p class="add_selected">已选择用户：0</p>
+        </div>
+        <table class="layui-table">
+            <colgroup>
+                <col width="180">
+                <col width="120">
+                <col width="25">
+                <col>
+            </colgroup>
+            <tbody>
+            <tr>
+                <td>贤心</td>
+                <td>汉族</td>
+                <td><a class="layui-icon layui-icon-close green"></a></td>
+            </tr>
+            <tr>
+                <td>张爱玲</td>
+                <td>汉族</td>
+                <td>于</td>
+            </tr>
+            <tr>
+                <td>Helen Keller</td>
+                <td>拉丁美裔</td>
+                <td>L</td>
+            </tr>
+            <tr>
+                <td>岳飞</td>
+                <td>汉族</td>
+                <td>教</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="file_list" >
+    <a href="files.html">近期销售情况.pdf</a>
+    <a href="files.html">人员登记表.doc</a>
+    <a>近期销售情况</a>
+    <a>近期销售情况</a>
+</div>
+
 <body>
 <header>
     <div class="fl logo">
@@ -29,27 +115,537 @@
     <div class="fr head_a">
         <a href="index.html">首页</a>
         <a href="meetlist.html">会议室</a>
-        <a href="#">精彩回顾</a>
-        <a href="#" class="me_active">我的会议</a>
-        <a href="#">会议文档</a>
-        <a href="#">注册</a>
-        <a href="#">登录</a>
+        <a href="mycollect.html">我的收藏</a>
+        <a href="mymeet.html" class="me_active">我的会议</a>
+        <a href="files.html">会议文档</a>
+        <a href="register.html">注册</a>
+        <a href="login.html">登录</a>
     </div>
 </header>
 <div class="layui-container">
-
-    <div class="layui-row">
-
-        <div class="layui-col-md5">
-            <h5>近期会议：</h5>
-            <table id="recent" lay-filter="recent"></table>
-        </div>
-        <div class="layui-col-md1">
-            &nbsp;
-        </div>
-        <div class="layui-col-md6">
-            <h5>历史会议：</h5>
-            <table id="attend" lay-filter="attend"></table>
+    <div class="layui-tab layui-tab-brief" lay-filter="my_tab" id="mymeet_tab">
+        <ul class="layui-tab-title">
+            <li class="layui-this">进行中的会议</li>
+            <li>待参加的会议</li>
+            <li>历史会议记录</li>
+            <li style="margin-right: 30px;float: right">我的订单</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show layui-anim layui-anim-upbit">
+                <div class="meets_number">
+                    <p>数量：3</p>
+                </div>
+                <div class="one_meet">
+                    <div class="one_meet_title">
+                        <i class="layui-icon layui-icon-form"></i>
+                        <p>发起人  -   销售会议</p>
+                    </div>
+                    <div class="one_meet_content">
+                        <div class="meet_img">
+                            <img src="images/huiyi2.jpg">
+                        </div>
+                        <div class="meet_detail">
+                            <p>这里是介绍我不东京房价大幅降低开发对接这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发科技今年的看法经费</p>
+                        </div>
+                        <div class="meet_other">
+                            <div class="other_equip">
+                                <p>这里是设备什么的什么的什么的什</p>
+                                <p>这里是设备什么的什么的什么的什</p>
+                            </div>
+                        </div>
+                        <div class="meet_price">
+                            <p>￥199.00</p>
+                            <p>￥69.90</p>
+                        </div>
+                        <div class="meet_people_n">
+                            <span class="s-l"></span>
+                            <input type="text">
+                            <span class="s-r"></span>
+                        </div>
+                        <div class="meet_state">
+                            状态
+                        </div>
+                        <div class="meet_operation">
+                            <a id="add_users">添加人员</a>
+                            <a id="read_files">文件</a>
+                            <a id="redo_apply">取消预定</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="one_meet">
+                    <div class="one_meet_title">
+                        <i class="layui-icon layui-icon-form"></i>
+                        <p>发起人  -   销售会议</p>
+                    </div>
+                    <div class="one_meet_content">
+                        <div class="meet_img">
+                            <img src="images/huiyi2.jpg">
+                        </div>
+                        <div class="meet_detail">
+                            <p>这里是介绍我不东京房价大幅降低开发对接这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发科技今年的看法经费</p>
+                        </div>
+                        <div class="meet_other">
+                            <div class="other_equip">
+                                <p>这里是设备什么的什么的什么的什</p>
+                                <p>这里是设备什么的什么的什么的什</p>
+                            </div>
+                        </div>
+                        <div class="meet_price">
+                            <p>￥199.00</p>
+                            <p>￥69.90</p>
+                        </div>
+                        <div class="meet_people_n">
+                            <span class="s-l"></span>
+                            <input type="text">
+                            <span class="s-r"></span>
+                        </div>
+                        <div class="meet_state">
+                            状态
+                        </div>
+                        <div class="meet_operation">
+                            <a>添加人员</a>
+                            <a>文件</a>
+                            <a>取消预定</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="one_meet">
+                    <div class="one_meet_title">
+                        <i class="layui-icon layui-icon-form"></i>
+                        <p>发起人  -   销售会议</p>
+                    </div>
+                    <div class="one_meet_content">
+                        <div class="meet_img">
+                            <img src="images/huiyi2.jpg">
+                        </div>
+                        <div class="meet_detail">
+                            <p>这里是介绍我不东京房价大幅降低开发对接这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发科技今年的看法经费</p>
+                        </div>
+                        <div class="meet_other">
+                            <div class="other_equip">
+                                <p>这里是设备什么的什么的什么的什</p>
+                                <p>这里是设备什么的什么的什么的什</p>
+                            </div>
+                        </div>
+                        <div class="meet_price">
+                            <p>￥199.00</p>
+                            <p>￥69.90</p>
+                        </div>
+                        <div class="meet_people_n">
+                            <span class="s-l"></span>
+                            <input type="text">
+                            <span class="s-r"></span>
+                        </div>
+                        <div class="meet_state">
+                            状态
+                        </div>
+                        <div class="meet_operation">
+                            <a>添加人员</a>
+                            <a>取消预定</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-tab-item layui-anim layui-anim-upbit">
+                <div class="meets_number">
+                    <p>数量：2</p>
+                </div>
+                <div class="one_meet">
+                    <div class="one_meet_title">
+                        <i class="layui-icon layui-icon-form"></i>
+                        <p>发起人  -   销售会议</p>
+                    </div>
+                    <div class="one_meet_content">
+                        <div class="meet_img">
+                            <img src="images/huiyi2.jpg">
+                        </div>
+                        <div class="meet_detail">
+                            <p>这里是介绍我不东京房价大幅降低开发对接这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发科技今年的看法经费</p>
+                        </div>
+                        <div class="meet_other">
+                            <div class="other_equip">
+                                <p>这里是设备什么的什么的什么的什</p>
+                                <p>这里是设备什么的什么的什么的什</p>
+                            </div>
+                        </div>
+                        <div class="meet_price">
+                            <p>￥199.00</p>
+                            <p>￥69.90</p>
+                        </div>
+                        <div class="meet_people_n">
+                            <span class="s-l"></span>
+                            <input type="text">
+                            <span class="s-r"></span>
+                        </div>
+                        <div class="meet_state">
+                            状态
+                        </div>
+                        <div class="meet_operation">
+                            <a>查看详情</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="one_meet">
+                    <div class="one_meet_title">
+                        <i class="layui-icon layui-icon-form"></i>
+                        <p>发起人  -   销售会议</p>
+                    </div>
+                    <div class="one_meet_content">
+                        <div class="meet_img">
+                            <img src="images/huiyi2.jpg">
+                        </div>
+                        <div class="meet_detail">
+                            <p>这里是介绍我不东京房价大幅降低开发对接这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发科技今年的看法经费</p>
+                        </div>
+                        <div class="meet_other">
+                            <div class="other_equip">
+                                <p>这里是设备什么的什么的什么的什</p>
+                                <p>这里是设备什么的什么的什么的什</p>
+                            </div>
+                        </div>
+                        <div class="meet_price">
+                            <p>￥199.00</p>
+                            <p>￥69.90</p>
+                        </div>
+                        <div class="meet_people_n">
+                            <span class="s-l"></span>
+                            <input type="text">
+                            <span class="s-r"></span>
+                        </div>
+                        <div class="meet_state">
+                            状态
+                        </div>
+                        <div class="meet_operation">
+                            <a>查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-tab-item layui-anim layui-anim-upbit">
+                <div class="meets_number">
+                    <p>数量：4</p>
+                </div>
+                <div class="one_meet">
+                    <div class="one_meet_title">
+                        <i class="layui-icon layui-icon-form"></i>
+                        <p>发起人  -   销售会议</p>
+                    </div>
+                    <div class="one_meet_content">
+                        <div class="meet_img">
+                            <img src="images/huiyi2.jpg">
+                        </div>
+                        <div class="meet_detail">
+                            <p>这里是介绍我不东京房价大幅降低开发对接这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发科技今年的看法经费</p>
+                        </div>
+                        <div class="meet_other">
+                            <div class="other_equip">
+                                <p>这里是设备什么的什么的什么的什</p>
+                                <p>这里是设备什么的什么的什么的什</p>
+                            </div>
+                        </div>
+                        <div class="meet_price">
+                            <p>￥199.00</p>
+                            <p>￥69.90</p>
+                        </div>
+                        <div class="meet_people_n">
+                            <span class="s-l"></span>
+                            <input type="text">
+                            <span class="s-r"></span>
+                        </div>
+                        <div class="meet_state">
+                            状态
+                        </div>
+                        <div class="meet_operation">
+                            <a>查看详情</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="one_meet">
+                    <div class="one_meet_title">
+                        <i class="layui-icon layui-icon-form"></i>
+                        <p>发起人  -   销售会议</p>
+                    </div>
+                    <div class="one_meet_content">
+                        <div class="meet_img">
+                            <img src="images/huiyi2.jpg">
+                        </div>
+                        <div class="meet_detail">
+                            <p>这里是介绍我不东京房价大幅降低开发对接这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发科技今年的看法经费</p>
+                        </div>
+                        <div class="meet_other">
+                            <div class="other_equip">
+                                <p>这里是设备什么的什么的什么的什</p>
+                                <p>这里是设备什么的什么的什么的什</p>
+                            </div>
+                        </div>
+                        <div class="meet_price">
+                            <p>￥199.00</p>
+                            <p>￥69.90</p>
+                        </div>
+                        <div class="meet_people_n">
+                            <span class="s-l"></span>
+                            <input type="text">
+                            <span class="s-r"></span>
+                        </div>
+                        <div class="meet_state">
+                            状态
+                        </div>
+                        <div class="meet_operation">
+                            <a>查看详情</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="one_meet">
+                    <div class="one_meet_title">
+                        <i class="layui-icon layui-icon-form"></i>
+                        <p>发起人  -   销售会议</p>
+                    </div>
+                    <div class="one_meet_content">
+                        <div class="meet_img">
+                            <img src="images/huiyi2.jpg">
+                        </div>
+                        <div class="meet_detail">
+                            <p>这里是介绍我不东京房价大幅降低开发对接这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发科技今年的看法经费</p>
+                        </div>
+                        <div class="meet_other">
+                            <div class="other_equip">
+                                <p>这里是设备什么的什么的什么的什</p>
+                                <p>这里是设备什么的什么的什么的什</p>
+                            </div>
+                        </div>
+                        <div class="meet_price">
+                            <p>￥199.00</p>
+                            <p>￥69.90</p>
+                        </div>
+                        <div class="meet_people_n">
+                            <span class="s-l"></span>
+                            <input type="text">
+                            <span class="s-r"></span>
+                        </div>
+                        <div class="meet_state">
+                            状态
+                        </div>
+                        <div class="meet_operation">
+                            <a>查看详情</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="one_meet">
+                    <div class="one_meet_title">
+                        <i class="layui-icon layui-icon-form"></i>
+                        <p>发起人  -   销售会议</p>
+                    </div>
+                    <div class="one_meet_content">
+                        <div class="meet_img">
+                            <img src="images/huiyi2.jpg">
+                        </div>
+                        <div class="meet_detail">
+                            <p>这里是介绍我不东京房价大幅降低开发对接这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发科技今年的看法经费</p>
+                        </div>
+                        <div class="meet_other">
+                            <div class="other_equip">
+                                <p>这里是设备什么的什么的什么的什</p>
+                                <p>这里是设备什么的什么的什么的什</p>
+                            </div>
+                        </div>
+                        <div class="meet_price">
+                            <p>￥199.00</p>
+                            <p>￥69.90</p>
+                        </div>
+                        <div class="meet_people_n">
+                            <span class="s-l"></span>
+                            <input type="text">
+                            <span class="s-r"></span>
+                        </div>
+                        <div class="meet_state">
+                            状态
+                        </div>
+                        <div class="meet_operation">
+                            <a>查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-tab-item layui-anim layui-anim-upbit">
+                <div class="meets_number">
+                    <p>数量：5</p>
+                </div>
+                <div class="one_meet">
+                    <div class="one_meet_title">
+                        <i class="layui-icon layui-icon-form"></i>
+                        <p>发起人  -   销售会议</p>
+                    </div>
+                    <div class="one_meet_content">
+                        <div class="meet_img">
+                            <img src="images/huiyi2.jpg">
+                        </div>
+                        <div class="meet_detail">
+                            <p>这里是介绍我不东京房价大幅降低开发对接这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发科技今年的看法经费</p>
+                        </div>
+                        <div class="meet_other">
+                            <div class="other_equip">
+                                <p>这里是设备什么的什么的什么的什</p>
+                                <p>这里是设备什么的什么的什么的什</p>
+                            </div>
+                        </div>
+                        <div class="meet_price">
+                            <p>￥199.00</p>
+                            <p>￥69.90</p>
+                        </div>
+                        <div class="meet_people_n">
+                            <span class="s-l"></span>
+                            <input type="text">
+                            <span class="s-r"></span>
+                        </div>
+                        <div class="meet_state">
+                            状态
+                        </div>
+                        <div class="meet_operation">
+                            <a>查看详情</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="one_meet">
+                    <div class="one_meet_title">
+                        <i class="layui-icon layui-icon-form"></i>
+                        <p>发起人  -   销售会议</p>
+                    </div>
+                    <div class="one_meet_content">
+                        <div class="meet_img">
+                            <img src="images/huiyi2.jpg">
+                        </div>
+                        <div class="meet_detail">
+                            <p>这里是介绍我不东京房价大幅降低开发对接这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发科技今年的看法经费</p>
+                        </div>
+                        <div class="meet_other">
+                            <div class="other_equip">
+                                <p>这里是设备什么的什么的什么的什</p>
+                                <p>这里是设备什么的什么的什么的什</p>
+                            </div>
+                        </div>
+                        <div class="meet_price">
+                            <p>￥199.00</p>
+                            <p>￥69.90</p>
+                        </div>
+                        <div class="meet_people_n">
+                            <span class="s-l"></span>
+                            <input type="text">
+                            <span class="s-r"></span>
+                        </div>
+                        <div class="meet_state">
+                            状态
+                        </div>
+                        <div class="meet_operation">
+                            <a>查看详情</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="one_meet">
+                    <div class="one_meet_title">
+                        <i class="layui-icon layui-icon-form"></i>
+                        <p>发起人  -   销售会议</p>
+                    </div>
+                    <div class="one_meet_content">
+                        <div class="meet_img">
+                            <img src="images/huiyi2.jpg">
+                        </div>
+                        <div class="meet_detail">
+                            <p>这里是介绍我不东京房价大幅降低开发对接这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发科技今年的看法经费</p>
+                        </div>
+                        <div class="meet_other">
+                            <div class="other_equip">
+                                <p>这里是设备什么的什么的什么的什</p>
+                                <p>这里是设备什么的什么的什么的什</p>
+                            </div>
+                        </div>
+                        <div class="meet_price">
+                            <p>￥199.00</p>
+                            <p>￥69.90</p>
+                        </div>
+                        <div class="meet_people_n">
+                            <span class="s-l"></span>
+                            <input type="text">
+                            <span class="s-r"></span>
+                        </div>
+                        <div class="meet_state">
+                            状态
+                        </div>
+                        <div class="meet_operation">
+                            <a>查看详情</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="one_meet">
+                    <div class="one_meet_title">
+                        <i class="layui-icon layui-icon-form"></i>
+                        <p>发起人  -   销售会议</p>
+                    </div>
+                    <div class="one_meet_content">
+                        <div class="meet_img">
+                            <img src="images/huiyi2.jpg">
+                        </div>
+                        <div class="meet_detail">
+                            <p>这里是介绍我不东京房价大幅降低开发对接这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发科技今年的看法经费</p>
+                        </div>
+                        <div class="meet_other">
+                            <div class="other_equip">
+                                <p>这里是设备什么的什么的什么的什</p>
+                                <p>这里是设备什么的什么的什么的什</p>
+                            </div>
+                        </div>
+                        <div class="meet_price">
+                            <p>￥199.00</p>
+                            <p>￥69.90</p>
+                        </div>
+                        <div class="meet_people_n">
+                            <span class="s-l"></span>
+                            <input type="text">
+                            <span class="s-r"></span>
+                        </div>
+                        <div class="meet_state">
+                            状态
+                        </div>
+                        <div class="meet_operation">
+                            <a>查看详情</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="one_meet">
+                    <div class="one_meet_title">
+                        <i class="layui-icon layui-icon-form"></i>
+                        <p>发起人  -   销售会议</p>
+                    </div>
+                    <div class="one_meet_content">
+                        <div class="meet_img">
+                            <img src="images/huiyi2.jpg">
+                        </div>
+                        <div class="meet_detail">
+                            <p>这里是介绍我不东京房价大幅降低开发对接这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金这里是介绍我不东京房价大幅降低开发对接发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发的肥肉恐惧的看法金额可v就大幅降低客金额付款的金发科技今年的看法经费</p>
+                        </div>
+                        <div class="meet_other">
+                            <div class="other_equip">
+                                <p>这里是设备什么的什么的什么的什</p>
+                                <p>这里是设备什么的什么的什么的什</p>
+                            </div>
+                        </div>
+                        <div class="meet_price">
+                            <p>￥199.00</p>
+                            <p>￥69.90</p>
+                        </div>
+                        <div class="meet_people_n">
+                            <span class="s-l"></span>
+                            <input type="text">
+                            <span class="s-r"></span>
+                        </div>
+                        <div class="meet_state">
+                            状态
+                        </div>
+                        <div class="meet_operation">
+                            <a>查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -60,42 +656,67 @@
 </footer>
 
 <script>
-    layui.use('table', function(){
-        var table = layui.table;
+    layui.use('element', function(){
+        var element = layui.element;
 
-        table.render({
-            elem: '#recent'
-            ,url:'./1.json'
-            ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-            ,cols: [[
-                {field:'id', width:80, title: 'ID', sort: true}
-                ,{field:'username', width:80, title: '用户名'}
-                ,{field:'sex', width:80, title: '性别', sort: true}
-                ,{field:'city', width:80, title: '城市'}
-                ,{field:'sign', title: '签名', width: '30%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
-                ,{field:'experience', title: '积分', sort: true}
-                ,{field:'score', title: '评分', sort: true}
-                ,{field:'classify', title: '职业'}
-                ,{field:'wealth', width:137, title: '财富', sort: true}
-            ]]
+        //…
+    });
+
+
+    layui.use('layer', function(){
+        var layer = layui.layer;
+
+        //添加成员
+        $('#add_users').on('click', function () {
+            layer.open({
+                type: 1
+                ,title: false //不显示标题栏
+                // ,closeBtn: true
+                ,title: ["添加员工",'font-size:16px;background-color: #428bca;color: white']
+                ,area: ['720px','']
+                ,shade: 0.8
+                ,offset: ['100px', '25%']
+                ,id: 'LAY_layuipro02570' //设定一个id，防止重复弹出
+                ,btn: ['确定', '取消']
+                ,btnAlign: 'c'
+                ,moveType: 1 //拖拽模式，0或者1
+                ,content: $('#add_user')
+                ,success: function(layero){
+                    var btn = layero.find('.layui-layer-btn');
+                    btn.find('.layui-layer-btn0').attr({
+                        href: 'http://www.layui.com/'
+                        ,target: '_blank'
+                    });
+                }
+            });
         });
-        table.render({
-            elem: '#attend'
-            ,url:'./1.json'
-            ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-            ,cols: [[
-                {field:'id', width:80, title: 'ID', sort: true}
-                ,{field:'username', width:80, title: '用户名'}
-                ,{field:'sex', width:80, title: '性别', sort: true}
-                ,{field:'city', width:80, title: '城市'}
-                ,{field:'sign', title: '签名', width: '30%', minWidth: 100} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
-                ,{field:'experience', title: '积分', sort: true}
-                ,{field:'score', title: '评分', sort: true}
-                ,{field:'classify', title: '职业'}
-                ,{field:'wealth', width:137, title: '财富', sort: true}
-            ]]
+
+        //文件列表
+        $('#read_files').on('click', function () {
+            layer.open({
+                type: 1
+                ,title: ["文件列表",'']
+                // ,closeBtn: false
+                ,area: ['300px','500px']
+                ,shade: 0.8
+                ,id: 'LAY_read_files000' //设定一个id，防止重复弹出
+                // ,btn: ['火速围观', '残忍拒绝']
+                ,btnAlign: 'c'
+                ,moveType: 1 //拖拽模式，0或者1
+                ,content: $('#file_list')
+            });
+        });
+
+        //取消预定
+        $('#redo_apply').on('click', function () {
+            layer.confirm('是否取消该次预定?', {icon: 3, title:'确定？'}, function(index){
+                //do something
+
+                layer.close(index);
+            });
         });
     });
+
 </script>
 </body>
 </html>

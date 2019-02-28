@@ -142,50 +142,15 @@
                     <tr>
                       <th>申请人</th>
                       <th>会议室</th>
-                      <th>使用时间</th>
+                      <th>开始时间</th>
+                      <th>结束时间</th>
                       <th>操作</th>
                     </tr>
-                    <tr>
-                      <td>1233</td>
-                      <td>1233</td>
-                      <td>1233</td>
-                      <td>
-                        <button>批准</button>
-                        <button>拒绝</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1233</td>
-                      <td>1233</td>
-                      <td>1233</td>
-                      <td>
-                        <button>批准</button>
-                        <button>拒绝</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1233</td>
-                      <td>1233</td>
-                      <td>1233</td>
-                      <td>
-                        <button>批准</button>
-                        <button>拒绝</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1233</td>
-                      <td>1233</td>
-                      <td>1233</td>
-                      <td>
-                        <button>批准</button>
-                        <button>拒绝</button>
-                      </td>
-                    </tr>
-
-                    <tr v-for="(item,i) in notices">
-                      <td>{{item.id}}</td>
-                      <td>{{item.people}}</td>
-                      <td>{{item.time}}</td>
+                    <tr v-for="(item,i) in applays">
+                      <td>{{item.workerId}}</td>
+                      <td>{{item.roomId}}</td>
+                      <td>{{item.beginTime}}</td>
+                      <td>{{item.endTime}}</td>
                       <td>
                         <button @click="agree">批准</button>
                         <button @click="refuse">拒绝</button>
@@ -263,7 +228,26 @@
   var vm = new Vue({
       el: '#main_content',
       data:{
-          notices : { },
+          notices : [],
+          applays: [
+              {
+                  "id": 1,
+                  "workerId": 20,
+                  "topic": "年会",
+                  "intro": "年度总结，附带抽奖",
+                  "documentList": null,
+                  "roomId": null,
+                  "attendance": 100,
+                  "beginTime": "2019-02-28 17:00:00",
+                  "endTime": "2019-03-01 00:00:00",
+                  "status": 0,
+                  "applyTime": "2019-02-18 19:19:35",
+                  "applyUpdateTime": "2019-02-19 16:59:52",
+                  "price": 0,
+                  "flexible": 1
+              }
+          ],
+
           others: ""
       },
       methods:{
@@ -271,19 +255,62 @@
 
           },
           refuse(){
-              $.ajax({url:"./upload/1.json",success:function(result){
-                      vm.notices = result.data;
-                  }});
+
+          },
+          getNotice(){
+
+          },
+          getApply(){
+              var tdata={
+                  "status": 0,
+                  "order": "apply_time desc"
+              };
+              $.ajax({
+                  type: "POST"
+                  ,url:"http://lsudjh.top:8081/meetingApply/listEntity"
+                  ,contentType: 'application/json;charset=utf-8'
+                  ,data: JSON.stringify(tdata)
+                  ,dataType: "json"
+                  ,success:function(result){
+                      console.log(result.data.data);
+                      var odata = result.data.data;
+                      for(var i=0; i<odata.length;i++){
+                          var d = {
+                              "id" : odata[i].workerId
+                          };
+                          $.ajax({
+                              type: 'POST'
+                              ,url: "http://lsudjh.top:8081/user/get"
+                              ,contentType: 'application/json;charset=utf-8'
+                              ,data: JSON.stringify(d)
+                              ,dataType: 'json'
+                              ,success:function (result) {
+                                  console.log(result);
+                                  // var name = result.data.name;
+                                  // odata[i].workerId = name;
+                                  // console.log(odata);
+                              }
+
+                          })
+                      }
+
+                      vm.applays = result.data.data;
+                  }
+                  ,error: function (message) {
+                      alert(message);
+                  }
+              });
+          },
+          getAttendance(){
+
           }
       },
       created: function () {
-          $.ajax({url:"./upload/notice.json",success:function(result){
-              vm.notices = result.data;
-              // console.log(result);
-              // console.log(vm.notices);
-          }});
+          this.getNotice();
+          this.getApply();
+          this.getAttendance();
       }
-  })
+  });
   $(function(){
       /*公共部分
        * 导航栏

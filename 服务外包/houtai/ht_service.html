@@ -22,36 +22,9 @@
 </head>
 
 <body>
-<!--nav 顶部导航栏-->
-<nav role="navigation" class="navbar navbar-custom">
-    <div class="container-fluid">
-        <!--左边-->
-        <div class="navbar-header">
-            <a href="ht_shenhe.html" class="navbar-brand">会议室管理后台</a>
-        </div>
-        <!--右边-->
-        <div id="bs-content-row-navbar-collapse-5" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="getting-started.html">会议审批</a></li>
-                <li class="active"><a href="index.html">预定详情</a></li>
-                <!-- <li class="disabled"><a href="#">Link</a></li> -->
-                <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">个人中心 <b class="caret"></b></a>
-                    <ul role="menu" class="dropdown-menu">
-                        <li class="dropdown-header">设置</li>
-                        <li><a href="#">帮助</a></li>
-                        <li class="divider"></li>
-                        <li class="active"><a href="#">更多</a></li>
-                        <li class="divider"></li>
-                        <li class="disabled"><a href="#">退出登录</a></li>
-                    </ul>
-                </li>
-            </ul>
-
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
-<!--header-->
+<!-- 顶部导航 -->
+<div class="headerpage"></div>
+<!--顶部导航 over-->
 
 <div class="container-fluid">
     <!--documents内容-->
@@ -65,11 +38,11 @@
                     <a href="ht_index.html" class="list-group-item"><i class="glyphicon glyphicon-home"></i>主界面 </a>
                 </li>
                 <li>
-                    <a href="#xitong" class="list-group-item " data-toggle="collapse">
+                    <a href="#xitong" class="list-group-item  main_item1" data-toggle="collapse">
                         <i class="glyphicon glyphicon-cog"></i>系统管理
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
-                    <div class="collapse" id="xitong">
+                    <div class="collapse sys_item" id="xitong">
                         <a href="ht_account.html" class="list-group-item">账号管理</a>
                         <a href="ht_company.html" class="list-group-item">雇主信息</a>
                         <a href="ht_notice.html" class="list-group-item">公告管理</a>
@@ -77,11 +50,11 @@
                 </li>
 
                 <li>
-                    <a href="#huiyi" class="list-group-item" data-toggle="collapse">
+                    <a href="#huiyi" class="list-group-item main_item2 " data-toggle="collapse">
                         <i class="glyphicon glyphicon-calendar"></i>会议管理
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
-                    <div class="collapse" id="huiyi">
+                    <div class="collapse meet_item layui-anim layui-anim-upbit" id="huiyi">
                         <a href="ht_shenhe.html" class="list-group-item">会议审核</a>
                         <a href="ht_meet.html" class="list-group-item">会议室管理</a>
                         <a href="ht_tag.html" class="list-group-item">会议室标签</a>
@@ -147,173 +120,208 @@
         </div><!-- content -->
     </div>
 </div>
+
 <!--footer-->
-<div class="site-footer">
-    <div class="container">
-        <!--<div class="download">-->
-        <!--<span class="download__infos">You simply have to <b>try it</b>.</span>&nbsp;&nbsp;&nbsp;&nbsp;-->
-        <!---->
-        <!--&lt;!&ndash; SmartAddon BEGIN &ndash;&gt;-->
-        <!--<script type="text/javascript">-->
-        <!--(function() {-->
-        <!--var s=document.createElement('script');s.type='text/javascript';s.async = true;-->
-        <!--s.src='http://s1'+'.smartaddon.com/share_addon.js';-->
-        <!--var j =document.getElementsByTagName('script')[0];j.parentNode.insertBefore(s,j);-->
-        <!--})();-->
-        <!--</script>-->
+<div class="footerpage"></div>
+<!--footer over-->
 
-        <!---->
-        <!--&lt;!&ndash; SmartAddon END &ndash;&gt;-->
-        <!--</div>-->
-        <hr class="dashed" />
-        <div class="row">
-            <div class="col-md-4">
-                <h3>参与其中</h3>
-                <p>如果需要使用我们的会议室及欢迎联系我们，或将你们的联系方式发送给我们</p>
-            </div>
-            <div class="col-md-4">
-                <h3>有助于</h3>
-                <p>我们的会议室，提供舒适的环境、先进的设备、贴心的服务，即约即用，乃开会必备之首选</p>
-            </div>
-            <div class="col-md-4">
-                <h3>发现问题?</h3>
-                <p>如果发现网站存在错误，欢迎联系我们，我们将认真改正，并会给予相应的报酬，谢谢合作</p>
-            </div>
-        </div>
-        <hr class="dashed" />
-        <div class="row">
-            <div class="col-md-6">
-                <h3>联系我们</h3>
-                <ul>
-                    <li>Tweet us at  @YourTwitter &nbsp;&nbsp;&nbsp;&nbsp;Email us at <span class="connect">info@yourdomain.com</span></li>
-                    <li>
-                        <i class="icon" data-icon="&#xe121"></i>
-                        <i class="icon" data-icon="&#xe10b"></i>
-                        <i class="icon" data-icon="&#xe110"></i>
-                        <i class="icon" data-icon="&#xe10e"></i>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-6">
-                <!-- Begin MailChimp Signup Form -->
-
-                <div id="mc_embed_signup">
-                    <h3 style="margin-bottom: 15px;">发送您的邮箱</h3>
-                    <form action="" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" novalidate>
-                        <input style="margin-bottom: 10px;" type="email" value="" name="EMAIL" class="email form-control" id="mce-EMAIL" placeholder="email address" required>
-                        <span class="clear"><input type="submit" value="发送" name="subscribe" id="mc-embedded-subscribe" class="btn btn-primary"></span>
-                    </form>
-                </div>
-                <!--End mc_embed_signup-->
-            </div>
-        </div>
-        <hr class="dashed" />
-        <div class="copyright clearfix">
-            <p><b>会议室管理平台</b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="getting-started.html">Getting Started</a>&nbsp;&bull;&nbsp;<a href="index.html">首页</a>&nbsp;&bull;&nbsp; Free PSD &nbsp;&bull;&nbsp;中国大学生制作 <a href="#" >会议室管理</a> - Collect from <a>欢迎您的使用</a> </p>
-        </div>
-    </div>
+<!--申请人信息弹出-->
+<div id="people_detail" class="me_none"  style="margin-left: 45px" >
+    <ul id="mz_admin_info">
+        <li>
+            ID：<span>qq_154678787</span>
+        </li>
+        <li>姓名：<span>张大山</span></li>
+        <li>性别：<span>男</span></li>
+        <li>生日：<span>1995-03-08</span></li>
+        <li>职位：<span>生活部-部长</span></li>
+        <li>联系电话：<span>1008611</span></li>
+        <li>邮箱：<span>mingzhi@163.com</span></li>
+        <li>参加会议数：<span>10</span></li>
+        <li>发起会议数：<span>2</span></li>
+        <li>
+            简介：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="mz_info_intro" style="margin-right: 8%">
+                      就飞快的将疯狂夺金法鸡 就飞快的将疯狂夺金法鸡 就飞快的将疯狂夺金法鸡
+                    就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡
+                    就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡
+                    就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡
+                    就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡
+                    </span>
+        </li>
+    </ul>
 </div>
+
 <script>
+    $(".headerpage").load("./page/header.html");
+    $(".footerpage").load("./page/footer.html");
+
+    function show_people(id){
+        var data={ id: id};
+        $.ajax({
+            url: 'http://lsudjh.top:8081/user/get',
+            type: 'post',
+            data: JSON.stringify(data) ,
+            contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+            }
+        });
+        layui.use('form', function(){
+            var form = layui.form;
+
+            form.val("initForm", {})
+        });
+        layer.open({
+            type: 1
+            ,title: ['发起人信息查看', 'font-size:18px;']
+            ,area: ['600px','500px']
+            ,id: 'show_people_detail' //设定一个id，防止重复弹出
+            // ,btn: ['确定', '取消']
+            ,btnAlign: 'c'
+            ,moveType: 1 //拖拽模式，0或者1
+            ,content: $('#people_detail')
+        });
+    }
+
+    function show_location(id){
+        layui.use('form', function(){
+            var form = layui.form;
+
+            form.val("initForm", { })
+        });
+        layer.open({
+            type: 1
+            ,title: ['会议室', 'font-size:18px;']
+            ,area: ['600px','500px']
+            ,id: 'show_location_detail' //设定一个id，防止重复弹出
+            // ,btn: ['确定', '取消']
+            ,btnAlign: 'c'
+            ,moveType: 1 //拖拽模式，0或者1
+            ,content: $('#meetroom_detail')
+        });
+    }
     // 数据表
+    //时间转换
+    Date.prototype.format = function (format) {
+        var args = {
+            "M+": this.getMonth() + 1,
+            "d+": this.getDate(),
+            "h+": this.getHours(),
+            "m+": this.getMinutes(),
+            "s+": this.getSeconds(),
+            "q+": Math.floor((this.getMonth() + 3) / 3),  //quarter
+            "S": this.getMilliseconds()
+        };
+        if (/(y+)/.test(format))
+            format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var i in args) {
+            var n = args[i];
+            if (new RegExp("(" + i + ")").test(format))
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? n : ("00" + n).substr(("" + n).length));
+        }
+        return format;
+    };
+    // alert(new Date().format("yyyy-MM-dd hh:mm:ss").toString());
+
     layui.use('table', function(){
         var table = layui.table;
         table.render({
             elem: '#mz_service_table'     //未审核
-            ,url:'http://localhost:63342/服务外包/houtai/upload/2.json'
-            ,title: '未审核数据表'
-            ,cellMinWidth: 100
-            ,id:'noticeTable'
+            ,url:'http://lsudjh.top:8081/service/listEntity'
+            ,contentType: 'application/json'
+            ,method: 'post'
+            ,title: '今日未响应服务数据表'
+            ,cellMinWidth: 60
+            ,id:'serviceTable'
             ,cols: [[
                 {field:'id', title:'ID', unresize: true, sort: true}
-                ,{field:'name', title:'发起人' ,unresize: true}
-                ,{field:'location', title:'位置' ,unresize: true}
-                ,{field:'time', title:'时间', unresize: true}
-                ,{field:'title', title:'事件', unresize: true}
-                ,{field:'content', title:'状态', sort: true, unresize: true}
-                ,{fixed: 'right', title:'操作', toolbar: '#barMeet', width:120, unresize: true}
+                ,{field:'applyId', title:'发起人' ,unresize: true,width:140
+                    , templet: '<div><a class="layui-table-link" onclick=show_people("{{d.id}}")>查看</a></div>'}
+                ,{field:'applyTime', title:'时间', unresize: true,width:180}
+                ,{field:'location', title:'位置' ,unresize: true, width:120
+                        , templet: '<div><a class="layui-table-link" onclick=show_location("{{d.id}}")>查看</a></div>'}
+                ,{field:'content', title:'事件', unresize: true,width:320}
+                // ,{field:'serviceTime', title:'响应时间', sort: true, unresize: true}
+                ,{fixed: 'right', title:'操作', toolbar: '#barMeet', unresize: true}
             ]]
             ,page: false
+            ,where:{
+                "serviceTime": 'null'
+                , page: 0
+            }
+            ,parseData: function(res){ //res 即为原始返回的数据
+                // var room_data = res.data.data;
+                return {
+                    "code": res.code, //解析接口状态
+                    "msg": res.message, //解析提示文本
+                    "count": res.data.total, //解析数据长度
+                    "data": res.data.data //解析数据列表
+                };
+            }
         });
         table.render({
-            elem: '#mz_serviced_table'     //未审核
-            ,url:'http://localhost:63342/服务外包/houtai/upload/2.json'
-            ,title: '未审核数据表'
-            ,cellMinWidth: 100
+            elem: '#mz_serviced_table'     //已服务
+            ,url:'http://lsudjh.top:8081/service/listEntity'
+            ,title: '已完成的服务数据表'
+            // ,cellMinWidth: 100
             ,id:'noticeTable'
+            ,contentType: 'application/json'
+            ,method: 'post'
             ,cols: [[
                 {field:'id', title:'ID', unresize: true, sort: true}
-                ,{field:'name', title:'发起人' ,unresize: true}
-                ,{field:'location', title:'位置' ,unresize: true}
-                ,{field:'time', title:'时间', unresize: true}
-                ,{field:'title', title:'事件', unresize: true}
-                ,{field:'content', title:'状态', sort: true, unresize: true}
-                ,{fixed: 'right', title:'操作', toolbar: '#barMeet', width:120, unresize: true}
+                ,{field:'applyId', title:'发起人' ,unresize: true
+                    , templet: '<div><a class="layui-table-link" onclick=show_people("{{d.id}}")>查看</a></div>'}
+                ,{field:'location', title:'位置' ,unresize: true
+                    , templet: '<div><a class="layui-table-link" onclick=show_location("{{d.id}}")>查看</a></div>'}
+                ,{field:'content', title:'事件', unresize: true,width:300}
+                ,{field:'applyTime', title:'发起时间', sort: true, unresize: true,width:200}
+                ,{field:'serviceTime', title:'响应时间', sort: true, unresize: true,width:200}
+                // ,{fixed: 'right', title:'操作', toolbar: '#barMeet', unresize: true,with:120}
             ]]
-            ,page: true
+            ,page: false
+            ,where:{
+                "serviceTime": 'not null'
+                , page: 0
+            }
+            ,parseData: function(res){ //res 即为原始返回的数据
+                // var room_data = res.data.data;
+                return {
+                    "code": res.code, //解析接口状态
+                    "msg": res.message, //解析提示文本
+                    "count": res.data.total, //解析数据长度
+                    "data": res.data.data //解析数据列表
+                };
+            }
         });
 
         //监听行工具事件
 
-        table.on('tool(mz_noticed_table)', function(obj){
+        table.on('tool(mz_service_table)', function(obj){
             var data = obj.data;
             //console.log(obj)
-            var re;
-            if(obj.event === 'del'){
-
-                layer.prompt({
-                    formType: 2,
-                    title: '请输入拒绝理由'
-                }, function(value, index){
-                    obj.update({
-
-                    });
-                    table.reload('noticedTable', {
-                        url: 'http://localhost:63342/服务外包/houtai/upload/1.json',
-                        page: {
-                            curr: 1//重新从第 1 页开始
-                        }
-                        ,where: {
-                            key: {
-                                id: searchReload.val(),
-                                way: searchWay.val()
-                            }
-                        }
-                    });
-                    obj.del();
-                    layer.close(index);
-                });
-            } else if(obj.event === 'edit'){
+            if(obj.event === 'edit'){
+                console.log(1)
                 layer.confirm('确认？',function (index) {
-                    obj.del();
-                    layer.close(index);//关闭弹出层
+                    var tdata = { id: data.id}
+                    $.ajax({
+                        url:"http://lsudjh.top:8081/service/done",
+                        type:"POST",
+                        data:JSON.stringify(tdata),
+                        contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                        success:function(result){ //所有错误信息都如result.message有关
+                            alert(result.msg);
+                            if(result.code==0){
+                                obj.del();   //删除对应行（tr）的DOM结构，并更新缓存
+                            }
+                            layer.close(index);//关闭弹出框
+                        }
+                    });
                 })
             }
         });
 
-        //搜索监听，重载
-        var $ = layui.$, active = {
-            reload: function(){
-                var searchReload = $('#searchReload');
-                var searchWay = $('#mz_search_w');
-                //执行重载
-                table.reload('noticeingTable', {
-                    url: 'http://localhost:63342/服务外包/houtai/upload/1.json',
-                    page: {
-                        curr: 1//重新从第 1 页开始
-                    }
-                    ,where: {
-                        key: {
-                            id: searchReload.val(),
-                            way: searchWay.val()
-                        }
-                    }
-                });
-            }
-        };
-        $('.searchTable .layui-btn').on('click', function(){
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
-        });
     });
 </script>
 

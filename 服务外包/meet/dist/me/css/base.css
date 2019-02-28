@@ -225,4 +225,199 @@ footer p{
 /*}*/
 
 
+/*mymeet*/
+/*添加左边部分*/
+#add_user{
+    display: none;
+}
+.user_c_l{
+    width: 380px;
+    /*height: 500px;*/
+    margin-left: 20px;
+    /*background-color: #eee;*/
+    /*border: 1px solid #EEEEEE;*/
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 40px;
+}
+.user_c_l .add_section{
+    height: 40px;
+}
+.user_c_l select{
+    width: 150px;
+    height: 24px;
+}
+.user_c_l .add_search{
+    margin-left: 20px;
+    position: relative;
+}
+.user_c_l .add_search>input{
+    padding-left: 5px;
+    width: 100px;
+    height: 24px;
+}
+.user_c_l .add_search i{
+    position: absolute;
+    display: block;
+    top: 0px;
+    right: 5px;
+    /*border: 1px solid red;*/
+}
+.add_all{
+    margin-left: 10px;
+}
+
+.user_c_r{
+    width: 280px;
+    /*height: 500px;*/
+    margin-left: 20px;
+    /*background-color: #eee;*/
+    /*border: 1px solid #EEEEEE;*/
+    margin-top: 15px;
+}
+.user_c_r .add_selected{
+    width: 100%;
+    background-color: #337ab7;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    font-size: 14px;
+}
+/*文件列表弹出框*/
+#file_list{
+    display: none;
+    margin: 15px 30px;
+}
+#file_list a{
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    display: block;
+}
+#file_list a:hover{
+    color: #1E9FFF;
+}
+#mymeet_tab{
+    margin-top: 15px;
+}
+#mymeet_tab li{
+    font-size: 18px;
+}
+
+.meets_number{
+    color: black;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+.one_meet{
+    height: 168px;
+    width: 100%;
+    /*background-color: #EEEEEE;*/
+}
+.one_meet_title{
+    position: relative;
+}
+.one_meet_title i{
+    position: absolute;
+    top: 6px;
+    left: 30px;
+    color: #993139;
+}
+.one_meet_title p{
+    height: 30px;
+    line-height: 30px;
+    color: #222;
+    margin-left: 50px;
+}
+
+.one_meet_content{
+    /*margin-top: 10px;*/
+    background-color: #FCFCFC;
+    border: 1px solid #eee;
+    height: 130px;
+    position: relative;
+}
+.one_meet_content>div{
+    float: left;
+}
+.one_meet_content img{
+    margin: 15px;
+    height: 100px;
+    width: 150px;
+}
+.one_meet_content .meet_detail{
+    margin: 15px 0px;
+    font-size: 14px;
+    width: 240px;
+    color: #333;
+    height: 98px;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+.one_meet_content .meet_other{
+    margin-left: 30px;
+    font-size: 12px;
+    padding: 15px;
+    width: 150px;
+    height: 85px;
+    color: #999;
+}
+.one_meet_content .meet_other:hover{
+    border: 1px dashed  #999;
+}
+
+.one_meet_content .meet_price{
+    margin: 15px 0;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+}
+.one_meet_content .meet_people_n{
+    margin: 15px 0;
+    width: 100px;
+    text-align: center;
+    position: relative;
+}
+.meet_people_n input{
+    width: 40px;
+    height: 20px;
+    padding-left: 10px;
+    z-index: 2;
+}
+.one_meet_content .meet_state{
+    margin: 15px;
+    text-align: center;
+    width: 150px;
+}
+.one_meet_content .meet_operation{
+    margin-right: 30px;
+    margin-top: 15px;
+    float: right;
+    font-size: 12px;
+}
+.one_meet_content .meet_operation a{
+    display: block;
+    height: 20px;
+    line-height: 20px;
+}
+.one_meet_content .meet_operation a:hover{
+    color: #2B86E3;
+}
+
+
+/*收藏页面*/
+.collect_count{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.collect_count h3{
+    font-size: 18px;
+    color: #222;
+    height: 40px;
+    line-height: 40px;
+    margin-left: 20px;
+}
+
+
+
 

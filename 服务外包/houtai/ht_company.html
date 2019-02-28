@@ -76,14 +76,7 @@
         </div>
     </form>
 </div>
-<div id="add_user" style="display: none;padding-right: 45px">
-    <div class="user_c me_fl">
-        fgfg
-    </div>
-    <div class="user_c me_fl">
-        dfjkf
-    </div>
-</div>
+
 
 <body>
 <!-- 顶部导航 -->
@@ -172,7 +165,95 @@
                         </div>
                         <button class="layui-btn" data-type="reload">搜索</button>
                         <button class="layui-btn me_fr" id="mz_add_meet">添加雇主公司</button>
-                        <!--<button class="layui-btn me_fr" id="mz_add_meet" data-toggle="modal" data-target="#tableModal">添加会议室</button>-->
+
+
+                        <div id="add_user" style="display: none">
+                            <div class="user_c_l me_fl">
+                                <div>
+                                    <div class="add_section me_fl">
+                                        <span>部门：</span>
+                                        <select name="quiz1">
+                                            <option value="">请选择部门</option>
+                                            <option value="浙江" selected="">全部</option>
+                                            <option value="你的工号">销售部</option>
+                                            <option value="你最喜欢的老师">技术部</option>
+                                        </select>
+                                    </div>
+                                    <div class="add_search me_fl">
+                                        <input type="text" placeholder="姓名">
+                                        <a><i class="layui-icon layui-icon-search"></i></a>
+                                    </div>
+                                    <a class="add_all">全选</a>
+                                </div>
+                                <table class="layui-table">
+                                    <colgroup>
+                                        <col width="180">
+                                        <col width="120">
+                                        <col width="25">
+                                        <col>
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <td>贤心</td>
+                                        <td>汉族</td>
+                                        <td><a class="layui-icon layui-icon-ok"></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>张爱玲</td>
+                                        <td>汉族</td>
+                                        <td>于</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Helen Keller</td>
+                                        <td>拉丁美裔</td>
+                                        <td>L</td>
+                                    </tr>
+                                    <tr>
+                                        <td>岳飞</td>
+                                        <td>汉族</td>
+                                        <td>教</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="user_c_r me_fl">
+                                <div>
+                                    <p class="add_selected">已选择用户：0</p>
+                                </div>
+                                <table class="layui-table">
+                                    <colgroup>
+                                        <col width="180">
+                                        <col width="120">
+                                        <col width="25">
+                                        <col>
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <td>贤心</td>
+                                        <td>汉族</td>
+                                        <td><a class="layui-icon layui-icon-close green"></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>张爱玲</td>
+                                        <td>汉族</td>
+                                        <td>于</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Helen Keller</td>
+                                        <td>拉丁美裔</td>
+                                        <td>L</td>
+                                    </tr>
+                                    <tr>
+                                        <td>岳飞</td>
+                                        <td>汉族</td>
+                                        <td>教</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
                     </div>
                     <div class="content-row">
                         <h5>雇主列表：</h5>
@@ -181,7 +262,7 @@
                             <table class="layui-hide" id="mz_company_table" lay-filter="mz_company_table"></table>
                             <script type="text/html" id="barMeet">
                                 <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-                                <a class="layui-btn layui-btn-xs" lay-event="add">添加</a>
+                                <a class="layui-btn layui-btn-xs" lay-event="add" data-toggle="tooltip" data-placement="left" title="添加公司员工">添加</a>
                                 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
                             </script>
                         </div>
@@ -309,8 +390,8 @@
                     type: 1
                     ,title: false //不显示标题栏
                     // ,closeBtn: true
-                    ,title: "添加公司"
-                    ,area: '600px;'
+                    ,title: ["添加员工",'font-size:16px;background-color: #428bca;color: white']
+                    ,area: ['720px','']
                     ,shade: 0.8
                     ,id: 'LAY_layuipro000' //设定一个id，防止重复弹出
                     ,btn: ['确定', '取消']
@@ -373,7 +454,7 @@
         });
         layer.open({
             type: 1
-            ,title: "添加公司"
+            ,title: ["添加公司",'']
             // ,closeBtn: true
             ,area: '500px'
             ,id: 'LAY_layuipro34' //设定一个id，防止重复弹出

@@ -3,15 +3,6 @@ $('#mz_add_meet').on("click", function () {
     layui.use('form', function(){
         var form = layui.form;
 
-        // form.val("initForm", {
-        //     "username": "贤心" // "name": "value"
-        //     ,"sex": "女"
-        //     ,"password": "123434"
-        //     ,"check[write]": true
-        //     ,"open": false
-        //     ,"desc": "我爱layui"
-        // })
-        //各种基于事件的操作，下面会有进一步介绍
     });
     layer.open({
         type: 1
@@ -38,7 +29,9 @@ layui.use('table', function(){
     var table = layui.table;
     table.render({
         elem: '#mz_meet_table'
-        ,url:'./upload/meet_table.json'
+        ,url:'http://lsudjh.top:8081/meetingRoom/listEntity'
+        ,method: 'post'
+        ,contentType: 'application/json'
         ,toolbar: '#toolbarMeet'
         ,title: '用户数据表'
         ,id:'tableReload'
@@ -55,19 +48,15 @@ layui.use('table', function(){
             ,{fixed: 'right', title:'操作', toolbar: '#barMeet', width:120}
         ]]
         ,page: true
+        ,parseData: function(res){ //res 即为原始返回的数据
+            return {
+                "code": res.code, //解析接口状态
+                "msg": res.message, //解析提示文本
+                "count": res.data.total, //解析数据长度
+                "data": res.data.data //解析数据列表
+            };
+        }
     });
-    //监听行单击事件（单击事件为：rowDouble）
-    // table.on('row(mz_meet_table)', function(obj){
-    //     var data = obj.data;
-    //     console.log(data);
-    //     layer.alert(JSON.stringify(data), {
-    //         title: '当前行数据：'
-    //     });
-    //
-    //     //标注选中样式
-    //     obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
-    // });
-    //头工具栏事件
     table.on('toolbar(mz_meet_table)', function(obj){
         var checkStatus = table.checkStatus(obj.config.id);
         switch(obj.event){
@@ -96,15 +85,6 @@ layui.use('table', function(){
                 layer.close(index);//向服务端发送删除指令
             });
         } else if(obj.event === 'edit'){  //修改
-            // layer.prompt({
-            //     formType: 2
-            //     ,value: data.email
-            // }, function(value, index){
-            //     obj.update({
-            //         email: value
-            //     });
-            //     layer.close(index);
-            // });
             layui.use('form', function(){
                 var form = layui.form;
 

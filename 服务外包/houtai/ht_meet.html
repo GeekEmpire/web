@@ -92,11 +92,11 @@
                 <a href="ht_index.html" class="list-group-item"><i class="glyphicon glyphicon-home"></i>主界面 </a>
               </li>
               <li>
-                <a href="#xitong" class="list-group-item " data-toggle="collapse">
+                <a href="#xitong" class="list-group-item  main_item1" data-toggle="collapse">
                   <i class="glyphicon glyphicon-cog"></i>系统管理
                   <span class="glyphicon glyphicon-chevron-right"></span>
                 </a>
-                <div class="collapse" id="xitong">
+                <div class="collapse sys_item" id="xitong">
                   <a href="ht_account.html" class="list-group-item">账号管理</a>
                   <a href="ht_company.html" class="list-group-item">雇主信息</a>
                   <a href="ht_notice.html" class="list-group-item">公告管理</a>
@@ -104,11 +104,11 @@
               </li>
 
               <li>
-                <a href="#huiyi" class="list-group-item" data-toggle="collapse">
+                <a href="#huiyi" class="list-group-item main_item2 " data-toggle="collapse">
                   <i class="glyphicon glyphicon-calendar"></i>会议管理
                   <span class="glyphicon glyphicon-chevron-right"></span>
                 </a>
-                <div class="collapse" id="huiyi">
+                <div class="collapse meet_item" id="huiyi">
                   <a href="ht_shenhe.html" class="list-group-item">会议审核</a>
                   <a href="ht_meet.html" class="list-group-item">会议室管理</a>
                   <a href="ht_tag.html" class="list-group-item">会议室标签</a>
@@ -212,17 +212,22 @@
   <!--footer over-->
 
   <script>
-      $(function(){
-          /*公共部分
-           * 导航栏
-           * footer
-           * 侧边栏
-           */
-          $(".headerpage").load("./page/header.html");
-          // $(".leftpage").load("./page/main_left.html");
-          $(".footerpage").load("./page/footer.html");
-      });
+      $(".headerpage").load("./page/header.html");
+      $(".footerpage").load("./page/footer.html");
 
+
+      $(function () {
+          $('.main_item1').on('click',function () {
+              if($('.meet_item').is('.in')){
+                  $('.meet_item').removeClass('in');
+              }
+          })
+          $('.main_item2').on('click',function () {
+              if($('.sys_item').is('.in')){
+                  $('.sys_item').removeClass('in');
+              }
+          })
+      });
 
       var vm = new Vue({
           el: '#app_search',

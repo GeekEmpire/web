@@ -1,130 +1,127 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>易区域登录</title>
-    <link href="dist/css/l-r.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all" />
-    <script type="text/javascript" src="dist/js/jquery1.42.min.js"></script>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <script type="text/javascript">
-        function getYzm(){
-            $("#yzmimg").attr("src","../yzm.user?"+new Date().getTime());
-        };
-        $(function(){
-
-            $(".i-text").focus(function(){
-                $(this).addClass('h-light');
-            });
-            $(".i-text").focusout(function(){
-                $(this).removeClass('h-light');
-            });
-            $("#username").focusout(function(){
-                var fdata = {id:+$("#username").val()}
-                $.post("../find_id.user",fdata,function(ldata,status){
-                    console.log(ldata);
-                    var objtip=$(".error-box");
-                    objtip.html(ldata);
-                });
-            });
-            $("#send-btn").click(function(){
-                var fdata = {
-                    id:$("#username").val(),
-                    password:$("#password").val(),
-                    yzm:$("#yzm").val()
-                };
-                $.post("../login.user",fdata,function(ldata,status){
-                    var result;
-                    var objtip=$(".error-box");
-                    if(ldata==-1){
-                        result = "验证码错误";
-                        $("#password").val("");
-                        $("#yzm").val("");
-                        getYzm();
-                    } else if(ldata==0){
-                        result="密码错误";
-                        $("#password").val("");
-                        $("#yzm").val("");
-                        getYzm();
-                    } else if(ldata==1){
-                        objtip.text("登录成功");
-                        alert("登录成功");
-                        location.href="index.html";
-                    }
-                    objtip.text(result);
-                });
-            });
-        });
-    </script>
+<title>Wopop</title>
+<link href="./Wopop_files/style_log.css" rel="stylesheet" type="text/css">
+<script type="" src="dist/js/jquery-3.3.1.min.js"></script>
+<script type="" src="dist/js/jquery.cookie.js"></script>
+<script type="" src="dist/js/base64.js"></script>
 </head>
 
-<body>
+<body class="login" mycollectionplug="bind">
+    <div class="login_m">
+    <div class="login_logo"><h1 style="color: #428bca;text-decoration: none;">会议室管理平台</h1></div>
+        <div class="login_boder">
 
-<div class="header">
-    <h1 class="headerLogo">会议室预约平台</h1>
-    <div class="headerNav">
-        <a target="_blank" href="register.html"></a>
-        <a target="_blank" href="#">企业官网</a>
-        <a target="_blank" href="#">关于我们</a>
-        <a target="_blank" href="#">开发团队</a>
-        <a target="_blank" href="#">意见反馈</a>
-        <a href="ht_register.html">注册</a>
-    </div>
-</div>
+            <div class="login_padding" id="login_model">
 
-<div class="banner">
+                <h2>手机号</h2>
+                <label>
+                    <input type="text" id="username" class="txt_input txt_input2" placeholder="Your phone">
+                </label>
+                <h2>密码</h2>
+                <label>
+                    <input type="password" name="textfield2" id="userpwd" class="txt_input" placeholder="***">
+                </label>
 
-    <div class="login-aside">
-        <div id="o-box-up"></div>
-        <div id="o-box-down"  style="table-layout:fixed;">
-            <div class="error-box"></div>
-            <form class="registerform">
-                <div class="fm-item">
-                    <label class="form-label">平台登陆：</label>
-                    <input type="text" placeholder="输入账号" name="id" maxlength="100" id="username" class="i-text"  ajaxurl="../find_id.user"  datatype="s6-18" errormsg="用户名至少6个字符,最多18个字符！"  >
-                    <div class="ui-form-explain"></div>
+                <p class="forgot"><a id="iforget" href="javascript:void(0);">忘记密码?</a></p>
+                <div class="rem_sub">
+                    <div class="rem_sub_l">
+                        <input type="checkbox" name="checkbox" id="save_me">
+                        <label for="save_me">记住密码</label>
+                    </div>
+                    <label>
+                        <input type="submit" class="sub_button" name="button" id="button" value="登录" style="opacity: 0.7;">
+                    </label>
                 </div>
-                <div class="fm-item">
-                    <label class="form-label">登陆密码：</label>
-                    <input type="password" placeholder="请输入密码" name="password" maxlength="100" id="password" class="i-text" datatype="*6-16" nullmsg="请设置密码！" errormsg="密码范围在6~16位之间！">
-                    <div class="ui-form-explain"></div>
-                </div>
-
-                <!--<div class="fm-item pos-r">-->
-                    <!--<label class="form-label">验证码</label>-->
-                    <!--<input type="text" placeholder="输入验证码" name="yzm" maxlength="100" id="yzm" class="i-text yzm" nullmsg="请输入验证码">-->
-                    <!--<div class="ui-form-explain"><img src="../yzm.user" id="yzmimg" onclick="getYzm();" alt="验证码" class="yzm-img" /></div>-->
-                <!--</div>-->
-
-                <div class="fm-item">
-                    <label class="form-label"></label>
-                    <input value="" tabindex="4" id="send-btn" type="button" class="btn-login">
-                    <div class="ui-form-explain"></div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="bd">
-        <ul>
-            <li style="background:url(dist/img/ht_bg.jpg) #CCE1F3 center 0 no-repeat;"></li>
-            <!--<li style="background:url(themes/theme-pic2.jpg) #BCE0FF center 0 no-repeat;"><a target="_blank" href="#"></a></li>-->
-        </ul>
-    </div>
-
-    <div class="hd"><ul></ul></div>
-</div>
-<!--<script type="text/javascript">jQuery(".banner").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"fold",  autoPlay:true, autoPage:true, trigger:"click" });</script>-->
+            </div>
+        </div><!--login_boder end-->
+    </div><!--login_m end-->
 
 
-<div class="banner-shadow"></div>
+    <br> <br>
+    <p align="center"> More about <a href="#" >后台管理</a> - Collect from <a href="#"  >会议室管理平台</a></p>
+    </body>
 
-<div class="footer">
-    <p>Copyright &copy;区域交易平台 2018.12.12</p>
-    <!--<p>Copyright &copy; 2014.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>-->
-</div>
+<script>
+    var base64 = new Base64();
+    function setCookie(){ //设置cookie
+        var loginCode = $("#username").val();
+        var pwd = $("#userpwd").val();
 
-</body>
+        if($('#save_me').is(':checked')) {
+            $.cookie("login_code",loginCode,{
+                expires: 3,
+                path: '/'
+            });
+            $.cookie("pwd",base64.encode(pwd),{
+                expires: 3,
+                path: '/'
+            });//调用jquery.cookie.js中的方法设置cookie中的登陆密码，并使用base64（jquery.base64.js）进行加密
+
+        } else{
+            $.cookie("login_code",loginCode,{
+                expires: 3,
+                path: '/'
+            });
+            $.cookie("pwd",base64.encode(""),{
+                expires: 3,
+                path: '/'
+            });
+        }
+    }
+
+    function getCookie(){ //获取cookie
+        var loginCode = $.cookie("login_code");
+        var pwd =  $.cookie("pwd");
+        if(pwd){//密码存在的话把“记住用户名和密码”复选框勾选住
+            $("[name='checkbox']").attr("checked","true");
+        }
+        if(loginCode){//用户名存在的话把用户名填充到用户名文本框
+            $("#username").val(loginCode);
+        }
+        if(pwd){//密码存在的话把密码填充到密码文本框
+            $("#userpwd").val(base64.decode(pwd));
+        }
+    }
+
+    getCookie();
+
+    function login(){
+        var data = {
+            "type": "phone",
+            "phone": $('#username').val(),
+            "password": $('#userpwd').val()
+        };
+        $.ajax({
+            type: "POST"
+            ,url:"http://lsudjh.top:8081/user/login"
+            ,contentType: 'application/json;charset=utf-8'
+            ,data: JSON.stringify(data)
+            ,dataType: "json"
+            ,success:function(result){
+                alert(result.msg);
+                setCookie();
+                $('#username').val("");
+                $('#userpwd').val("");
+                location.href = 'ht_index.html';
+            }
+            ,error: function (message) {
+                alert(message);
+                $('#username').val("");
+                $('#userpwd').val("");
+            }
+        });
+    }
+    $('#userpwd').bind('keyup',function(event){
+        if(event.keyCode == "13")
+        {
+            login();
+        }
+    });
+
+    $('.sub_button').click(function () {
+        login();
+    });
+</script>
 </html>

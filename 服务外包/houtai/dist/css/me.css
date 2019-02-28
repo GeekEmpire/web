@@ -1,8 +1,18 @@
 .me_active{
 	background-color: #E6E9ED;
 }
+select{
+	background-color: #ffffff;
+}
+.container-fluid .content{
+	height: auto;
+	min-height: 500px;
+}
 a{
 	cursor: pointer;
+}
+.green{
+	color: green;
 }
 .me_none{
 	display: none;
@@ -170,9 +180,57 @@ a{
 
 
 /* ht_company*/
-.user_c{
-	width: 240px;
-	height: 500px;
-	margin-left: 35px;
-	background-color: #1E9FFF;
+/*添加左边部分*/
+.user_c_l{
+	width: 380px;
+	/*height: 500px;*/
+	margin-left: 20px;
+	/*background-color: #eee;*/
+	/*border: 1px solid #EEEEEE;*/
+	margin-top: 10px;
+	font-size: 14px;
+	line-height: 40px;
+}
+.user_c_l .add_section{
+	height: 40px;
+}
+.user_c_l select{
+	width: 150px;
+	height: 24px;
+}
+.user_c_l .add_search{
+	margin-left: 20px;
+	position: relative;
+}
+.user_c_l .add_search>input{
+	padding-left: 5px;
+	width: 120px;
+	height: 24px;
+}
+.user_c_l .add_search i{
+	position: absolute;
+	display: block;
+	top: 0px;
+	right: 5px;
+	/*border: 1px solid red;*/
+}
+.add_all{
+	margin-left: 10px;
+}
+
+.user_c_r{
+	width: 280px;
+	/*height: 500px;*/
+	margin-left: 20px;
+	/*background-color: #eee;*/
+	/*border: 1px solid #EEEEEE;*/
+	margin-top: 15px;
+}
+.user_c_r .add_selected{
+	width: 100%;
+	background-color: #337ab7;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	font-size: 14px;
 }

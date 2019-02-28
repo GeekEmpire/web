@@ -10,8 +10,86 @@
     <link rel="stylesheet" type="text/css" href="dist/me/css/base.css">
     <script src="dist/me/js/jquery-3.3.1.js" type="text/javascript"></script>
     <script src="dist/layui/layui.js" type="text/javascript"></script>
+    <script src="dist/me/js/vue.min.js" type="text/javascript"></script>
     <title>会议室详情介绍</title>
 </head>
+
+<form class="layui-form" action="" id="add_apply" style="display: none;margin: 20px 60px 0 15px">
+    <div class="layui-form-item">
+        <label class="layui-form-label">主题</label>
+        <div class="layui-input-block">
+            <input type="text" name="title"  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">会议室</label>
+        <div class="layui-input-inline open" data-method="notice"  >
+            <input type="password" name="password" required lay-verify="required" placeholder="请选择会议室" autocomplete="off" class="layui-input">
+        </div>
+
+        <label class="layui-form-label">日期</label>
+        <div class="layui-input-inline">
+            <input type="text" id="day"  name="" required lay-verify="required" placeholder="请选择日期" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">开始时间</label>
+        <div class="layui-input-inline">
+            <input type="number" min="0" max="60"   step="1" name="" required lay-verify="required" placeholder="时钟" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-input-inline">
+            <input type="number" min="0" max="60"  step="15" name="" required lay-verify="required" placeholder="分钟" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">结束时间</label>
+        <div class="layui-input-inline">
+            <input type="number"  min="0" max="60"  step="1" name="" required lay-verify="required" placeholder="时钟" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-input-inline">
+            <input type="number"  min="0" max="60"  step="15" name="" required lay-verify="required" placeholder="分钟" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">人数</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <script>
+        function chage(){
+            console.log(djfk);
+        }
+    </script>
+    <div class="layui-form-item">
+        <label class="layui-form-label">企业</label>
+        <div class="layui-input-inline" >
+            <select name="city" lay-verify="required" lay-filter="com" v-model="company">
+                <option value="">公司</option>
+                <option value="0" v-for="(item,i) in companys">{{item.city}}</option>
+            </select>
+        </div>
+        <div class="layui-input-inline">
+            <select name="city"  lay-verify="required" id="sections">
+                <option value="" >部门</option>
+                <!--<option value="0" v-for="(item,i) in sections">{{item.city}}</option>-->
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">会议介绍</label>
+        <div class="layui-input-block">
+            <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
 <body>
     <div class="goback">
         <a href="meetlist.html">返回会议室列表</a>
@@ -50,7 +128,7 @@
                 <p class="fl" >累计预定次数：80次</p>
                 <!--<a class="fl">查看该会议室近期预约</a>-->
             </div>
-            <a class="fr" href="apply.html">立即预定</a>
+            <a class="fr" id="apply_now">立即预定</a>
         </div>
 
         <!--日历加表格显示预约情况-->
@@ -81,6 +159,32 @@
     </div>
 
     <script>
+        $('#apply_now').on('click', function () {
+            console.log(1);
+            layer.open({
+                type: 1
+                ,title: false //不显示标题栏
+                // ,closeBtn: true
+                ,title: ["发起预定",'font-size:16px;']
+                ,area: ['720px','']
+                ,shade: 0.8
+                ,id: 'LAY_add_apply01' //设定一个id，防止重复弹出
+                // ,btn: ['确定', '取消']
+                ,btnAlign: 'c'
+                ,moveType: 1 //拖拽模式，0或者1
+                ,content: $('#add_apply')
+                // ,success: function(layero){
+                //     var btn = layero.find('.layui-layer-btn');
+                //     btn.find('.layui-layer-btn0').attr({
+                //         href: 'http://www.layui.com/'
+                //         ,target: '_blank'
+                //     });
+                // }
+            });
+        });
+
+
+
         layui.use('table', function(){
             var table = layui.table;
 
@@ -147,6 +251,8 @@
             });
         });
 
+
+        //轮播图
         layui.use('carousel', function(){
             var carousel = layui.carousel;
             //建造实例
@@ -159,10 +265,10 @@
             });
         });
 
+
         layui.use('laydate', function(){
             var laydate = layui.laydate;
-
-            //执行一个laydate实例
+            //查看预定的左边日历
             laydate.render({
                 elem: '#calender1' //指定元素
                 // ,show: true //直接显示
@@ -177,7 +283,117 @@
                     // console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
                 }
             });
+
+        //    弹出框日期选择
+            layui.use('laydate', function(){
+                var laydate = layui.laydate;
+
+                //执行一个laydate实例
+                laydate.render({
+                    elem: '#day' //指定元素
+                });
+            });
         });
+
+
+        //发起预定弹出框的js
+        layui.use('layer', function(){ //独立版的layer无需执行这一句
+            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+
+            //触发事件
+            var active = {
+                notice: function(){
+                    //示范一个公告层
+                    layer.open({
+                        type: 1
+                        ,title: false //不显示标题栏
+                        ,closeBtn: false
+                        ,area: '300px;'
+                        ,shade: 0.8
+                        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        ,btn: ['火速围观', '残忍拒绝']
+                        ,btnAlign: 'c'
+                        ,moveType: 1 //拖拽模式，0或者1
+                        ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">你知道吗？亲！<br>layer ≠ layui<br><br>layer只是作为Layui的一个弹层模块，由于其用户基数较大，所以常常会有人以为layui是layerui<br><br>layer虽然已被 Layui 收编为内置的弹层模块，但仍然会作为一个独立组件全力维护、升级。<br><br>我们此后的征途是星辰大海 ^_^</div>'
+                        ,success: function(layero){
+                            var btn = layero.find('.layui-layer-btn');
+                            btn.find('.layui-layer-btn0').attr({
+                                href: 'http://www.layui.com/'
+                                ,target: '_blank'
+                            });
+                        }
+                    });
+                }
+            };
+
+            $('.open').on('click', function(){
+                var othis = $(this), method = othis.data('method');
+                active[method] ? active[method].call(this, othis) : '';
+            });
+        });
+
+        layui.use('form', function(){
+            var form = layui.form;
+
+            //监听提交
+            form.on('submit(formDemo)', function(data){
+                layer.msg(JSON.stringify(data.field));
+                return false;
+            });
+            form.on('select(com)', function(data){
+                // console.log(data.elem); //得到select原始DOM对象
+                // console.log(data.value); //得到被选中的值
+                // console.log(data.othis); //得到美化后的DOM对象
+                var city = $('#sections');
+
+                $.ajax({url:"http://localhost:63342/服务外包/meet/1.json",success:function(result){
+                        // console.log(vm.sections);
+                        vm.sections = result.data;
+                        // console.log(vm.sections)
+                        vm.$forceUpdate();
+                        // console.log(result);
+                        // console.log(vm.sections);
+                        for(var i=0; i<vm.sections.length; i++) {
+                            console.log(i);
+                            city.append("<option>" + vm.sections[i].city + "</option>");
+                        }
+                        form.render('select');
+                    }});
+
+            });
+        });
+
+        var vm = new Vue({
+            el: '#add_apply',
+            data: {
+                companys: [
+
+                ],
+                sections: [
+
+                ],
+                company: null,
+                section: null
+            },
+            methods: {
+                // change(k){
+                //     console.log(k);
+                //     $$.ajax({url:"http://localhost:63342/服务外包/meet/1.json",success:function(result){
+                //         vm.sections = result.data;
+                //         console.log(vm.sections);
+                //         // console.log(vm.companys);
+                //             vm.$forceUpdate();
+                //     }});
+                // }
+            },
+            created(){
+                $.ajax({url:"http://localhost:63342/服务外包/meet/1.json",success:function(result){
+                        vm.companys = result.data;
+                        // console.log(result);
+                        // console.log(vm.companys);
+                    }});
+            }
+        })
     </script>
 </body>
 </html>
