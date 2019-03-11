@@ -101,10 +101,14 @@
             ,dataType: "json"
             ,success:function(result){
                 alert(result.msg);
-                setCookie();
-                $('#username').val("");
-                $('#userpwd').val("");
-                location.href = 'ht_index.html';
+                if(result.code==0){
+                    setCookie();
+                    $('#username').val("");
+                    location.href = 'ht_index.html';
+                } else{
+                    $('#userpwd').val("");
+                }
+
             }
             ,error: function (message) {
                 alert(message);

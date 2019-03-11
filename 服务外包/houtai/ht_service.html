@@ -125,36 +125,49 @@
 <div class="footerpage"></div>
 <!--footer over-->
 
+
 <!--申请人信息弹出-->
-<div id="people_detail" class="me_none"  style="margin-left: 45px" >
-    <ul id="mz_admin_info">
-        <li>
-            ID：<span>qq_154678787</span>
-        </li>
-        <li>姓名：<span>张大山</span></li>
-        <li>性别：<span>男</span></li>
-        <li>生日：<span>1995-03-08</span></li>
-        <li>职位：<span>生活部-部长</span></li>
-        <li>联系电话：<span>1008611</span></li>
-        <li>邮箱：<span>mingzhi@163.com</span></li>
-        <li>参加会议数：<span>10</span></li>
-        <li>发起会议数：<span>2</span></li>
-        <li>
-            简介：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span class="mz_info_intro" style="margin-right: 8%">
-                      就飞快的将疯狂夺金法鸡 就飞快的将疯狂夺金法鸡 就飞快的将疯狂夺金法鸡
-                    就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡
-                    就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡
-                    就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡
-                    就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡就飞快的将疯狂夺金法鸡
-                    </span>
-        </li>
+<div id="user_view" class="me_none"></div>
+<script type="text/html" id="user_show">
+    <ul id="mz_admin_info"  style="margin-left: 45px;" >
+        {{#  if(d.data != null){ }}
+            <li>
+            ID：<span>{{d.data.id}}</span>
+            </li>
+            <li>用户名：<span>{{d.data.name}}</span></li>
+            <li>手机号：<span>{{d.data.phone}}</span></li>
+            <li>邮箱：<span>{{d.data.email}}</span></li>
+            <li>公司：<span>{{d.data.company.name}}</span></li>
+            <li>
+                权限：
+                {{#  if(d.data.role == 1){ }}
+                    <span>普通用户</span>
+                {{#  } else if(d.data.role == 2) { }}
+                    <span>HR</span>
+                {{#  } else if(d.data.role == 3) { }}
+                    <span>后勤</span>
+                {{#  } else if(d.data.role == 4) { }}
+                    <span>管理员</span>
+                {{#  } }}
+            </li>
+        {{#  }else { }}
+            <li>无</li>
+        {{# }}}
     </ul>
-</div>
+</script>
+
+<div id="view_room" class="me_none"></div>
+<script id="meet_room" type="text/html">
+    <div style="font-size: 16px;margin: 20px 30px">
+        <p >会议室名：{{d.name}}</p>
+        <p >地点：{{d.building.location}}&nbsp;{{d.address}}</p>
+    </div>
+</script>
 
 <script>
     $(".headerpage").load("./page/header.html");
     $(".footerpage").load("./page/footer.html");
+
 
     function show_people(id){
         var data={ id: id};
@@ -166,43 +179,89 @@
             dataType: 'json',
             success: function (result) {
                 console.log(result);
+                if(result.code==0){
+                    layui.use('laytpl', function() {
+                        var laytpl = layui.laytpl;
+                        var tpldata = result;
+                        var getTpl = user_show.innerHTML, view = document.getElementById('user_view');
+                        laytpl(getTpl).render(tpldata, function (html) {
+                            view.innerHTML = html;
+                        });
+                        layer.open({
+                            type: 1
+                            , title: ['发起人信息查看', 'font-size:18px;']
+                            , area: ['300px', '360px']
+                            , id: 'show_people_detail' //设定一个id，防止重复弹出
+                            , btn: ['确定']
+                            , btnAlign: 'c'
+                            , moveType: 1 //拖拽模式，0或者1
+                            , content: $('#user_view')
+                        });
+                    });
+                } else {
+                    alert('系统错误，请稍后再试');
+                }
             }
         });
-        layui.use('form', function(){
-            var form = layui.form;
 
-            form.val("initForm", {})
-        });
-        layer.open({
-            type: 1
-            ,title: ['发起人信息查看', 'font-size:18px;']
-            ,area: ['600px','500px']
-            ,id: 'show_people_detail' //设定一个id，防止重复弹出
-            // ,btn: ['确定', '取消']
-            ,btnAlign: 'c'
-            ,moveType: 1 //拖拽模式，0或者1
-            ,content: $('#people_detail')
-        });
     }
 
     function show_location(id){
-        layui.use('form', function(){
-            var form = layui.form;
+        var tdata = {
+            "id": id
+        };
+        $.ajax({
+            url:"http://lsudjh.top:8081/meetingApply/get",
+            type:"POST",
+            data:JSON.stringify(tdata),
+            contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+            success:function(result){ //所有错误信息都如result.message有关
+                // alert(result.msg);
+                console.log(result);
 
-            form.val("initForm", { })
-        });
-        layer.open({
-            type: 1
-            ,title: ['会议室', 'font-size:18px;']
-            ,area: ['600px','500px']
-            ,id: 'show_location_detail' //设定一个id，防止重复弹出
-            // ,btn: ['确定', '取消']
-            ,btnAlign: 'c'
-            ,moveType: 1 //拖拽模式，0或者1
-            ,content: $('#meetroom_detail')
+                if(result.code==0){
+                    var roomdata = {
+                        id: result.data.roomId
+                    };
+                    $.ajax({
+                        url:"http://lsudjh.top:8081/meetingRoom/listEntity",
+                        type:"POST",
+                        data:JSON.stringify(roomdata),
+                        contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                        success:function(res){ //所有错误信息都如result.message有关
+                            // alert(result.msg);
+                            if(result.code==0){
+                                console.log(res);
+                                layui.use('laytpl', function() {
+                                    var laytpl = layui.laytpl;
+                                    var tpldata = res.data.data[0];
+                                    var getTpl = meet_room.innerHTML, view = document.getElementById('view_room');
+                                    laytpl(getTpl).render(tpldata, function (html) {
+                                        view.innerHTML = html;
+                                    });
+                                    layer.open({
+                                        type: 1
+                                        , title: ['会议室', 'font-size:18px;']
+                                        , area: ['300px', '200px']
+                                        , id: 'show_location_detail' //设定一个id，防止重复弹出
+                                        , btn: ['确定']
+                                        , btnAlign: 'c'
+                                        , moveType: 1 //拖拽模式，0或者1
+                                        , content: $('#view_room')
+                                    });
+                                });
+                            } else {
+                                alert('系统错误，请稍后再试');
+                            }
+                        }
+                    });
+                } else {
+                    alert('系统错误，请稍后再试');
+                }
+            }
         });
     }
-    // 数据表
+
     //时间转换
     Date.prototype.format = function (format) {
         var args = {
@@ -225,10 +284,11 @@
     };
     // alert(new Date().format("yyyy-MM-dd hh:mm:ss").toString());
 
+    // 数据表
     layui.use('table', function(){
         var table = layui.table;
         table.render({
-            elem: '#mz_service_table'     //未审核
+            elem: '#mz_service_table'     //为服务
             ,url:'http://lsudjh.top:8081/service/listEntity'
             ,contentType: 'application/json'
             ,method: 'post'
@@ -238,10 +298,10 @@
             ,cols: [[
                 {field:'id', title:'ID', unresize: true, sort: true}
                 ,{field:'applyId', title:'发起人' ,unresize: true,width:140
-                    , templet: '<div><a class="layui-table-link" onclick=show_people("{{d.id}}")>查看</a></div>'}
+                    , templet: '<div><a class="layui-table-link" onclick=show_people("{{d.workerId}}")>查看</a></div>'}
                 ,{field:'applyTime', title:'时间', unresize: true,width:180}
                 ,{field:'location', title:'位置' ,unresize: true, width:120
-                        , templet: '<div><a class="layui-table-link" onclick=show_location("{{d.id}}")>查看</a></div>'}
+                        , templet: '<div><a class="layui-table-link" onclick=show_location("{{d.applyId}}")>查看</a></div>'}
                 ,{field:'content', title:'事件', unresize: true,width:320}
                 // ,{field:'serviceTime', title:'响应时间', sort: true, unresize: true}
                 ,{fixed: 'right', title:'操作', toolbar: '#barMeet', unresize: true}
@@ -252,7 +312,7 @@
                 , page: 0
             }
             ,parseData: function(res){ //res 即为原始返回的数据
-                // var room_data = res.data.data;
+                console.log(res.data.data);
                 return {
                     "code": res.code, //解析接口状态
                     "msg": res.message, //解析提示文本
@@ -266,15 +326,15 @@
             ,url:'http://lsudjh.top:8081/service/listEntity'
             ,title: '已完成的服务数据表'
             // ,cellMinWidth: 100
-            ,id:'noticeTable'
+            ,id:'serveredTable'
             ,contentType: 'application/json'
             ,method: 'post'
             ,cols: [[
                 {field:'id', title:'ID', unresize: true, sort: true}
                 ,{field:'applyId', title:'发起人' ,unresize: true
-                    , templet: '<div><a class="layui-table-link" onclick=show_people("{{d.id}}")>查看</a></div>'}
+                    , templet: '<div><a class="layui-table-link" onclick=show_people("{{d.workerId}}")>查看</a></div>'}
                 ,{field:'location', title:'位置' ,unresize: true
-                    , templet: '<div><a class="layui-table-link" onclick=show_location("{{d.id}}")>查看</a></div>'}
+                    , templet: '<div><a class="layui-table-link" onclick=show_location("{{d.applyId}}")>查看</a></div>'}
                 ,{field:'content', title:'事件', unresize: true,width:300}
                 ,{field:'applyTime', title:'发起时间', sort: true, unresize: true,width:200}
                 ,{field:'serviceTime', title:'响应时间', sort: true, unresize: true,width:200}
@@ -287,6 +347,7 @@
             }
             ,parseData: function(res){ //res 即为原始返回的数据
                 // var room_data = res.data.data;
+                console.log(res.data.data);
                 return {
                     "code": res.code, //解析接口状态
                     "msg": res.message, //解析提示文本
@@ -314,8 +375,14 @@
                             alert(result.msg);
                             if(result.code==0){
                                 obj.del();   //删除对应行（tr）的DOM结构，并更新缓存
+                                table.reload('serveredTable', {
+                                    where:{
+                                        order :'id asc'
+                                    }
+                                });
                             }
                             layer.close(index);//关闭弹出框
+
                         }
                     });
                 })

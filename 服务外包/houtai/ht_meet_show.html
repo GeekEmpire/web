@@ -6,11 +6,23 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="layui/css/layui.css">
-    <link rel="stylesheet" type="text/css" href="dist/me/css/base.css">
+    <link rel="stylesheet" type="text/css" href="dist/css/me.css">
+    <!--<link rel="stylesheet" type="text/css" href="dist/me/css/base.css">-->
     <script src="dist/js/jquery-3.3.1.min.js" type="text/javascript"></script>
     <script src="layui/layui.js" type="text/javascript"></script>
+    <script src="dist/js/vue.min.js"></script>
     <title>会议室详情介绍</title>
     <style>
+        #add_img_url{
+            background-color: #fff;
+            height: 150px!important;
+        }
+        .header_info{
+            position: absolute;
+            top: -37px;
+            left: 42%;
+            font-size: 16px;
+        }
         /*返回*/
         .goback{
             margin: 15px 15px;
@@ -36,10 +48,13 @@
         /*标签*/
         .pflags{
             position: relative;
-            height: 40px;
+            display: block;
+            width: 100%;
+            height: auto;
         }
         .pflag{
             float: left;
+            display: block;
             border: 1px solid #1E9FFF;
             border-radius: 5px;
             height: 22px;
@@ -54,6 +69,8 @@
 
         /*详细描述*/
         .meet_describe{
+            position: relative;
+            display: block;
             margin-top: 20px;
             margin-bottom: 20px;
         }
@@ -88,57 +105,723 @@
             margin-right: 60px;
             color: #222;
         }
+
         .fl{
             float: left;
         }
         .fr{
             float: right;
         }
+        .layer-page .layui-layer-btn{
+            background-color: #fff!important;
+        }
+        .layui-layer-btn-c{
+            background-color: #fff;
+        }
+
+        /*设置按钮*/
+        .setting{
+            position: fixed;
+            top: 30%;
+            right: 30px;
+        }
+        .setting span{
+            color: #000;
+            font-size: 24px;
+        }
+        .setting> p{
+            font-size: 12px;
+            text-align: center;
+        }
+        .setting span:hover{
+            color: #0b859c;
+        }
+        .setting_btn{
+            margin-top: 5px;
+        }
+        .setting_btn p{
+            width: 50px;
+            font-size: 12px;
+        }
+        .setting_btn p span{
+            font-size: 12px;
+            margin-right: 5px;
+        }
+        .setting_btn a{
+            cursor: pointer;
+        }
+
+        /*批量添加部分*/
+        #add_equip{
+            display: none;
+        }
+        .equip_c_l{
+            width: 380px;
+            /*height: 500px;*/
+            margin-left: 20px;
+            /*background-color: #eee;*/
+            /*border: 1px solid #EEEEEE;*/
+            margin-top: 10px;
+            font-size: 14px;
+            line-height: 40px;
+        }
+        .equip_c_l .add_section{
+            height: 40px;
+        }
+        .equip_c_l select{
+            width: 150px;
+            height: 24px;
+        }
+        .equip_c_l .add_search{
+            margin-left: 20px;
+            position: relative;
+        }
+        .equip_c_l .add_search>input{
+            padding-left: 5px;
+            width: 100px;
+            height: 24px;
+        }
+        .equip_c_l .add_search i{
+            position: absolute;
+            display: block;
+            top: 0px;
+            right: 5px;
+            /*border: 1px solid red;*/
+        }
+        .add_i:hover{color: #0b859c}
+        .add_all{
+            margin-left: 10px;
+        }
+
+        .equip_c_r{
+            width: 280px;
+            margin-left: 20px;
+            margin-top: 15px;
+        }
+        .equip_c_r .add_selected{
+            width: 100%;
+            background-color: #337ab7;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .del_i:hover{color:#0b859c}
     </style>
 </head>
+
+<!--查看图片-->
+<div id="view_img" style="display: none"></div>
+<script id="meet_img" type="text/html">
+    <div style="font-size: 16px;margin: 20px 30px">
+        {{# if(d.autoList==null) { }}
+        <p>暂无</p>
+        {{# } }}
+
+        <!--{{# for(var i = 0; i < d.tag.autoList; i++){ }}-->
+        <!--<p>{{d.autoList[i].name}}-->
+            <!--<span style="float: right;">-->
+                    <!--<a onclick=del_tag('{{d.autoList[i].id}}','{{d.id}}')>删除</a> &nbsp;-->
+            <!--</span>-->
+        <!--</p>-->
+        <!--{{# } }}-->
+        <button id=""></button>
+    </div>
+</script>
+
+<div id="img_ms" style="display: none"><!--user头像-->
+    <img id="showimg" style="width: 200px">
+    <a id="up_img" style="left: 120px; top: 175px; "><i class="layui-icon">&#xe67c;</i>添加图片</a>
+    <button id="submit_up" class="layui-btn layui-btn-sm" style="left: 115px">提交</button>
+</div>
+
 <body>
+    <div class="setting">
+        <p class="menu">配置</p>
+        <div class="setting_btn layui-anim-upbit layui-anim">
+            <p><span class="layui-icon-upload layui-icon"></span><a class="a_img">图片</a></p>
+            <p><span class="layui-icon-note layui-icon"></span><a class="a_tag">标签</a></p>
+            <p><span class="layui-icon-chart-screen layui-icon"></span><a class="a_equip">设备</a></p>
+        </div>
+    </div>
     <div class="goback">
         <a href="ht_meet.html">返回会议室管理</a>
     </div>
-    <div class="layui-container">
+    <div class="layui-container" id="meet_show">
+        <div class="header_info">
+            {{meetInfo.name}}：{{meetInfo.building.location}}-{{meetInfo.address}}
+        </div>
         <div class="layui-carousel" id="slider_img">
             <div carousel-item class="img_swiper">
                 <img src="dist/img/huiyi1.jpg">
-                <img src="dist/img/huiyi2.jpg">
-                <img src="dist/img/huiyi3.jpg">
-                <img src="dist/img/huiyi4.jpg">
+                <img src="dist/img/huiyi2.jpg" v-if="meetInfo.autoList==null">
+                <!--<img src="dist/img/huiyi2.jpg">-->
+                <!--<img src="dist/img/huiyi3.jpg">-->
+                <!--<img src="dist/img/huiyi4.jpg">-->
             </div>
-            <div class="img_describe">会议室一览</div>
+            <div class="img_describe">容量：{{meetInfo.volume}}</div>
         </div>
         <!-- 条目中可以是任意内容，如：<img src=""> -->
         <div class="pflags">
-            <div class="pflag"><h5>50人</h5></div>
-            <div class="pflag"><h5>配有WiFi</h5></div>
-            <div class="pflag"><h5>4k超高清矩阵</h5></div>
-            <div class="pflag"><h5>9个发表单元</h5></div>
-            <div class="pflag"><h5>可投屏</h5></div>
+            <div class="pflag" v-if="meetInfo.tag.length==0">
+                <h5>无标签</h5>
+            </div>
+            <div class="pflag" v-for="(item,i) in meetInfo.tag">
+                <h5>{{item.name}}</h5>
+            </div>
+            <br style="clear:both;" /><!--清楚浮动带来的内部无法撑开父元素-->
+            <!--<div class="pflag"><h5>配有WiFi</h5></div>-->
         </div>
-        <br>
+        <!--<br>-->
         <div class="meet_describe">
+            <p style="margin-bottom: 10px">设备：
+                <span style="margin-right: 20px" v-if="meetInfo.equipment.length==0">无</span>
+                <span v-for="(item,i) in meetInfo.equipment" style="margin-right: 20px">{{item.name}}</span>
+            </p>
             <p>
-                中国领先的会议场地、活动资源在线预订平台。南京会议场地、南京会议酒店、南京年会场地
-                、南京年会酒店、南京酒店会议室、南京酒店宴会厅、南京酒店会场预订，会议场地租赁，就上
-                会小二，开会+住宿+用餐一站式会议服务平台，开启28分钟疾速场地直订服务，免费获3-6套会议
-                报价方案，轻松搞定公司年会场地、培训会场地、发布会场地、研讨会场地、招商会场地、答谢
-                会场地、经销商会议场地、工作总结会场地、沙龙/休闲会议场地。
+                介绍：{{meetInfo.detail}}
+                <span v-if="meetInfo.detail==''||meetInfo.detail==null">无</span>
             </p>
         </div>
         <div class="meet_apply">
             <div class="fl">
                 <p class="fl">预计预定成功率：80%</p>
-                <p class="fl" >累计预定次数：80次</p>
+                <p class="fl" >累计预定次数：{{meetInfo.hot}}次</p>
+                <p class="fl" >价格：{{meetInfo.price}}元/小时</p>
                 <!--<a class="fl">查看该会议室近期预约</a>-->
             </div>
             <a class="fr" href="apply.html">立即预定</a>
         </div>
+
+        <div id="add_equip" style="display: none;">
+            <div class="equip_c_l fl">
+                <div>
+                    <div class="add_section fl">
+                        <span>设备：</span>
+                    </div>
+                    <div class="add_search fl">
+                        <input type="text" placeholder="设备名" v-model="sd" @change="search_device(sd)" style="width: 220px">
+                        <a><i class="layui-icon layui-icon-search"></i></a>
+                    </div>
+                    <a class="add_all" @click="add_allDevice">全选</a>
+                </div>
+                <table class="layui-table">
+                    <colgroup>
+                        <col width="180">
+                        <col width="120">
+                        <col width="25">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                    <tr v-for="(item,i) in deviceInfo">
+                        <td>{{item.name}}</td>
+                        <td>id：{{item.id}}</td>
+                        <td><a class="layui-icon layui-icon-ok add_i" @click="add_device(item.id,item.name)"></a></td>
+                    </tr>
+                    <tr v-if="deviceInfo.length==0">
+                        <td>无</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="equip_c_r fl">
+                <div>
+                    <p class="add_selected">已添加设备：{{nowDevices.length}}</p>
+                </div>
+                <table class="layui-table">
+                    <colgroup>
+                        <col width="180">
+                        <col width="120">
+                        <col width="25">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                    <tr v-for="(item,i) in nowDevices">
+                        <td>{{item.name}}</td>
+                        <td>id：{{item.id}}</td>
+                        <td><a class="layui-icon layui-icon-close green del_i" @click="del_device(item.id,item.name)"></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="add_tag" style="display: none;">
+            <div class="equip_c_l fl">
+                <div>
+                    <div class="add_section fl">
+                        <span>设备：</span>
+                    </div>
+                    <div class="add_search fl">
+                        <input type="text" placeholder="标签名" v-model="st" @change="search_device(st)" style="width: 220px">
+                        <a><i class="layui-icon layui-icon-search"></i></a>
+                    </div>
+                    <a class="add_all" @click="add_allTag">全选</a>
+                </div>
+                <table class="layui-table">
+                    <colgroup>
+                        <col width="180">
+                        <col width="120">
+                        <col width="25">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                    <tr v-for="(item,i) in tagInfo">
+                        <td>{{item.name}}</td>
+                        <td>id：{{item.id}}</td>
+                        <td><a class="layui-icon layui-icon-ok add_i" @click="add_tag(item.id,item.name)"></a></td>
+                    </tr>
+                    <tr v-if="tagInfo.length==0">
+                        <td>无</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="equip_c_r fl">
+                <div>
+                    <p class="add_selected">已添加设备：{{nowTags.length}}</p>
+                </div>
+                <table class="layui-table">
+                    <colgroup>
+                        <col width="180">
+                        <col width="120">
+                        <col width="25">
+                        <col>
+                    </colgroup>
+                    <tbody>
+                    <tr v-for="(item,i) in nowTags">
+                        <td>{{item.name}}</td>
+                        <td>id：{{item.id}}</td>
+                        <td><a class="layui-icon layui-icon-close green del_i" @click="del_tag(item.id,item.name)"></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <script>
+        function show_img(id,companyId,dName) {
+            // console.log(id+' '+companyId);
+            layer.open({
+                type: 1
+                , title: ['添加', 'font-size:14px;']
+                , area: ['210px', '160px']
+                , id: 'add_img_url' //设定一个id，防止重复弹出
+                , btn: ['确定', '取消']
+                , btnAlign: 'c'
+                , content: $('#view_img')
+                , yes: function (index, layero) {
+                    // var dedata = {
+                    //     "companyId":companyId,
+                    //     name: $('#edn').val(),
+                    //     id: id
+                    // };
+                    $.ajax({
+                        url: "http://lsudjh.top:8081/department/update",
+                        type: "POST",
+                        data: JSON.stringify(dedata),
+                        contentType: "application/json",  //缺失会出现URL编码，无法转成json对象
+                        success: function (result) { //所有错误信息都如result.message有关
+                            alert(result.msg);
+                            getDeparment(companyId);
+                            layer.close(index);
+                        }
+                    });
+                }
+            });
+        }
+        function getImgs(){
+            layui.use('laytpl', function() {
+                var laytpl = layui.laytpl;
+                var tpldata = vm.meetInfo;
+                var getTpl = meet_img.innerHTML, view = document.getElementById('view_img');
+                laytpl(getTpl).render(tpldata, function (html) {
+                    view.innerHTML = html;
+                });
+            });
+        }
+        function del_tag(id,roomId,tName) {
+            console.log(id+' '+roomId);
+            layer.confirm('确认删除该标签?', {icon: 3, title:'提示'}, function(index){
+                var idList = '';
+                var p =0;
+                for(var i=0;i<vm.meetInfo.tag.length;i++){
+                    if(id!=vm.meetInfo.tag[i].id){
+                        if(p!=0){
+                            idList+=',';
+                        }
+                        idList+=vm.meetInfo.tag[i].id;
+                        p++;
+                    }
+                }
+                var dedata = {
+                    "roomId":roomId,
+                    tag: idList
+                };
+                console.log(dedata);
+                $.ajax({
+                    url: "http://lsudjh.top:8081/meetingRoom/updateTag",
+                    type: "POST",
+                    data: JSON.stringify(dedata),
+                    contentType: "application/json",  //缺失会出现URL编码，无法转成json对象
+                    success: function (result) { //所有错误信息都如result.message有关
+                        alert(result.msg);
+                        vm.getMeetInfo();
+                        getTags();
+                        layer.close(index);
+                    }
+                });
+                layer.close(index);
+            });
+        }
+
+        // 文件上传
+        layui.use('upload', function(){
+            var upload = layui.upload;
+            var uploadInst = upload.render({
+                elem: '#up_img'
+                ,url: 'http://lsudjh.top:8081/file/addMeetingRoomAuto'
+                ,auto: false
+                ,bindAction: '#submit_up'
+                ,data: {
+                    meetingRoomId: function(){
+                        return vm.meetInfo.id;
+                    }
+                }
+                ,choose:function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    // console.log(vm.imgId);
+                    obj.preview(function(index, file, result){
+                        $('#showimg').attr('src', result); //图片链接（base64）
+                    });
+                }
+                ,done: function(res){
+                    //如果上传失败
+                    if(res.code > 0){
+                        return layer.msg('上传失败');
+                    }
+                    // console.log(res.data);
+                    $('#showimg').attr('src', '');
+                    alert("添加成功");
+                    layer.close(2);
+                }
+            });
+        });
+
+        $('.a_img').on('click',function () {
+            console.log(1);
+            getImgs();
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                layer.open({
+                    type: 1
+                    , title: ['会议室图片', 'font-size:14px;']
+                    , area: ['320px', '200px']
+                    , id: 'meet_img_url' //设定一个id，防止重复弹出
+                    , btn: ['添加', '取消']
+                    , btnAlign: 'c'
+                    , content: $('#view_img')
+                    , yes: function (index, layero) {
+                        layer.open({
+                            type: 1
+                            , title: ['添加图片', 'font-size:14px;']
+                            , id: 'add_meet_url' //设定一个id，防止重复弹出
+                            ,area: ['320px', '300px']
+                            ,content: $('#img_ms')
+                            , yes: function (index, layero) {
+
+                            }
+                        });
+                    }
+                });
+            })
+        });
+        $('.a_tag').on('click',function () {
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                layer.open({
+                    type: 1
+                    , title: ['标签', 'font-size:16px;']
+                    , area: ['720px', '400px']
+                    , id: 'show_tag_detail' //设定一个id，防止重复弹出
+                    , btn: ['确认修改', '取消']
+                    , btnAlign: 'c'
+                    , moveType: 1 //拖拽模式，0或者1
+                    , content: $('#add_tag')
+                    , yes: function (ti) {
+                        layer.confirm('确认修改？', {icon: 3, title:'提示'}, function(index){
+                            var data = {
+                                "roomId": vm.meetInfo.id,
+                                tag: ''
+                            };
+                            for(var i=0;i<vm.nowTags.length;i++){
+                                if(i==0){
+                                    data.tag+=vm.nowTags[i].id;
+                                } else{
+                                    data.tag+= (','+vm.nowTags[i].id);
+                                }
+                            }
+                            console.log(data);
+                            $.ajax({
+                                url:"http://lsudjh.top:8081/meetingRoom/updateTag",
+                                type:"POST",
+                                data:JSON.stringify(data),
+                                contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                                success:function(result){ //所有错误信息都如result.message有关
+                                    layer.close(index);
+                                    alert(result.msg);
+                                    if(result.code==0){
+                                        vm.getMeetInfo();
+                                        layer.close(ti);
+                                    }
+                                }
+                            });
+                        });
+                    }
+                });
+            })
+        })
+        $('.a_equip').on('click',function () {
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                layer.open({
+                    type: 1
+                    , title: ['设备', 'font-size:16px;']
+                    , area: ['750px', '400px']
+                    , id: 'show_device_detail' //设定一个id，防止重复弹出
+                    , btn: ['确认修改', '取消']
+                    , btnAlign: 'c'
+                    , moveType: 1 //拖拽模式，0或者1
+                    , content: $('#add_equip')
+                    , yes: function (ti) {
+                        layer.confirm('确认修改？', {icon: 3, title:'提示'}, function(index){
+                            var data = {
+                                "roomId": vm.meetInfo.id,
+                                equipment: ''
+                            };
+                            for(var i=0;i<vm.nowDevices.length;i++){
+                                if(i==0){
+                                    data.equipment+=vm.nowDevices[i].id;
+                                } else{
+                                    data.equipment+= (','+vm.nowDevices[i].id);
+                                }
+                            }
+                            console.log(data);
+                            $.ajax({
+                                url:"http://lsudjh.top:8081/meetingRoom/updateEquipment",
+                                type:"POST",
+                                data:JSON.stringify(data),
+                                contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                                success:function(result){ //所有错误信息都如result.message有关
+                                    layer.close(index);
+                                    alert(result.msg);
+                                    if(result.code==0){
+                                        vm.getMeetInfo();
+                                        layer.close(ti);
+                                    }
+                                }
+                            });
+                        });
+                    }
+                });
+            })
+        })
+        var vm = new Vue({
+            el: '#meet_show',
+            data: {
+                meetInfo: {
+                    address: "",
+                    autoList: [],
+                    building: {id: '', location: ""},
+                    cover: "",
+                    detail: "",
+                    equipment: [],
+                    hot: ',',
+                    id: '',
+                    isUsing: 0,
+                    name: "",
+                    price: 40,
+                    tag: [],
+                    volume: ''
+                },
+                deviceInfo: [], nowDevices:[], searchDevices:[],sd: '',//数组可以不填，对象必须要有,这里是设备
+                tagInfo:[],nowTags:[],searchTags:[],st: '',//这里是标签
+            },
+            methods: {
+                getMeetInfo(){
+                    var id = window.location.href.split('=')[1];
+                    // console.log(id);
+                    var data = {
+                        id: id
+                    };
+                    $.ajax({
+                        url:"http://lsudjh.top:8081/meetingRoom/listEntity",
+                        type:"POST",
+                        data:JSON.stringify(data),
+                        contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                        success:function(result){ //所有错误信息都如result.message有关
+                            if(result.code==0){
+                                vm.meetInfo = result.data.data[0];
+                                vm.nowDevices = vm.meetInfo.equipment;
+                                vm.nowTags = vm.meetInfo.tag;
+                            }
+                            console.log(result);
+                        }
+                    });
+                },
+
+                //设备部分
+                getDeviceInfo(){
+                    var data = {};
+                    $.ajax({
+                        url:"http://lsudjh.top:8081/equipment/listEntity",
+                        type:"POST",
+                        data:JSON.stringify(data),
+                        contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                        success:function(result){ //所有错误信息都如result.message有关
+                            // console.log(result);
+                            if(result.code==0){
+                                vm.deviceInfo = result.data.data;
+                            }
+                        }
+                    });
+                },
+                add_allDevice(){
+                    this.nowDevices = JSON.parse(JSON.stringify(this.deviceInfo));
+                },
+                add_device(id,name){
+                    // console.log(id);
+                    var l = this.nowDevices.length;
+                    var p=1;
+                    for(var i=0;i<l;i++)
+                    {
+                        if(id==this.nowDevices[i].id){
+                            // console.log('已存在');
+                            layer.msg('已添加',{
+                                time: 800
+                            });
+                            p=0;
+                            break;
+                        }
+                    }
+                    if(p){
+                        this.$set(this.nowDevices,l,{id: id, name:name});
+                    }
+                    // console.log(this.nowDevices);
+                },
+                del_device(id,name){
+                    var l = this.nowDevices.length;
+                    var p=1;
+                    for(var i=0;i<l;i++)
+                    {
+                        if(id==this.nowDevices[i].id){
+                            this.nowDevices.splice(i,1);
+                            break;
+                        }
+                    }
+                },
+                search_device(key){
+                    // console.log(key);
+                    var data = {
+                        name: key,
+                        "order": "id asc"
+                    };
+                    $.ajax({
+                        url:"http://lsudjh.top:8081/equipment/listEntity",
+                        type:"POST",
+                        data:JSON.stringify(data),
+                        contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                        success:function(result){ //所有错误信息都如result.message有关
+                            // console.log(result);
+                            if(result.code==0){
+                                vm.deviceInfo = result.data.data;
+                            }
+                        }
+                    });
+                },
+
+                //标签部分
+                getTagInfo(){
+                    var data = {};
+                    $.ajax({
+                        url:"http://lsudjh.top:8081/tag/listEntity",
+                        type:"POST",
+                        data:JSON.stringify(data),
+                        contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                        success:function(result){ //所有错误信息都如result.message有关
+                            if(result.code==0){
+                                vm.tagInfo = result.data.data;
+                            }
+                        }
+                    });
+                },
+                add_allTag(){
+                    this.nowTags = JSON.parse(JSON.stringify(this.tagInfo));
+                },
+                add_tag(id,name){
+                    // console.log(id);
+                    var l = this.nowTags.length;
+                    var p=1;
+                    for(var i=0;i<l;i++)
+                    {
+                        if(id==this.nowTags[i].id){
+                            // console.log('已存在');
+                            layer.msg('已添加',{
+                                time: 800
+                            });
+                            p=0;
+                            break;
+                        }
+                    }
+                    if(p){
+                        this.$set(this.nowTags,l,{id: id, name:name});
+                    }
+                    // console.log(this.nowDevices);
+                },
+                del_tag(id,name){
+                    var l = this.nowTags.length;
+                    var p=1;
+                    for(var i=0;i<l;i++)
+                    {
+                        if(id==this.nowTags[i].id){
+                            this.nowTags.splice(i,1);
+                            break;
+                        }
+                    }
+                },
+                search_tag(key){
+                    // console.log(key);
+                    var data = {
+                        name: key,
+                        "order": "id asc"
+                    };
+                    $.ajax({
+                        url:"http://lsudjh.top:8081/tag/listEntity",
+                        type:"POST",
+                        data:JSON.stringify(data),
+                        contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                        success:function(result){ //所有错误信息都如result.message有关
+                            // console.log(result);
+                            if(result.code==0){
+                                vm.tagInfo = result.data.data;
+                            }
+                        }
+                    });
+                }
+            },
+            created(){
+
+            }
+        })
+        vm.getMeetInfo();
+        vm.getDeviceInfo();
+
+        vm.getTagInfo();
+
+
+        //轮播图
         layui.use('carousel', function(){
             var carousel = layui.carousel;
             //建造实例

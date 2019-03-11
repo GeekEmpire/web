@@ -56,11 +56,6 @@
             <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
         </div>
     </div>
-    <script>
-        function chage(){
-            console.log(djfk);
-        }
-    </script>
     <div class="layui-form-item">
         <label class="layui-form-label">企业</label>
         <div class="layui-input-inline" >
@@ -183,8 +178,6 @@
             });
         });
 
-
-
         layui.use('table', function(){
             var table = layui.table;
 
@@ -251,7 +244,6 @@
             });
         });
 
-
         //轮播图
         layui.use('carousel', function(){
             var carousel = layui.carousel;
@@ -264,7 +256,6 @@
                 ,height:'450px'
             });
         });
-
 
         layui.use('laydate', function(){
             var laydate = layui.laydate;
@@ -288,13 +279,12 @@
             layui.use('laydate', function(){
                 var laydate = layui.laydate;
 
-                //执行一个laydate实例
                 laydate.render({
                     elem: '#day' //指定元素
+                    ,calendar: true
                 });
             });
         });
-
 
         //发起预定弹出框的js
         layui.use('layer', function(){ //独立版的layer无需执行这一句

@@ -6,17 +6,19 @@
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
   <link rel="shortcut icon" href="favicon_16.ico"/>
   <!-- <link rel="bookmark" href="favicon_16.ico"/> -->
-  <!-- site css -->
-  <link rel="stylesheet" href="dist/css/site.min.css">
-  <link rel="stylesheet" href="dist/css/me.css">
+
   <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
   <!--[if lt IE 9]>
   <script src="js/html5shiv.js"></script>
   <script src="js/respond.min.js"></script>
   <![endif]-->
+  <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+  <script src="layui/layui.js" charset="utf-8" type="text/javascript"></script>
+  <link rel="stylesheet" href="dist/css/me.css">
+  <link rel="stylesheet" href="dist/css/site.min.css">
   <script type="text/javascript" src="dist/js/site.min.js"></script>
-  <script type="text/javascript" src="dist/js/houtai.js"></script>
   <script src="dist/js/vue.min.js"></script>
+  <script src="dist/js/jquery-3.3.1.min.js"></script>
 </head>
 <body>
 <!--nav 顶部导航栏-->
@@ -136,26 +138,10 @@
             <div class="row">
               <!--代审核列表-->
               <div class="col-md-6">
-                <h5 class="me_center">代审核列表<a class=" glyphicon glyphicon-eye-open me_margin_leftsm" href="ht_shenhe.html"></a></h5>
+                <h5 class="me_center">预约列表<a class=" glyphicon glyphicon-eye-open me_margin_leftsm" href="ht_shenhe.html"></a></h5>
+
                 <div class="table ">
-                  <table class="table table-responsive table-bordered">
-                    <tr>
-                      <th>申请人</th>
-                      <th>会议室</th>
-                      <th>开始时间</th>
-                      <th>结束时间</th>
-                      <th>操作</th>
-                    </tr>
-                    <tr v-for="(item,i) in applays">
-                      <td>{{item.workerId}}</td>
-                      <td>{{item.roomId}}</td>
-                      <td>{{item.beginTime}}</td>
-                      <td>{{item.endTime}}</td>
-                      <td>
-                        <button @click="agree">批准</button>
-                        <button @click="refuse">拒绝</button>
-                      </td>
-                    </tr>
+                    <table class="layui-hide" id="mz_shenhe_table" lay-filter="mz_shenhe_table"></table>
                   </table>
                 </div>
               </div><!--待审核列表end-->
@@ -223,28 +209,82 @@
 </div>
 
 
+<!--申请人信息弹出-->
+<div id="user_view" class="me_none"></div>
+<script type="text/html" id="user_show">
+  <ul style="margin-left: 45px;" id="show_user_info" >
+    {{#  if(d.data != null){ }}
+    <li>
+      ID：<span>{{d.data.id}}</span>
+    </li>
+    <li>用户名：<span>{{d.data.name}}</span></li>
+    <li>手机号：<span>{{d.data.phone}}</span></li>
+    <li>邮箱：<span>{{d.data.email}}</span></li>
+    <li>公司：<span>{{d.data.company.name}}</span></li>
+    <li>
+      权限：
+      {{#  if(d.data.role == 1){ }}
+      <span>普通用户</span>
+      {{#  } else if(d.data.role == 2) { }}
+      <span>HR</span>
+      {{#  } else if(d.data.role == 3) { }}
+      <span>后勤</span>
+      {{#  } else if(d.data.role == 4) { }}
+      <span>管理员</span>
+      {{#  } }}
+    </li>
+    {{#  }else { }}
+    <li>无</li>
+    {{# }}}
+  </ul>
+</script>
+
+<script type="text/html" id="tstatus"><!--公司-->
+{{#  if(d.status == 0){ }}
+<p>未安排</p>
+{{#  }else if(d.status==1) { }}
+<p>安排</p>
+{{# } else if(d.status==2) { }}
+<p>进行中</p>
+{{# } else if(d.status==3) { }}
+<p>结束</p>
+{{#  } }}
+</script>
+<script type="text/html" id="tuse">
+  {{#
+    var time = function(){
+      var start = d.beginTime.split(':')[0]+':'+d.beginTime.split(':')[1];
+      var end = d.endTime.split(" ")[1];
+
+      return start+'-'+end.split(":")[0]+':'+end.split(":")[1];
+    };
+  }}
+  {{time()}}
+</script>
 
 <script>
-  var vm = new Vue({
+    $(".headerpage").load("./page/header.html");
+
+    var vm = new Vue({
       el: '#main_content',
       data:{
           notices : [],
           applays: [
               {
-                  "id": 1,
-                  "workerId": 20,
-                  "topic": "年会",
-                  "intro": "年度总结，附带抽奖",
-                  "documentList": null,
-                  "roomId": null,
-                  "attendance": 100,
-                  "beginTime": "2019-02-28 17:00:00",
-                  "endTime": "2019-03-01 00:00:00",
-                  "status": 0,
-                  "applyTime": "2019-02-18 19:19:35",
-                  "applyUpdateTime": "2019-02-19 16:59:52",
-                  "price": 0,
-                  "flexible": 1
+                  "id": '',
+                  "workerId": '',
+                  "topic": "",
+                  "intro": "",
+                  "documentList": '',
+                  "roomId": '',
+                  "attendance": '',
+                  "beginTime": "",
+                  "endTime": "",
+                  "status": '',
+                  "applyTime": "",
+                  "applyUpdateTime": "",
+                  "price": '',
+                  "flexible": ''
               }
           ],
 
@@ -259,6 +299,21 @@
           },
           getNotice(){
 
+          },
+          getMe(){
+              var tdata={
+                  userId: '6'
+              };
+              $.ajax({
+                  type: "POST"
+                  ,url:"http://lsudjh.top:8081/meetingApply/listByAttendWorker"
+                  ,contentType: 'application/json;charset=utf-8'
+                  ,data: JSON.stringify(tdata)
+                  ,dataType: "json"
+                  ,success:function(result){
+                      console.log(result);
+                  }
+              });
           },
           getApply(){
               var tdata={
@@ -285,7 +340,7 @@
                               ,data: JSON.stringify(d)
                               ,dataType: 'json'
                               ,success:function (result) {
-                                  console.log(result);
+                                  // console.log(result);
                                   // var name = result.data.name;
                                   // odata[i].workerId = name;
                                   // console.log(odata);
@@ -306,16 +361,76 @@
           }
       },
       created: function () {
-          this.getNotice();
-          this.getApply();
-          this.getAttendance();
+          // this.getNotice();
+          // this.getApply();
+          // this.getAttendance();
+          this.getMe();
       }
   });
-  $(function(){
-      /*公共部分
-       * 导航栏
-       */
-      $(".headerpage").load("./page/header.html");
+
+    function show_people(id){
+        var data={ id: id};
+        $.ajax({
+            url: 'http://lsudjh.top:8081/user/get',
+            type: 'post',
+            data: JSON.stringify(data) ,
+            contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+                if(result.code==0){
+                    layui.use('laytpl', function() {
+                        var laytpl = layui.laytpl;
+                        var tpldata = result;
+                        var getTpl = user_show.innerHTML, view = document.getElementById('user_view');
+                        laytpl(getTpl).render(tpldata, function (html) {
+                            view.innerHTML = html;
+                        });
+                        layer.open({
+                            type: 1
+                            , title: ['发起人信息查看', 'font-size:18px;']
+                            , area: ['300px', '360px']
+                            , id: 'show_people_detail' //设定一个id，防止重复弹出
+                            , btn: ['确定']
+                            , btnAlign: 'c'
+                            , moveType: 1 //拖拽模式，0或者1
+                            , content: $('#user_view')
+                        });
+                    });
+                } else {
+                    alert('系统错误，请稍后再试');
+                }
+            }
+        });
+
+    }
+  layui.use('table', function(){
+      var table = layui.table;
+      table.render({
+          elem: '#mz_shenhe_table'     //未审核
+          ,url:'http://lsudjh.top:8081/meetingApply/listEntity'
+          ,method: 'post'
+          ,contentType: 'application/json'
+          ,cols: [[
+              {field:'topic', title:'会议主题',width:120, unresize: true}
+              ,{field:'workerId',title:'申请人', width: 72,
+              templet: '<div><a class="layui-table-link" onclick=show_people("{{d.workerId}}")>查看</a></div>'}
+              ,{field:'useTime', title:'申请时间段', width:182, sort: true, unresize: true,
+                  templet:'#tuse'}
+              ,{field:'status', title:'状态',templet: '#tstatus'}
+          ]]
+          ,page: false
+          ,where: {size:6, page:1,order :'id asc'}
+          ,parseData: function(res){ //res 即为原始返回的数据
+              // console.log(res);
+              return {
+                  "code": res.code, //解析接口状态
+                  "msg": res.message, //解析提示文本
+                  "count": res.data.total, //解析数据长度
+                  "data": res.data.data //解析数据列表
+              };
+          }
+      });
   });
 </script>
 </body>

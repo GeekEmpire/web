@@ -1,6 +1,22 @@
+/*弹出框*/
+#mz_add_info,#mz_edit_info{display: none;margin: 15px 70px 0 0px}
+#show_user_info li{
+	height: 30px;
+	line-height: 30px;
+	margin: 10px;
+	font-size: 16px;
+}
 .me_active{
 	background-color: #E6E9ED;
 }
+[v-cloak]{
+	display: none;
+}
+.f16{
+	font-size: 16px;
+}
+.f18{font-size: 18px}
+.f14{font-size: 14px}
 select{
 	background-color: #ffffff;
 }
@@ -14,6 +30,8 @@ a{
 .green{
 	color: green;
 }
+.blue{color: blue}
+.red{color: red}
 .me_none{
 	display: none;
 }
@@ -145,6 +163,27 @@ a{
 }
 .search_way select{
 	height: 25px;
+}
+#img_ms{
+	text-align: center;
+	position: relative;
+}
+#img_ms #showimg{
+	/*display: block;*/
+	margin: 15px 0px;
+	width: 150px;
+	height: 150px;
+}
+#img_ms #up_img{
+	position: absolute;
+	left: 95px;
+	top: 170px;
+}
+#img_ms #submit_up{
+	position: absolute;
+	left: 88px;
+	top: 210px;
+	width: 80px;
 }
 
 
