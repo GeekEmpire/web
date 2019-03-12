@@ -64,7 +64,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="ht_service.html" class="list-group-item">
+                    <a href="notuse/ht_service.html" class="list-group-item">
                         <i class="glyphicon glyphicon-flash"></i>客户服务
                     </a>
                 </li>
@@ -175,7 +175,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">部门</label>
             <div class="layui-input-block">
-                <select name="department" id="department"  class="add_department" lay-verify="required">
+                <select name="departmentId" id="department"  class="add_department" lay-verify="required">
                     <option value=""></option>
                 </select>
             </div>
@@ -244,7 +244,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">部门</label>
             <div class="layui-input-block">
-                <select name="department" class="edit_department" id="dep" lay-verify="required">
+                <select name="departmentId" class="edit_department" id="dep" lay-verify="required">
                     <option value=""></option>
                 </select>
             </div>
@@ -433,6 +433,8 @@
                 contentType:"application/json",
                 success: function (result) {
                     console.log(result);
+                    department.empty();
+                    department.append("<option value=''></option>" );
                     for(var i=0; i<result.data.data.length; i++) {
                         department.append("<option value=\""+ result.data.data[i].id+"\">" + result.data.data[i].name + "</option>");
                     }
@@ -456,6 +458,8 @@
                 contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
                 success: function (result) {
                     console.log(result);
+                    department.empty();
+                    department.append("<option value=''></option>" );
                     for(var i=0; i<result.data.data.length; i++) {
                         department.append("<option value=\""+ result.data.data[i].id+"\">" + result.data.data[i].name + "</option>");
                     }
@@ -498,7 +502,7 @@
                 ,page: false
                 ,where: {size:size, page:curnum,order :'id asc'}
                 ,parseData: function(res){ //res 即为原始返回的数据
-                    console.log(res);
+                    // console.log(res);
                     return {
                         "code": res.code, //解析接口状态
                         "msg": res.message, //解析提示文本
@@ -602,6 +606,8 @@
                                     departmentId = data.department.id;
                                 }
 
+                                department.empty();
+                                department.append("<option value=''></option>" );
                                 for(var i=0; i<result.data.data.length; i++) {
                                     if(departmentId!=result.data.data[i].id){
                                         department.append("<option value=\""+ result.data.data[i].id+"\">" + result.data.data[i].name + "</option>");

@@ -1,0 +1,524 @@
+<div class="col-xs-12 col-sm-9 content">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"><a href="javascript:void(0);" class="toggle-sidebar"><span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a> 个人信息</h3>
+    </div>
+    <div class="panel-body">
+      <div class="content-row">
+        <div class="row" id="userVm" v-cloak>
+          <div class="col-md-2">
+            <h4 class="me_center mz_touxiang_t">
+              <!--<span>owl</span>-->
+            </h4>
+            <div class="mz_touxiang">
+              <img src="" id="mz_touxiang_img">
+              <a id="mz_up_touxiang"><i class="layui-icon">&#xe67c;</i>更换头像</a>
+            </div>
+
+          </div><!-- 头像-->
+          <div class="col-md-10 me_margin_mtop ">
+            <a class="pull-right" id="edit_company" style="position: absolute;top: -25px;right: 25px;font-size: 16px;">
+              公司管理
+            </a>
+            <ul id="mz_admin_info">
+              <li>
+                ID：<span>{{user.id}}</span><a class="pull-right" id="edit_info">修改信息</a>
+              </li>
+              <li>用户名：<span>{{user.name}}</span></li>
+              <!--<li>性别：<span>男</span></li>-->
+              <!--<li>生日：<span>1995-03-08</span></li>-->
+              <li>公司：<span>{{user.companyName}}</span></li>
+              <!--<li>部门：<span>{{user.department.name}}</span></li>-->
+              <li>电话号码：<span>{{user.phone}}</span></li>
+              <li>邮箱：<span>{{user.email}}</span></li>
+
+              <li>身份：
+                <span v-if="user.role==1">普通用户</span>
+                <span v-if="user.role==2">HR</span>
+                <span v-if="user.role==3">后勤</span>
+                <span v-if="user.role==4">管理员</span>
+              </li>
+            </ul>
+          </div><!-- 详细信息-->
+        </div>
+      </div>
+    </div><!-- panel body -->
+  </div>
+
+  <div id="mz_edit_info" style="display: none;margin: 10px 70px 0 0px">
+    <form class="layui-form me_margin_top" id="user_edit" action="" lay-filter="editForm">
+      <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-block">
+          <input type="text" name="name" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">手机号</label>
+        <div class="layui-input-block">
+          <input type="text" name="phone" required lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-block">
+          <input type="password" name="password" if="psw1" required  lay-verify="psw" placeholder="***" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-block">
+          <input type="text" name="email" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item" style="display: none">
+        <label class="layui-form-label">权限</label>
+        <div class="layui-input-block">
+          <select name="role" lay-verify="required" lay-search>
+            <option value=""></option>
+            <option value="1">普通用户</option>
+            <option value="2">HR</option>
+            <option value="3">后勤</option>
+            <option value="4">管理员</option>
+          </select>
+        </div>
+      </div>
+      <div class="layui-form-item" style="display: none">
+        <label class="layui-form-label">公司</label>
+        <div class="layui-input-block">
+          <select name="companyId" class="edit_company" id="companyId" lay-verify="required">
+            <option value=""></option>
+          </select>
+        </div>
+      </div>
+      <div class="layui-form-item"  style="display: none">
+        <label class="layui-form-label">部门</label>
+        <div class="layui-input-block">
+          <select name="department" id="department"  class="edit_department" lay-verify="required">
+            <option value=""></option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!--查看部门-->
+  <div id="view_section" class="me_none"></div>
+  <script id="company_section" type="text/html">
+    <div style="font-size: 16px;margin: 20px 30px">
+      {{# if(d.data.length==0) { }}
+      <p>暂无</p>
+      {{# } }}
+
+      {{# for(var i = 0; i < d.data.length; i++){ }}
+      <p>{{d.data[i].name}}
+        <span style="float: right;">
+            <a onclick=edit_section('{{d.data[i].id}}','{{d.company}}','{{d.data[i].name}}')>编辑</a> &nbsp;
+            <a onclick=del_section('{{d.data[i].id}}','{{d.company}}')>删除</a>
+        </span>
+      </p>
+      {{# } }}
+    </div>
+  </script>
+  <!--添加section弹出框-->
+  <div id="section_add_info" class="me_none">
+    <form class="layui-form me_margin_top" id="section_add" action="" lay-filter="initForm">
+      <div class="layui-form-item">
+        <div class="layui-input-inline">
+          <input type="text" name="name" required id="adn"  lay-verify="required" placeholder="请输入部门名" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+    </form>
+  </div>
+  <!--修改section，弹出框-->
+  <div id="section_edit_info" class="me_none">
+    <form class="layui-form me_margin_top" id="section_edit" action="" lay-filter="editForm">
+      <div class="layui-form-item">
+        <!--<label class="layui-form-label">部门名</label>-->
+        <div class="layui-input-inline">
+          <input type="text" name="name" required  id="edn" lay-verify="required" placeholder="请输入部门名" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+      //获取cookie
+      var ldata= {
+          phone : $.cookie("login_code")
+      };
+      // console.log(ldata);
+
+      //获取登陆者信息
+      function getInfo(){
+          $.ajax({
+              url: 'http://lsudjh.top:8081/user/listEntity',
+              type: 'post',
+              data: JSON.stringify(ldata) ,
+              contentType: 'application/json;charset=utf-8',
+              dataType: 'json',
+              success: function (result) {
+                  var tdata = result.data.data[0];
+                  if(result.code==0){
+                      console.log(tdata);
+                      if(tdata.company!=null&&tdata.company!=""){
+                          tdata.companyId = tdata.company.id;   //渲染select用
+                          tdata.companyName = tdata.company.name;
+                      }else{
+                          tdata.companyId = 0;
+                          tdata.companyName = "无";
+                      }
+                      // if(tdata.department==null||tdata.department==''){
+                      //     tdata.department.name = '无'
+                      //     tdata.departmentId = 0;
+                      // } else {
+                      //     tdata.departmentId = tdata.department.id;   //渲染select用
+                      //     tdata.departmentName = tdata.department.name;
+                      // }
+
+                      vm.imgId = tdata.id;
+                      vm.user = tdata;
+                      if(tdata.avatar=="default.jpg"){
+                          $('#mz_touxiang_img').attr('src', "dist/img/bg2.jpg");
+                      } else {
+                          $('#mz_touxiang_img').attr('src', tdata.avatar);
+                      }
+
+                  } else {
+                      alert('系统错误，请稍后再试');
+                  }
+              }
+          });
+      }
+      getInfo();
+
+      //vue渲染
+      var vm = new Vue({
+          el: '#userVm',
+          data:{
+              way: '用户名',
+              v: 0,
+              imgId: 1,
+              user: {
+                  avatar: '',
+                  company: {
+                      code: '',
+                      cost: '',
+                      hr: [],
+                      id: '',
+                      name: ''
+
+                  },
+                  department: {
+                      compangyId: '',
+                      id: '',
+                      name: ''
+                  },
+                  companyId: '',
+                  companyName: '',
+                  email: '',
+                  id: '',
+                  name: '',
+                  phone: '',
+                  role: ''
+              }
+          },
+          methods:{
+
+          }
+      });
+
+      function edit_section(id,companyId,dName) {
+          // console.log(id+' '+companyId);
+          $('#edn').val(dName),
+              layer.open({
+                  type: 1
+                  , title: ['编辑', 'font-size:14px;']
+                  , area: ['210px', '160px']
+                  , id: 'edit_section' //设定一个id，防止重复弹出
+                  , btn: ['确定', '取消']
+                  , btnAlign: 'c'
+                  , content: $('#section_edit_info')
+                  , yes: function (index, layero) {
+                      var dedata = {
+                          "companyId":companyId,
+                          name: $('#edn').val(),
+                          id: id
+                      };
+                      $.ajax({
+                          url: "http://lsudjh.top:8081/department/update",
+                          type: "POST",
+                          data: JSON.stringify(dedata),
+                          contentType: "application/json",  //缺失会出现URL编码，无法转成json对象
+                          success: function (result) { //所有错误信息都如result.message有关
+                              alert(result.msg);
+                              getDeparment(companyId);
+                              layer.close(index);
+                          }
+                      });
+                  }
+              });
+      }
+      function del_section(id, companyId) {
+          var tdata = {
+              id: id,
+              "companyId": companyId
+          };
+          layer.confirm('确认删除?', {icon: 3, title:'提示'}, function(index){
+              $.ajax({
+                  url:"http://lsudjh.top:8081/department/delete",
+                  type:"POST",
+                  data:JSON.stringify(tdata),
+                  contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                  success:function(result){ //所有错误信息都如result.message有关
+                      alert(result.msg);
+                      // console.log(result);
+                      if(result.code==0){
+                          getDeparment(companyId);
+                      }
+                  }
+              });
+              layer.close(index);
+          });
+      }
+      function getDeparment(id){
+          var tdata = {
+              "companyId": id
+          };
+          $.ajax({
+              url:"http://lsudjh.top:8081/department/listEntity",
+              type:"POST",
+              data:JSON.stringify(tdata),
+              contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+              success:function(result){ //所有错误信息都如result.message有关
+                  // alert(result.msg);
+                  console.log(result);
+                  if(result.code==0){
+                      layui.use('laytpl', function() {
+                          var laytpl = layui.laytpl;
+                          var tpldata = result.data;
+                          tpldata.company = id;
+                          var getTpl = company_section.innerHTML, view = document.getElementById('view_section');
+                          laytpl(getTpl).render(tpldata, function (html) {
+                              view.innerHTML = html;
+                          });
+                      });
+                  }
+              }
+          });
+      }
+
+      //上传头像
+      layui.use('upload', function(){
+          var upload = layui.upload;
+          //执行实例
+          var uploadInst = upload.render({
+              elem: '#mz_up_touxiang'
+              ,url: 'http://lsudjh.top:8081/file/headImage'
+              ,data: {
+                  id: function(){
+                      return vm.imgId;
+                  }
+              }
+              ,done: function(res){
+                  //如果上传失败
+                  if(res.code > 0){
+                      return layer.msg('上传失败');
+                  }
+                  $('#mz_touxiang_img').attr('src', res.data);
+                  alert("更换成功");
+                  //上传成功
+              }
+          });
+      });
+
+      //获取公司信息，并渲染(edit)
+      function getCompany(company,id){
+          // console.log(id)
+          $.ajax({
+              url:"http://lsudjh.top:8081/company/listEntity",
+              type:"POST",
+              data:'{}',
+              contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+              success:function(result){ //所有错误信息都如result.message有关
+                  if(result.code==0){
+                      layui.use('form', function(){
+                          var form = layui.form;
+
+                          company.empty();
+                          company.append("<option value=''></option>" );
+                          for(var i=0; i<result.data.data.length; i++) {
+                              // console.log(result.data.data[i])
+                              if(id!=result.data.data[i].id){
+                                  company.append("<option value=\"" +result.data.data[i].id+"\">" + result.data.data[i].name + "");
+                              }else {
+                                  company.append("<option selected value=\"" +result.data.data[i].id+"\">" + result.data.data[i].name + "");
+                              }
+                          }
+                          form.render('select');
+                      });
+                  }
+              }
+          });
+      }
+
+      //修改信息
+      $('#edit_info').on("click", function () {
+          var company = $('.edit_company');
+          var data = vm.user;
+          // console.log(data);
+          if(data.companyId!=""&&data.companyId!=null) {
+              getCompany(company, data.companyId);
+          } else{
+              getCompany(company,0);
+          }
+          layui.use('form', function(){
+              var form = layui.form;
+
+              var department = $('#department');
+              var tdata = {
+                  companyId: company.val()
+              };
+              $.ajax({
+                  url: "http://lsudjh.top:8081/department/listEntity",
+                  type:"POST",
+                  data:JSON.stringify(tdata),
+                  contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                  success: function (result) {
+                      console.log(result);
+                      for(var i=0; i<result.data.data.length; i++) {
+                          if(vm.user.departmentId!=result.data.data[i].id) {
+                              department.append("<option value=\"" + result.data.data[i].id + "\">" + result.data.data[i].name + "</option>");
+                          } else {
+                              department.append("<option selected value=\"" + result.data.data[i].id + "\">" + result.data.data[i].name + "</option>");
+                          }
+                      }
+                      form.render('select');
+                  }
+              });
+              // console.log(data);
+              // data.companyId = data.company.id;
+              form.val("editForm", vm.user);
+          });
+          layer.open({
+              type: 1
+              ,title: "编辑信息" //不显示标题栏
+              // ,closeBtn: true
+              ,area: '400px'
+              ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+              ,btn: ['确定', '取消']
+              ,btnAlign: 'c'
+              ,moveType: 1 //拖拽模式，0或者1
+              ,content: $('#mz_edit_info')
+              ,yes:function (index, layero) {
+                  var tdata = $('form[id="user_edit"]').serializeObject();
+                  tdata.id = data.id;
+                  console.log(tdata);
+                  //修改信息
+                  $.ajax({
+                      url:"http://lsudjh.top:8081/user/update",
+                      type:"POST",
+                      data:JSON.stringify(tdata),
+                      contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                      success:function(result){ //所有错误信息都如result.message有关
+
+                          if(result.code==0){
+                              $('#user_edit')[0].reset();
+                              layer.close(index);  //关闭弹出层
+                              tdata.password = '';
+                              //获取公司信息
+                              $.ajax({
+                                  url:"http://lsudjh.top:8081/company/get",
+                                  type:"POST",
+                                  data:'{id:'+tdata.companyId+'}',
+                                  contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                                  success:function(result){ //所有错误信息都如result.message有关
+                                      console.log(result);
+                                      alert(result.msg);
+                                      if(result.code==0){
+                                          tdata.companyName= result.data.name; //公司名
+                                          console.log(tdata);
+                                          vm.user = tdata;
+                                      }
+                                  }
+                              });
+                          } else{
+                              alert('系统错误请重试')
+                              layui.use('form', function(){
+                                  var form = layui.form;
+                                  form.val("editForm", data);
+                              });
+                          }
+
+                      }
+                  });
+              }
+              ,btn2:function (index, layero) {
+
+              }
+          });
+      });
+
+      //编辑部门
+      $('#edit_company').on("click", function () {
+          // console.log(1);
+          getDeparment($.cookie('companyId'));
+          layer.open({
+              type: 1
+              , title: ['部门', 'font-size:18px;']
+              , area: ['280px', '300px']
+              , id: 'show_section_detail' //设定一个id，防止重复弹出
+              , btn: ['添加部门', '退出']
+              , btnAlign: 'c'
+              , moveType: 1 //拖拽模式，0或者1
+              , content: $('#view_section')
+              , yes: function () {
+                  layer.open({
+                      type: 1
+                      , title: ['添加', 'font-size:14px;']
+                      , area: ['210px', '160px']
+                      , id: 'add_section' //设定一个id，防止重复弹出
+                      , btn: ['确定', '取消']
+                      , btnAlign: 'c'
+                      , content: $('#section_add_info')
+                      , yes: function (index, layero) {
+                          var dedata = {
+                              "companyId": $.cookie('companyId'),
+                              name: $('#adn').val()
+                          };
+                          $.ajax({
+                              url: "http://lsudjh.top:8081/department/add",
+                              type: "POST",
+                              data: JSON.stringify(dedata),
+                              contentType: "application/json",  //缺失会出现URL编码，无法转成json对象
+                              success: function (result) { //所有错误信息都如result.message有关
+                                  alert(result.msg);
+                                  getDeparment($.cookie('companyId'));
+                                  layer.close(index);
+                              }
+                          });
+                      }
+                  });
+              }
+          });
+      });
+      /**
+       * 自动将form表单封装成json对象
+       */
+      $.fn.serializeObject = function() {
+          var o = {};
+          var a = this.serializeArray();
+          $.each(a, function() {
+              if (o[this.name]) {
+                  if (!o[this.name].push) {
+                      o[this.name] = [ o[this.name] ];
+                  }
+                  o[this.name].push(this.value || '');
+              } else {
+                  o[this.name] = this.value || '';
+              }
+          });
+          return o;
+      };
+  </script>
+</div><!-- content -->
+

@@ -66,7 +66,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="ht_service.html" class="list-group-item">
+                    <a href="notuse/ht_service.html" class="list-group-item">
                         <i class="glyphicon glyphicon-flash"></i>客户服务
                     </a>
                 </li>
@@ -265,7 +265,26 @@
         });
     }
     function del_section(id, companyId) {
-
+        var tdata = {
+            id: id,
+            "companyId": companyId
+        };
+        layer.confirm('确认删除?', {icon: 3, title:'提示'}, function(index){
+            $.ajax({
+                url:"http://lsudjh.top:8081/department/delete",
+                type:"POST",
+                data:JSON.stringify(tdata),
+                contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                success:function(result){ //所有错误信息都如result.message有关
+                    alert(result.msg);
+                    // console.log(result);
+                    if(result.code==0){
+                        getDeparment(companyId);
+                    }
+                }
+            });
+            layer.close(index);
+        });
     }
     function getDeparment(id){
         var tdata = {

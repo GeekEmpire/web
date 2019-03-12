@@ -104,7 +104,47 @@
                 if(result.code==0){
                     setCookie();
                     $('#username').val("");
-                    location.href = 'ht_index.html';
+
+                    var ldata= {
+                        phone : $.cookie("login_code")
+                    };
+                    $.ajax({
+                        url: 'http://lsudjh.top:8081/user/listEntity',
+                        type: 'post',
+                        data: JSON.stringify(ldata) ,
+                        contentType: 'application/json;charset=utf-8',
+                        dataType: 'json',
+                        success: function (result) {
+                            console.log(result);
+                            var tdata = result.data.data[0];
+                            if(result.code==0){
+                                $.cookie("companyId",tdata.company.id,{
+                                    expires: 3,
+                                    path: '/'
+                                });
+                                $.cookie("companyCode",tdata.company.code,{
+                                    expires: 3,
+                                    path: '/'
+                                });
+                                $.cookie("role",tdata.role,{
+                                    expires: 3,
+                                    path: '/'
+                                });
+                                $.cookie("id",tdata.id,{
+                                    expires: 3,
+                                    path: '/'
+                                });
+                                if(tdata.role==4) {
+                                    location.href = 'ht_index.html';
+                                } else if(tdata.role==2) {
+                                    location.href = 'hr/hr_index.html';
+                                }
+                            } else {
+                                alert('系统错误，请稍后再试');
+                            }
+                        }
+                    });
+
                 } else{
                     $('#userpwd').val("");
                 }

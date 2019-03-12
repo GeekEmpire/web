@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>会议室管理中心</title>
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="shortcut icon" href="favicon_16.ico"/>
+  <!-- <link rel="bookmark" href="favicon_16.ico"/> -->
+  <!-- site css -->
+  <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
+  <link rel="stylesheet" href="../dist/css/site.min.css">
+  <link rel="stylesheet" href="../dist/css/me.css">
+  <script src="../layui/layui.js" charset="utf-8" type="text/javascript"></script>
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+  <!--[if lt IE 9]>
+  <script src="js/html5shiv.js"></script>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
+  <script src="../dist/js/site.min.js"></script>
+  <script src="../dist/js/jquery-3.3.1.min.js"></script>
+  <script src="../dist/js/jquery.cookie.js"></script>
+  <script src="../dist/js/vue.min.js"></script>
+  <style>
+    .container-fluid .content{
+      height: auto;
+      min-height: 320px;
+    }
+    .ho{
+      background-color: #EFEFEF;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- 顶部导航 -->
+<div class="headerpage"></div>
+<!--顶部导航 over-->
+
+<div class="container-fluid">
+  <!--documents内容-->
+  <div class="row row-offcanvas row-offcanvas-left">
+    <!--内容左边导航-->
+    <div class="col-xs-6 col-sm-3 sidebar-offcanvas" role="navigation">
+      <div class="leftpage"></div>
+    </div>
+
+    <!--右边内容-->
+    <div class="midpage">
+    </div>
+  </div>
+</div>
+<!--footer-->
+<div class="footerpage"></div>
+<!--footer over-->
+
+<script>
+    $(".headerpage").load("./header.html");
+    $(".leftpage").load("./hr_left.html");
+    $(".midpage").load("./hr_main.html");
+    $(".footerpage").load("../page/footer.html");
+
+    $(function () {
+        $('#to_main').css('background','#efefef');
+        $('#to_main').on('click', function () {
+            $(".midpage").load("./hr_main.html");
+
+            $('.to_a').css('background', '#fff')
+            $('#to_main').css('background','#efefef');
+        });
+        $('#to_account').on('click', function () {
+            $(".midpage").load("./hr_account.html");
+
+            $('.to_a').css('background', '#fff')
+            $('#to_account').css('background','#efefef');
+        });
+        $('#to_users').on('click', function () {
+            $(".midpage").load("./hr_users.html");
+
+            $('.to_a').css('background', '#fff')
+            $('#to_users').css('background','#efefef');
+        });
+        $('#to_today').on('click', function () {
+            $(".midpage").load("./hr_today.html");
+
+            $('.to_a').css('background', '#fff')
+            $('#to_today').css('background','#efefef');
+        });
+        $('#to_analysis').on('click', function () {
+            $(".midpage").load("./hr_analysis.html");
+
+            $('.to_a').css('background', '#fff')
+            $('#to_analysis').css('background','#efefef');
+        });
+    })
+</script>
+</body>
+</html>

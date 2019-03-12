@@ -1,0 +1,92 @@
+<script src="../dist/data/echarts.common.min.js"></script>
+<div class="col-xs-12 col-sm-9 content"  >
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><a href="javascript:void(0);" class="toggle-sidebar"><span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a> 今日详情</h3>
+        </div>
+        <div class="panel-body"  id="">
+            <div class="row">
+                <div class="col-md-6">
+                    <!--<h5 style="margin-left: 150px">今日预约情况</h5>-->
+                    <div class="col-md-12" id="chart0" style="height: 450px"></div>
+                </div>
+                <div class="col-md-6">
+                    <h5 style="margin-left: 150px">今日部门账单</h5>
+                    <div class="col-md-12" id="chart1" style="height: 400px"></div>
+                </div>
+            </div>
+        </div><!-- panel body -->
+    </div>
+</div><!-- content -->
+
+<script>
+    var myChart0 = echarts.init(document.getElementById('chart0'));
+    var option0 = {
+        title: {
+            text: '今日部门预约次数'
+        },
+        tooltip: {},
+        legend: {
+            data:['次数']
+        },
+        xAxis: {
+            data: ["销售部","人事部","技术部","财务部","后勤部"]
+        },
+        yAxis: {},
+        series: [{
+            name: '次数',
+            type: 'bar',
+            data: [2, 1, 0, 1, 0]
+        }]
+    };
+    myChart0.setOption(option0);
+
+    var myChart1 = echarts.init(document.getElementById('chart1'));
+    var option1 = {
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            data:['销售部','技术部','人事部','财务部','后勤部']
+        },
+        series: [
+            {
+                name:'今日花费',
+                type:'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '30',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value:85.52, name:'销售部'},
+                    {value:40.93, name:'人事部'},
+                    {value:0.00, name:'技术部'},
+                    {value:60.08, name:'财务部'},
+                    {value:0.0, name:'后勤部'}
+                ]
+            }
+        ]
+    };
+    myChart1.setOption(option1);
+
+
+</script>

@@ -1,0 +1,264 @@
+<script src="../dist/data/echarts.common.min.js"></script>
+<div class="col-xs-12 col-sm-9 content"  >
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><a href="javascript:void(0);" class="toggle-sidebar"><span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a> 数据分析</h3>
+        </div>
+        <div class="panel-body"  id="">
+            <div class="row">
+                <div class="col-md-12">
+                    <!--<h5 style="margin-left: 150px">今日预约情况</h5>-->
+                    <div class="col-md-12" id="chart0" style="height: 450px"></div>
+                </div>
+                <div class="col-md-12" style="margin: 15px 0 5px 0px"></div>
+                <hr>
+                <div class="col-md-12">
+                <!--<h5 style="margin-left: 150px">今日部门账单</h5>-->
+                    <div class="col-md-12" id="chart1" style="height: 450px"></div>
+                </div>
+                <div class="col-md-12" style="margin: 15px 0 5px 0px"></div>
+                <hr>
+                <div class="col-md-12">
+                <!--<h5 style="margin-left: 150px">今日部门账单</h5>-->
+                    <div class="col-md-12" id="chart2" style="height: 450px"></div>
+                </div>
+            </div>
+        </div><!-- panel body -->
+    </div>
+</div><!-- content -->
+
+<script>
+    var myChart0 = echarts.init(document.getElementById('chart0'));
+    var option0 = {
+        title: {
+            text: '最近一年预约情况'
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['销售部','技术部','人事部','财务部','后勤部']
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                data : ['2018年3月','2018年4月','2018年5月','2018年6月','2018年7月', '2018年8月','2018年9月'
+                    ,'2018年10月','2018年11月','2018年12月','2019年1月','2019年2月']
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+        series : [
+            {
+                name:'销售部',
+                type:'line',
+                stack: '总量',
+                data:[5, 1, 7, 6, 2, 8, 10, 6, 5, 3,10,9]
+            },
+            {
+                name:'人事部',
+                type:'line',
+                stack: '总量',
+                data:[5, 0, 2, 0, 7, 9, 0, 10, 5, 6,8,9]
+            },
+            {
+                name:'技术部',
+                type:'line',
+                stack: '总量',
+                data:[5, 6, 2, 3, 0, 15, 0, 4, 10, 10,8,12]
+            },
+            {
+                name:'财务部',
+                type:'line',
+                stack: '总量',
+                data:[4, 7, 7, 15, 5, 1, 5, 7, 5, 5,6,12]
+            },
+            {
+                name:'后勤部',
+                type:'line',
+                stack: '总量',
+                data:[5, 3, 7, 8, 0, 5, 0, 6, 7, 8,12,6]
+            }
+        ]
+    };
+    myChart0.setOption(option0);
+
+    var myChart1 = echarts.init(document.getElementById('chart1'));
+    var option1 = {
+        title: {
+            text: '最近公司消费情况'
+        },
+        tooltip : {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+        legend: {
+            data:['销售部','技术部','人事部','财务部','后勤部']
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                data : ['2018年3月','2018年4月','2018年5月','2018年6月','2018年7月', '2018年8月','2018年9月'
+                    ,'2018年10月','2018年11月','2018年12月','2019年1月','2019年2月']
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+        series : [
+            {
+                name:'销售部',
+                type:'line',
+                stack: '总量',
+                areaStyle: {},
+                data:[154.56, 30.25, 150.20, 60.00, 40.56, 230.05, 300.56, 185.00, 156.65, 96.00,300.02,279.00]
+            },
+            {
+                name:'人事部',
+                type:'line',
+                stack: '总量',
+                areaStyle: {},
+                data:[150.26, 0.00, 62.00, 0.00, 185.26, 256.00, 0.00, 255.45, 152.26, 168.00,220.00,261.00]
+            },
+            {
+                name:'技术部',
+                type:'line',
+                stack: '总量',
+                areaStyle: {},
+                data:[125.25, 156.25, 60.25, 58.25, 0.00, 300.25, 0.00, 120.02, 312.00, 220.75,205.65,350.65]
+            },
+            {
+                name:'财务部',
+                type:'line',
+                stack: '总量',
+                areaStyle: {normal: {}},
+                data:[56.56, 152.54, 153.44, 120.25, 110.25, 26.54, 89.52, 57.65, 98.65, 135.56,165.25,100.58]
+            },
+            {
+                name:'后勤部',
+                type:'line',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'top'
+                    }
+                },
+                areaStyle: {normal: {}},
+                data:[152.25, 98.26, 185.50, 95.04, 0.00, 128.25, 0.00, 185.00, 189.25, 195.52,157.65,156.00]
+            }
+        ]
+    };
+    myChart1.setOption(option1);
+
+    var myChart2 = echarts.init(document.getElementById('chart2'));
+    var option2 = {
+        backgroundColor: '#153b4c',
+
+        title: {
+            text: '最近一年部门支出占比',
+            left: 'center',
+            top: 20,
+            textStyle: {
+                color: '#ccc'
+            }
+        },
+
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+
+        visualMap: {
+            show: false,
+            min: 80,
+            max: 600,
+            inRange: {
+                colorLightness: [0, 1]
+            }
+        },
+        series : [
+            {
+                name:'访问来源',
+                type:'pie',
+                radius : '55%',
+                center: ['50%', '50%'],
+                data:[
+                    {value:2285.52, name:'销售部'},
+                    {value:1840.93, name:'人事部'},
+                    {value:2560.00, name:'技术部'},
+                    {value:1360.08, name:'财务部'},
+                    {value:1650.00, name:'后勤部'}
+                ].sort(function (a, b) { return a.value - b.value; }),
+                roseType: 'radius',
+                label: {
+                    normal: {
+                        textStyle: {
+                            color: 'rgba(255, 255, 255, 0.3)'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        lineStyle: {
+                            color: 'rgba(255, 255, 255, 0.3)'
+                        },
+                        smooth: 0.2,
+                        length: 10,
+                        length2: 20
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        color: '#c23531',
+                        shadowBlur: 200,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                },
+
+                animationType: 'scale',
+                animationEasing: 'elasticOut',
+                animationDelay: function (idx) {
+                    return Math.random() * 200;
+                }
+            }
+        ]
+    };
+    myChart2.setOption(option2);
+
+
+</script>

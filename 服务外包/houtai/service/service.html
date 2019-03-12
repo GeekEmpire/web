@@ -7,23 +7,133 @@
     <link rel="shortcut icon" href="favicon_16.ico"/>
     <!-- <link rel="bookmark" href="favicon_16.ico"/> -->
     <!-- site css -->
-    <link rel="stylesheet" href="layui/css/layui.css"  media="all">
-    <link rel="stylesheet" href="dist/css/site.min.css">
-    <link rel="stylesheet" href="dist/css/me.css">
-    <script src="layui/layui.js" charset="utf-8" type="text/javascript"></script>
+    <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="../dist/css/site.min.css">
+    <link rel="stylesheet" href="../dist/css/me.css">
+    <script src="../layui/layui.js" charset="utf-8" type="text/javascript"></script>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="dist/js/site.min.js"></script>
-    <script src="dist/js/jquery-3.3.1.min.js"></script>
+    <script src="../dist/js/site.min.js"></script>
+    <script src="../dist/js/jquery-3.3.1.min.js"></script>
     <!--<script src="dist/js/vue.min.js"></script>-->
+    <style>
+        .container-fluid .content{
+            height: auto;
+            min-height: 320px;
+        }
+        .sidebar-offcanvas ul{
+            height: 320px;
+        }
+    </style>
 </head>
 
 <body>
 <!-- 顶部导航 -->
-<div class="headerpage"></div>
+<div class="headerpage">
+    <!--nav 顶部导航栏-->
+    <!-- Modal -->
+    <script>
+        $(function () {
+            $('.main_item1').on('click',function () {
+                if($('.meet_item').is('.in')){
+                    $('.meet_item').removeClass('in');
+                }
+            })
+            $('.main_item2').on('click',function () {
+                if($('.sys_item').is('.in')){
+                    $('.sys_item').removeClass('in');
+                }
+            })
+        });
+        function exit() {
+            alert(1);
+            location.href = 'ht_login.html'
+        };
+        function redo() {
+            $('#psw1').val('');
+            $('#psw2').val('');
+        }
+        function modify() {
+
+            $.ajax({
+                type: "POST"
+                ,url:"http://lsudjh.top:8081/user/login"
+                ,contentType: 'application/json;charset=utf-8'
+                ,data: JSON.stringify(data)
+                ,dataType: "json"
+                ,success:function(result){
+                    alert(result.msg);
+                    setCookie();
+                    $('#username').val("");
+                    $('#userpwd').val("");
+                    location.href = 'ht_index.html';
+                }
+                ,error: function (message) {
+                    alert(message);
+                    $('#username').val("");
+                    $('#userpwd').val("");
+                }
+            });
+
+
+            redo();
+            $('#modify_psw').modal('hide')
+        }
+    </script>
+    <div class="modal fade" id="modify_psw" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="margin-left: 28%">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modify_psw_title">修改密码</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="psw1" class="control-label">新密码:</label>
+                        <input type="password" class="form-control" id="psw1">
+                    </div>
+                    <div class="form-group">
+                        <label for="psw2" class="control-label">确定密码:</label>
+                        <input type="password" class="form-control" id="psw2">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="modify()">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="redo()">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav role="navigation" class="navbar navbar-custom">
+        <div class="container-fluid">
+            <!--左边-->
+            <div class="navbar-header">
+                <a href="ht_shenhe.html" class="navbar-brand">会议室管理后台</a>
+            </div>
+            <!--右边-->
+            <div id="bs-content-row-navbar-collapse-5" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">个人中心 <b class="caret"></b></a>
+                        <ul role="menu" class="dropdown-menu">
+                            <li class="dropdown-header">设置</li>
+                            <li><a href="#">帮助</a></li>
+                            <li class="divider"></li>
+                            <li class="active"><a href="#modify_psw" id="modify" data-toggle="modal">修改密码</a></li>
+                            <li class="divider"></li>
+                            <li class="disabled"><a  onclick="exit()">退出登录</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <!--header-->
+</div>
 <!--顶部导航 over-->
 
 <div class="container-fluid">
@@ -34,50 +144,14 @@
             <ul class="list-group panel">
                 <li class="list-group-item"><i class="glyphicon glyphicon-align-justify"></i> <b>功能</b></li>
                 <li class="list-group-item"><input type="text" class="form-control search-query" placeholder="查找功能"></li>
-                <li class="active">
-                    <a href="ht_index.html" class="list-group-item"><i class="glyphicon glyphicon-home"></i>主界面 </a>
-                </li>
                 <li>
-                    <a href="#xitong" class="list-group-item  main_item1" data-toggle="collapse">
-                        <i class="glyphicon glyphicon-cog"></i>系统管理
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                    <div class="collapse sys_item" id="xitong">
-                        <a href="ht_account.html" class="list-group-item">账号管理</a>
-                        <a href="ht_company.html" class="list-group-item">雇主信息</a>
-                        <a href="ht_notice.html" class="list-group-item">公告管理</a>
-                    </div>
-                </li>
-
-                <li>
-                    <a href="#huiyi" class="list-group-item main_item2 " data-toggle="collapse">
-                        <i class="glyphicon glyphicon-calendar"></i>会议管理
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                    <div class="collapse meet_item layui-anim layui-anim-upbit" id="huiyi">
-                        <a href="ht_shenhe.html" class="list-group-item">会议审核</a>
-                        <a href="ht_meet.html" class="list-group-item">会议室管理</a>
-                        <a href="ht_tag.html" class="list-group-item">会议室标签</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="ht_users.html" class="list-group-item">
-                        <i class="glyphicon glyphicon-user"></i>成员管理
-                    </a>
-                </li>
-                <li>
-                    <a href="ht_service.html" class="list-group-item">
+                    <a href="service.html" class="list-group-item">
                         <i class="glyphicon glyphicon-flash"></i>客户服务
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="list-group-item">
-                        <i class="glyphicon glyphicon-bell"></i>今日详情
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="list-group-item">
-                        <i class="glyphicon glyphicon-indent-left"></i>查询分析
+                    <a href="" class="list-group-item">
+                        <!--<i class="glyphicon glyphicon-flash"></i>-->
                     </a>
                 </li>
             </ul>
@@ -136,8 +210,16 @@
             </li>
             <li>用户名：<span>{{d.data.name}}</span></li>
             <li>手机号：<span>{{d.data.phone}}</span></li>
-            <li>邮箱：<span>{{d.data.email}}</span></li>
-            <li>公司：<span>{{d.data.company.name}}</span></li>
+            <li>邮箱：
+                <span>{{d.data.email}}</span>
+            </li>
+            <li>公司：
+                {{# if(d.data.company!=null) { }}
+                    <span>{{d.data.company.name}}</span>
+                {{#  }else { }}
+                    <span>无</span>
+                {{# }}}
+            </li>
             <li>
                 权限：
                 {{#  if(d.data.role == 1){ }}
@@ -165,12 +247,12 @@
 </script>
 
 <script>
-    $(".headerpage").load("./page/header.html");
-    $(".footerpage").load("./page/footer.html");
+    $(".footerpage").load("../page/footer.html");
 
 
     function show_people(id){
         var data={ id: id};
+        // console.log(data);
         $.ajax({
             url: 'http://lsudjh.top:8081/user/get',
             type: 'post',
@@ -178,7 +260,7 @@
             contentType: 'application/json;charset=utf-8',
             dataType: 'json',
             success: function (result) {
-                console.log(result);
+                // console.log(result);
                 if(result.code==0){
                     layui.use('laytpl', function() {
                         var laytpl = layui.laytpl;
@@ -217,12 +299,13 @@
             contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
             success:function(result){ //所有错误信息都如result.message有关
                 // alert(result.msg);
-                console.log(result);
+                // console.log(result);
 
                 if(result.code==0){
-                    var roomdata = {
-                        id: result.data.roomId
-                    };
+                    var roomdata = {};
+                    if(result.data != null){
+                        roomdata.id = result.data.roomId;
+                    }
                     $.ajax({
                         url:"http://lsudjh.top:8081/meetingRoom/listEntity",
                         type:"POST",
@@ -312,7 +395,7 @@
                 , page: 0
             }
             ,parseData: function(res){ //res 即为原始返回的数据
-                console.log(res.data.data);
+                // console.log(res.data.data);
                 return {
                     "code": res.code, //解析接口状态
                     "msg": res.message, //解析提示文本
@@ -346,7 +429,6 @@
                 , page: 0
             }
             ,parseData: function(res){ //res 即为原始返回的数据
-                // var room_data = res.data.data;
                 console.log(res.data.data);
                 return {
                     "code": res.code, //解析接口状态
