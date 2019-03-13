@@ -1,130 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>会议室管理中心</title>
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="shortcut icon" href="../favicon_16.ico"/>
-    <!-- <link rel="bookmark" href="favicon_16.ico"/> -->
-    <!-- site css -->
-    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="../dist/css/site.min.css">
-    <link rel="stylesheet" href="../dist/css/me.css">
-    <script src="../layui/layui.js" charset="utf-8" type="text/javascript"></script>
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
-    <script type="text/javascript" src="../dist/js/site.min.js"></script>
-    <script src="../dist/js/jquery-3.3.1.min.js"></script>
-    <!--<script src="dist/js/vue.min.js"></script>-->
-</head>
-
-<body>
-<!-- 顶部导航 -->
-<div class="headerpage"></div>
-<!--顶部导航 over-->
-
-<div class="container-fluid">
-    <!--documents内容-->
-    <div class="row row-offcanvas row-offcanvas-left">
-        <!--内容左边导航-->
-        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" role="navigation">
-            <ul class="list-group panel">
-                <li class="list-group-item"><i class="glyphicon glyphicon-align-justify"></i> <b>功能</b></li>
-                <li class="list-group-item"><input type="text" class="form-control search-query" placeholder="查找功能"></li>
-                <li class="active">
-                    <a href="../index.html" class="list-group-item"><i class="glyphicon glyphicon-home"></i>主界面 </a>
-                </li>
-                <li>
-                    <a href="#xitong" class="list-group-item  main_item1" data-toggle="collapse">
-                        <i class="glyphicon glyphicon-cog"></i>系统管理
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                    <div class="collapse sys_item" id="xitong">
-                        <a href="../account.html" class="list-group-item">账号管理</a>
-                        <a href="../company.html" class="list-group-item">雇主信息</a>
-                        <a href="../notice.html" class="list-group-item">公告管理</a>
-                    </div>
-                </li>
-
-                <li>
-                    <a href="#huiyi" class="list-group-item main_item2 " data-toggle="collapse">
-                        <i class="glyphicon glyphicon-calendar"></i>会议管理
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                    <div class="collapse meet_item layui-anim layui-anim-upbit" id="huiyi">
-                        <a href="../apply.html" class="list-group-item">会议审核</a>
-                        <a href="../meet.html" class="list-group-item">会议室管理</a>
-                        <a href="../tag.html" class="list-group-item">会议室标签</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="../users.html" class="list-group-item">
-                        <i class="glyphicon glyphicon-user"></i>成员管理
-                    </a>
-                </li>
-                <li>
-                    <a href="ht_service.html" class="list-group-item">
-                        <i class="glyphicon glyphicon-flash"></i>客户服务
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="list-group-item">
-                        <i class="glyphicon glyphicon-bell"></i>今日详情
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="list-group-item">
-                        <i class="glyphicon glyphicon-indent-left"></i>查询分析
-                    </a>
-                </li>
-            </ul>
+<div class="col-xs-12 col-sm-9 content" >
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><a href="javascript:void(0);" class="toggle-sidebar"><span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a> 服务</h3>
+            <!--<a href="#">刷新</a>-->
         </div>
-
-
-        <!--右边内容-->
-        <div class="col-xs-12 col-sm-9 content" >
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><a href="javascript:void(0);" class="toggle-sidebar"><span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a> 服务</h3>
-                    <!--<a href="#">刷新</a>-->
+        <div class="panel-body">
+            <div class="content-row">
+                <h5>今日服务（未响应）</h5>
+                <div class="col-md-12">
+                    <!-- table-model -->
+                    <table class="layui-hide" id="mz_service_table" lay-filter="mz_service_table"></table>
+                    <script type="text/html" id="barMeet">
+                        <a class="layui-btn layui-btn-xs" lay-event="edit">完成</a>
+                    </script>
                 </div>
-                <div class="panel-body">
-                    <div class="content-row">
-                        <h5>今日服务（未响应）</h5>
-                        <div class="col-md-12">
-                            <!-- table-model -->
-                            <table class="layui-hide" id="mz_service_table" lay-filter="mz_service_table"></table>
-                            <script type="text/html" id="barMeet">
-                                <a class="layui-btn layui-btn-xs" lay-event="edit">完成</a>
-                            </script>
-                        </div>
 
-                        <!--隔开--><div class="col-md-12 "></div>
+                <!--隔开--><div class="col-md-12 "></div>
 
 
-                        <h5>今日服务：（已响应）</h5>
-                        <div class="col-md-12">
-                            <!-- table-model -->
-                            <table class="layui-hide" id="mz_serviced_table" lay-filter="mz_serviced_table"></table>
-                            <script type="text/html" id="barMeet2">
-                                <a class="layui-btn layui-btn-xs" lay-event="edit">公布</a>
-                                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-                            </script>
-                        </div>
-                    </div>
-                </div><!-- panel body -->
+                <h5>今日服务：（已响应）</h5>
+                <div class="col-md-12">
+                    <!-- table-model -->
+                    <table class="layui-hide" id="mz_serviced_table" lay-filter="mz_serviced_table"></table>
+                    <script type="text/html" id="barMeet2">
+                        <a class="layui-btn layui-btn-xs" lay-event="edit">公布</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                    </script>
+                </div>
             </div>
-        </div><!-- content -->
+        </div><!-- panel body -->
     </div>
-</div>
-
-<!--footer-->
-<div class="footerpage"></div>
-<!--footer over-->
-
+</div><!-- content -->
 
 <!--申请人信息弹出-->
 <div id="user_view" class="me_none"></div>
@@ -136,8 +42,16 @@
             </li>
             <li>用户名：<span>{{d.data.name}}</span></li>
             <li>手机号：<span>{{d.data.phone}}</span></li>
-            <li>邮箱：<span>{{d.data.email}}</span></li>
-            <li>公司：<span>{{d.data.company.name}}</span></li>
+            <li>邮箱：
+                <span>{{d.data.email}}</span>
+            </li>
+            <li>公司：
+                {{# if(d.data.company!=null) { }}
+                    <span>{{d.data.company.name}}</span>
+                {{#  }else { }}
+                    <span>无</span>
+                {{# }}}
+            </li>
             <li>
                 权限：
                 {{#  if(d.data.role == 1){ }}
@@ -165,12 +79,9 @@
 </script>
 
 <script>
-    $(".headerpage").load("./page/header.html");
-    $(".footerpage").load("./page/footer.html");
-
-
     function show_people(id){
         var data={ id: id};
+        // console.log(data);
         $.ajax({
             url: 'http://lsudjh.top:8081/user/get',
             type: 'post',
@@ -178,7 +89,7 @@
             contentType: 'application/json;charset=utf-8',
             dataType: 'json',
             success: function (result) {
-                console.log(result);
+                // console.log(result);
                 if(result.code==0){
                     layui.use('laytpl', function() {
                         var laytpl = layui.laytpl;
@@ -217,12 +128,13 @@
             contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
             success:function(result){ //所有错误信息都如result.message有关
                 // alert(result.msg);
-                console.log(result);
+                // console.log(result);
 
                 if(result.code==0){
-                    var roomdata = {
-                        id: result.data.roomId
-                    };
+                    var roomdata = {};
+                    if(result.data != null){
+                        roomdata.id = result.data.roomId;
+                    }
                     $.ajax({
                         url:"http://lsudjh.top:8081/meetingRoom/listEntity",
                         type:"POST",
@@ -312,7 +224,7 @@
                 , page: 0
             }
             ,parseData: function(res){ //res 即为原始返回的数据
-                console.log(res.data.data);
+                // console.log(res.data.data);
                 return {
                     "code": res.code, //解析接口状态
                     "msg": res.message, //解析提示文本
@@ -346,7 +258,6 @@
                 , page: 0
             }
             ,parseData: function(res){ //res 即为原始返回的数据
-                // var room_data = res.data.data;
                 console.log(res.data.data);
                 return {
                     "code": res.code, //解析接口状态
@@ -391,6 +302,3 @@
 
     });
 </script>
-
-</body>
-</html>

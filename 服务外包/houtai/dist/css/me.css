@@ -164,22 +164,28 @@ a{
 .search_way select{
 	height: 25px;
 }
-#img_ms{
+#img_ms,#img_ms1{
 	text-align: center;
 	position: relative;
 }
-#img_ms #showimg{
+#img_ms #showimg,#img_ms1 #showimg1{
 	/*display: block;*/
 	margin: 15px 0px;
 	width: 150px;
 	height: 150px;
 }
-#img_ms #up_img{
+#fileimg{
+	/*display: block;*/
+	margin: 15px 0px;
+	width: 150px;
+	height: 150px;
+}
+#img_ms #up_img,#img_ms1 #up_img1{
 	position: absolute;
 	left: 95px;
 	top: 170px;
 }
-#img_ms #submit_up{
+#img_ms #submit_up,#img_ms1 #submit_up1{
 	position: absolute;
 	left: 88px;
 	top: 210px;

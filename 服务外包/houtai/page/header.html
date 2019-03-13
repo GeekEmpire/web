@@ -14,8 +14,12 @@
         })
     });
     function exit() {
-        alert(1);
-        location.href = 'ht_login.html'
+        alert('退出成功');
+        $.removeCookie('id',{ path: '/'}); //path为指定路径，直接删除该路径下的cookie
+        $.removeCookie('companyId',{ path: '/'});
+        $.removeCookie('companyCode',{ path: '/'});
+        $.removeCookie('role',{ path: '/'});
+        location.href = 'login.html'
     };
     function redo() {
         $('#psw1').val('');

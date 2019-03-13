@@ -1,143 +1,53 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>会议室管理中心</title>
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="shortcut icon" href="favicon_16.ico"/>
-    <!-- <link rel="bookmark" href="favicon_16.ico"/> -->
-    <!-- site css -->
-    <link rel="stylesheet" href="layui/css/layui.css"  media="all">
-    <link rel="stylesheet" href="dist/css/site.min.css">
-    <link rel="stylesheet" href="dist/css/me.css">
-    <script src="layui/layui.js" charset="utf-8" type="text/javascript"></script>
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
-    <script type="text/javascript" src="dist/js/site.min.js"></script>
-    <script src="dist/js/vue.min.js"></script>
-</head>
-<body>
-<!-- 顶部导航 -->
-<div class="headerpage"></div>
-<!--顶部导航 over-->
-
-<div class="container-fluid">
-    <!--documents内容-->
-    <div class="row row-offcanvas row-offcanvas-left">
-        <!--内容左边导航-->
-        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" role="navigation">
-            <ul class="list-group panel">
-                <li class="list-group-item"><i class="glyphicon glyphicon-align-justify"></i> <b>功能</b></li>
-                <li class="list-group-item"><input type="text" class="form-control search-query" placeholder="查找功能"></li>
-                <li class="active">
-                    <a href="ht_index.html" class="list-group-item"><i class="glyphicon glyphicon-home"></i>主界面 </a>
-                </li>
-                <li>
-                    <a href="#xitong" class="list-group-item  main_item1" data-toggle="collapse">
-                        <i class="glyphicon glyphicon-cog"></i>系统管理
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                    <div class="collapse sys_item" id="xitong">
-                        <a href="ht_account.html" class="list-group-item">账号管理</a>
-                        <a href="ht_company.html" class="list-group-item">雇主信息</a>
-                        <a href="ht_notice.html" class="list-group-item">公告管理</a>
-                    </div>
-                </li>
-
-                <li>
-                    <a href="#huiyi" class="list-group-item main_item2 " data-toggle="collapse">
-                        <i class="glyphicon glyphicon-calendar"></i>会议管理
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                    <div class="collapse meet_item layui-anim layui-anim-upbit" id="huiyi">
-                        <a href="ht_shenhe.html" class="list-group-item">会议审核</a>
-                        <a href="ht_meet.html" class="list-group-item">会议室管理</a>
-                        <a href="ht_tag.html" class="list-group-item">会议室标签</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="ht_users.html" class="list-group-item">
-                        <i class="glyphicon glyphicon-user"></i>成员管理
-                    </a>
-                </li>
-                <li>
-                    <a href="notuse/ht_service.html" class="list-group-item">
-                        <i class="glyphicon glyphicon-flash"></i>客户服务
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="list-group-item">
-                        <i class="glyphicon glyphicon-bell"></i>今日详情
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="list-group-item">
-                        <i class="glyphicon glyphicon-indent-left"></i>查询分析
-                    </a>
-                </li>
-            </ul>
+<div class="col-xs-12 col-sm-9 content">
+    <div class="panel panel-default">
+        <!--内容上面标题部分-->
+        <div class="panel-heading">
+            <h3 class="panel-title"><a href="javascript:void(0);" class="toggle-sidebar"><span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a> 用户管理</h3>
+            <!--<a href="#">刷新</a>-->
         </div>
-
-        <!--右边内容-->
-        <div class="col-xs-12 col-sm-9 content">
-            <div class="panel panel-default">
-                <!--内容上面标题部分-->
-                <div class="panel-heading">
-                    <h3 class="panel-title"><a href="javascript:void(0);" class="toggle-sidebar"><span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a> 用户管理</h3>
-                    <!--<a href="#">刷新</a>-->
-                </div>
-                <div class="panel-body">
-                    <div class="content-row">
-                        <div class="col-md-12">
-                            <!-- table-model -->
-                            <div class="searchTable" id="app_search"><!--搜索-->
-                                按{{way}}搜索：
-                                <div class="layui-inline">
-                                    <input class="layui-input" name="id" id="searchReload" autocomplete="off">
-                                </div>
-                                <div class="search_way">
-                                    搜索方式：
-                                    <select name="city" id="choice_way" lay-verify="required" @change="change">
-                                        <option value="name">按用户名</option>
-                                        <option value="phone">按手机号</option>
-                                        <option value="email">按邮箱</option>
-                                        <option value="company">按公司</option>
-                                    </select>
-                                </div>
-                                <button class="layui-btn" data-type="reload">搜索</button>
-                                <button class="layui-btn me_fr" id="mz_add_user">添加员工</button>
-                            </div>
-                            <table class="layui-hide" id="mz_user_table" lay-filter="mz_user_table"></table>
-                            <div id="laypage_user"></div>
-                            <script type="text/html" id="toolbarMeet">
-                                <div class="layui-btn-container">
-                                    <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-                                    <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-                                    <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
-                                    <button class="layui-btn layui-btn-sm" lay-event="addTable">添加</button>
-                                </div>
-                            </script>
-                            <script type="text/html" id="barMeet">
-                                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-                                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-                            </script>
+        <div class="panel-body">
+            <div class="content-row">
+                <div class="col-md-12">
+                    <!-- table-model -->
+                    <div class="searchTable" id="app_search"><!--搜索-->
+                        按{{way}}搜索：
+                        <div class="layui-inline">
+                            <input class="layui-input" name="id" id="searchReload" autocomplete="off">
                         </div>
+                        <div class="search_way">
+                            搜索方式：
+                            <select name="city" id="choice_way" lay-verify="required" @change="change">
+                                <option value="name">按用户名</option>
+                                <option value="phone">按手机号</option>
+                                <option value="email">按邮箱</option>
+                                <option value="company">按公司</option>
+                            </select>
+                        </div>
+                        <button class="layui-btn" data-type="reload">搜索</button>
+                        <button class="layui-btn me_fr" id="mz_add_user">添加员工</button>
                     </div>
-                </div><!-- panel body -->
+                    <table class="layui-hide" id="mz_user_table" lay-filter="mz_user_table"></table>
+                    <div id="laypage_user"></div>
+                    <script type="text/html" id="toolbarMeet">
+                        <div class="layui-btn-container">
+                            <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+                            <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+                            <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+                            <button class="layui-btn layui-btn-sm" lay-event="addTable">添加</button>
+                        </div>
+                    </script>
+                    <script type="text/html" id="barMeet">
+                        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                    </script>
+                </div>
             </div>
-        </div><!-- content -->
+        </div><!-- panel body -->
     </div>
-</div>
-
-<!--footer-->
-<div class="footerpage"></div>
-<!--footer over-->
+</div><!-- content -->
 
 <!--添加user，弹出框-->
-<div id="mz_add_info">
+<div id="mz_add_info" class="me_none">
     <form class="layui-form me_margin_top" id="user_add" action="" lay-filter="addForm">
         <div class="layui-form-item">
             <label class="layui-form-label">用户名</label>
@@ -195,7 +105,7 @@
     </form>
 </div>
 <!--修改user，弹出框-->
-<div id="mz_edit_info" >
+<div id="mz_edit_info"  class="me_none">
     <form class="layui-form me_margin_top" id="user_edit" action="" lay-filter="editForm">
         <div class="layui-form-item">
             <label class="layui-form-label">用户名</label>
@@ -252,8 +162,7 @@
     </form>
 </div>
 
-
-<div id="img_ms"><!--user头像-->
+<div id="img_ms" class="me_none"><!--user头像-->
     <img id="showimg">
     <a id="up_img"><i class="layui-icon">&#xe67c;</i>更换头像</a>
     <button id="submit_up" class="layui-btn layui-btn-sm">提交</button>
@@ -286,10 +195,6 @@
 </script>
 
 <script>
-    $(".headerpage").load("./page/header.html");
-    $(".footerpage").load("./page/footer.html");
-
-    //vue搜索方式
     var vm = new Vue({
         el: '#app_search',
         data:{
@@ -574,7 +479,7 @@
                             contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
                             success:function(result){ //所有错误信息都如result.message有关
                                 alert(result.msg);
-                                obj.del();   //删除对应行（tr）的DOM结构，并更新缓存
+                                user_search(curnum,size);
                                 layer.close(index);//关闭弹出框
                             }
                         });
@@ -638,7 +543,7 @@
                             console.log(JSON.stringify($('form[id="user_edit"]').serializeObject()));
                             var tdata = $('form[id="user_edit"]').serializeObject();
                             tdata.id = data.id;
-                            // console.log(tdata.id)
+                            // console.log(tdata)
                             $.ajax({
                                 url:"http://lsudjh.top:8081/user/update",
                                 type:"POST",
@@ -749,7 +654,7 @@
                 }else{
                     tdata.password = null;
                 }
-                console.log(tdata);
+                // console.log(tdata);
                 $.ajax({
                     url:"http://lsudjh.top:8081/user/register",
                     type:"POST",
@@ -800,8 +705,6 @@
         return o;
     };
 </script>
-</body>
-</html>
 
 
 

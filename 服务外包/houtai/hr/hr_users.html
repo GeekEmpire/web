@@ -345,7 +345,8 @@
                                 contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
                                 success:function(result){ //所有错误信息都如result.message有关
                                     alert(result.msg);
-                                    obj.del();   //删除对应行（tr）的DOM结构，并更新缓存
+                                    // obj.del();   //删除对应行（tr）的DOM结构，并更新缓存
+                                    user_search(curnum,size);
                                     layer.close(index);//关闭弹出框
                                 }
                             });

@@ -214,25 +214,36 @@
 <div id="view_img" style="display: none"></div>
 <script id="meet_img" type="text/html">
     <div style="font-size: 16px;margin: 20px 30px">
-        {{# if(d.autoList==null) { }}
+        {{# if(d.data==null) { }}
         <p>暂无</p>
         {{# } }}
 
-        <!--{{# for(var i = 0; i < d.tag.autoList; i++){ }}-->
-        <!--<p>{{d.autoList[i].name}}-->
-            <!--<span style="float: right;">-->
-                    <!--<a onclick=del_tag('{{d.autoList[i].id}}','{{d.id}}')>删除</a> &nbsp;-->
-            <!--</span>-->
-        <!--</p>-->
-        <!--{{# } }}-->
+        {{# for(var i = 0; i < d.data.length; i++){ }}
+            <p>
+                图{{i+1}}
+                <a onclick=file_img('{{d.data[i].url}}')  style="color: #0b859c;margin-left: 10px">查看</a>
+                <span style="float: right;">
+                    <a onclick=del_img('{{d.data[i].id}}','{{d.data[i].url}}')>删除</a> &nbsp;
+                </span>
+            </p>
+        {{# } }}
         <button id=""></button>
     </div>
 </script>
 
-<div id="img_ms" style="display: none"><!--user头像-->
+
+<div id="img_ms" style="display: none"><!--添加会议室图片预览-->
     <img id="showimg" style="width: 200px">
     <a id="up_img" style="left: 120px; top: 175px; "><i class="layui-icon">&#xe67c;</i>添加图片</a>
     <button id="submit_up" class="layui-btn layui-btn-sm" style="left: 115px">提交</button>
+</div>
+<div id="file_img" style="display: none"><!--会议室图片查看-->
+    <img id="fileimg" style="width: 220px;margin-left: 20px">
+</div>
+<div id="img_ms1" class="me_none">
+    <img id="showimg1">
+    <a id="up_img1"><i class="layui-icon">&#xe67c;</i>更换头像</a>
+    <button id="submit_up1" class="layui-btn layui-btn-sm">提交</button>
 </div>
 
 <body>
@@ -244,20 +255,26 @@
             <p><span class="layui-icon-chart-screen layui-icon"></span><a class="a_equip">设备</a></p>
         </div>
     </div>
-    <div class="goback">
-        <a href="ht_meet.html">返回会议室管理</a>
-    </div>
+    <div class="goback" style="margin-top: 60px;"></div>
     <div class="layui-container" id="meet_show">
         <div class="header_info">
             {{meetInfo.name}}：{{meetInfo.building.location}}-{{meetInfo.address}}
+            <a id="show_cover" style="margin-left: 50px;margin-bottom:5px;font-size: 14px;color: #0b859c">查看封面</a>
         </div>
         <div class="layui-carousel" id="slider_img">
             <div carousel-item class="img_swiper">
-                <img src="dist/img/huiyi1.jpg">
-                <img src="dist/img/huiyi2.jpg" v-if="meetInfo.autoList==null">
-                <!--<img src="dist/img/huiyi2.jpg">-->
-                <!--<img src="dist/img/huiyi3.jpg">-->
-                <!--<img src="dist/img/huiyi4.jpg">-->
+                <div v-if="meetRoomImg.length==0" >
+                    <img src="dist/img/huiyi1.jpg"style="width: 100%;height: 100%">
+                </div>
+
+                <!--<img v-for="(item, i) in meetRoomImg" src="item.url">-->
+                <div v-for="item in meetRoomImg">
+                    <img v-bind:src='item.url' style="width: 100%;height: 100%">
+                </div>
+                <!--<div>-->
+                    <!--<img src="dist/img/huiyi4.jpg" style="width: 100%;height: 100%">-->
+                <!--</div>-->
+
             </div>
             <div class="img_describe">容量：{{meetInfo.volume}}</div>
         </div>
@@ -432,45 +449,75 @@
                 }
             });
         }
-        function getImgs(){
-            layui.use('laytpl', function() {
-                var laytpl = layui.laytpl;
-                var tpldata = vm.meetInfo;
-                var getTpl = meet_img.innerHTML, view = document.getElementById('view_img');
-                laytpl(getTpl).render(tpldata, function (html) {
-                    view.innerHTML = html;
+        function file_img(src){
+            $('#fileimg').attr('src', src);
+            layui.use('layer', function() {
+                var layer = layui.layer;
+                layer.open({
+                    type: 1
+                    , title: ['图片', 'font-size:14px;']
+                    , area: ['260px', '220px']
+                    , id: 'file_img_url' //设定一个id，防止重复弹出
+                    , btnAlign: 'c'
+                    , content: $('#file_img')
+                    , yes: function (index, layero) {
+
+                    }
                 });
+            })
+        }
+        function getImgs(){
+            var dedata = {
+                meetingRoomId: window.location.href.split('=')[1]
+            };
+            $.ajax({
+                url: "http://lsudjh.top:8081/file/listEntity",
+                type: "POST",
+                data: JSON.stringify(dedata),
+                contentType: "application/json",  //缺失会出现URL编码，无法转成json对象
+                success: function (result) { //所有错误信息都如result.message有关
+                    // alert(result.msg);
+                    console.log(result);
+                    if(result.code==0){
+                        vm.meetRoomImg = result.data.data;
+
+                    }
+                    layui.use('carousel', function(){
+                        var carousel = layui.carousel;
+
+                        ins.reload({
+                            arrow: 'always' //始终显示箭头
+                            // ,anim: 'updown' //切换动画方式
+                            ,height:'450px'
+                        });
+                    });
+                    layui.use('laytpl', function() {
+                        var laytpl = layui.laytpl;
+                        var tpldata = result.data;
+                        var getTpl = meet_img.innerHTML, view = document.getElementById('view_img');
+                        laytpl(getTpl).render(tpldata, function (html) {
+                            view.innerHTML = html;
+                        });
+                    });
+                }
             });
         }
-        function del_tag(id,roomId,tName) {
-            console.log(id+' '+roomId);
-            layer.confirm('确认删除该标签?', {icon: 3, title:'提示'}, function(index){
-                var idList = '';
-                var p =0;
-                for(var i=0;i<vm.meetInfo.tag.length;i++){
-                    if(id!=vm.meetInfo.tag[i].id){
-                        if(p!=0){
-                            idList+=',';
-                        }
-                        idList+=vm.meetInfo.tag[i].id;
-                        p++;
-                    }
-                }
+        getImgs();
+        function del_img(id,url) {
+            console.log(id+' '+url);
+            layer.confirm('确认删除该图片?', {icon: 3, title:'提示'}, function(index){
                 var dedata = {
-                    "roomId":roomId,
-                    tag: idList
+                    "fileId":id,
                 };
-                console.log(dedata);
                 $.ajax({
-                    url: "http://lsudjh.top:8081/meetingRoom/updateTag",
+                    url: "http://lsudjh.top:8081/file/delete",
                     type: "POST",
                     data: JSON.stringify(dedata),
                     contentType: "application/json",  //缺失会出现URL编码，无法转成json对象
                     success: function (result) { //所有错误信息都如result.message有关
                         alert(result.msg);
-                        vm.getMeetInfo();
-                        getTags();
                         layer.close(index);
+                        getImgs();
                     }
                 });
                 layer.close(index);
@@ -505,26 +552,83 @@
                     // console.log(res.data);
                     $('#showimg').attr('src', '');
                     alert("添加成功");
-                    layer.close(2);
+                    layer.close(vm.index);
+                    getImgs();
                 }
             });
         });
 
+        // 文件上传
+        layui.use('upload', function(){
+            var upload = layui.upload;
+            var uploadInst = upload.render({
+                elem: '#up_img1'
+                ,url: 'http://lsudjh.top:8081/file/meetingRoomCover'
+                ,auto: false
+                ,bindAction: '#submit_up1'
+                ,data: {
+                    meetingRoomId: function(){
+                        return vm.meetInfo.id;
+                    }
+                }
+                ,choose:function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    // console.log(vm.imgId);
+                    obj.preview(function(index, file, result){
+                        $('#showimg1').attr('src', result); //图片链接（base64）
+                    });
+                }
+                ,done: function(res){
+                    //如果上传失败
+                    if(res.code > 0){
+                        return layer.msg('上传失败');
+                    }
+                    // console.log(res.data);
+                    $('#showimg1').attr('src', res.data);
+                    vm.coverImg = res.data;
+                    alert("更换成功");
+                    layer.close(vm.i);
+                }
+            });
+        });
+
+        $(function () {
+            $('#show_cover').on('click', function () {
+                var img =  $('#showimg1');
+                var src = vm.coverImg;
+                console.log(src);
+                if(src=="cover_default.jpg"||src==''||src==null){
+                    img.attr("src", "dist/img/bg2.jpg");
+                } else{
+                    img.attr("src", src);
+                }
+                vm.i = layer.open({
+                    type: 1
+                    ,title: '封面'
+                    ,id: 'LAY_layuimg14000000' //设定一个id，防止重复弹出
+                    ,area: ['260px', '300px']
+                    ,btnAlign: 'c'
+                    // ,btn: '确定'
+                    ,content: $('#img_ms1')
+                });
+            });
+        })
+
         $('.a_img').on('click',function () {
-            console.log(1);
+            // console.log(1);
             getImgs();
             layui.use('layer', function() {
                 var layer = layui.layer;
                 layer.open({
                     type: 1
                     , title: ['会议室图片', 'font-size:14px;']
-                    , area: ['320px', '200px']
+                    , area: ['320px', '350px']
                     , id: 'meet_img_url' //设定一个id，防止重复弹出
                     , btn: ['添加', '取消']
                     , btnAlign: 'c'
                     , content: $('#view_img')
                     , yes: function (index, layero) {
-                        layer.open({
+                        vm.index = layer.open({
                             type: 1
                             , title: ['添加图片', 'font-size:14px;']
                             , id: 'add_meet_url' //设定一个id，防止重复弹出
@@ -534,6 +638,11 @@
 
                             }
                         });
+                    }
+                    ,btn2:function (index) {
+                        console.log(1);
+                        getImgs();
+                        layer.close(index);
                     }
                 });
             })
@@ -582,7 +691,7 @@
                     }
                 });
             })
-        })
+        });
         $('.a_equip').on('click',function () {
             layui.use('layer', function() {
                 var layer = layui.layer;
@@ -627,10 +736,11 @@
                     }
                 });
             })
-        })
+        });
         var vm = new Vue({
             el: '#meet_show',
             data: {
+                index: 1,
                 meetInfo: {
                     address: "",
                     autoList: [],
@@ -648,6 +758,9 @@
                 },
                 deviceInfo: [], nowDevices:[], searchDevices:[],sd: '',//数组可以不填，对象必须要有,这里是设备
                 tagInfo:[],nowTags:[],searchTags:[],st: '',//这里是标签
+                meetRoomImg: [],//这里是图片
+                i: 1,
+                coverImg: ''
             },
             methods: {
                 getMeetInfo(){
@@ -666,6 +779,7 @@
                                 vm.meetInfo = result.data.data[0];
                                 vm.nowDevices = vm.meetInfo.equipment;
                                 vm.nowTags = vm.meetInfo.tag;
+                                vm.coverImg = result.data.data[0].cover;
                             }
                             console.log(result);
                         }
@@ -821,14 +935,20 @@
         vm.getTagInfo();
 
 
+        var ins;
         //轮播图
         layui.use('carousel', function(){
             var carousel = layui.carousel;
             //建造实例
-            carousel.render({
+            ins = carousel.render({
                 elem: '#slider_img'
                 ,width: '100%' //设置容器宽度
                 ,arrow: 'always' //始终显示箭头
+                // ,anim: 'updown' //切换动画方式
+                ,height:'450px'
+            });
+            ins.reload({
+                arrow: 'always' //始终显示箭头
                 // ,anim: 'updown' //切换动画方式
                 ,height:'450px'
             });

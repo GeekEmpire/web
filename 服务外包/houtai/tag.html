@@ -1,0 +1,185 @@
+<!--右边内容-->
+<div class="col-xs-12 col-sm-9 content"  >
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><a href="javascript:void(0);" class="toggle-sidebar"><span class="fa fa-angle-double-left" data-toggle="offcanvas" title="Maximize Panel"></span></a> 审核预约</h3>
+            <!--<a href="#">刷新</a>-->
+        </div>
+        <div class="panel-body"  id="tags_equip">
+            <h5>添加标签：</h5>
+            <div class="content-row">
+                <div class="col-md-1">
+
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control input-lg" type="text" v-model="tag" @keyup.13="add_t">
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-info btn-block" style="margin-top: 3px" @click="add_t">添加</button>
+                </div>
+            </div>
+            <div class="content-row">
+                <div class="col-md-12">
+                    <h5 class=" "><i class="layui-icon-tree layui-icon"></i> &nbsp;所有标签 </h5>
+                </div>
+                <div class="col-md-12" >
+                    <div class="tag" v-for="(item,i) in tags" @mouseenter="enter" @click="del_t(item)"
+                         data-toggle="tooltip" data-placement="left" title="点击删除">
+                        {{item.name}}
+                    </div>
+                </div>
+            </div>
+
+            <br><hr><br>
+            <h5>添加设备：</h5>
+            <div class="content-row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control input-lg" type="text" v-model="equipment" @keyup.13="add_e">
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-info btn-block" style="margin-top: 3px" @click="add_e">添加</button>
+                </div>
+            </div>
+            <div class="content-row">
+                <div class="col-md-12">
+                    <h5 class=""><i class="layui-icon-util layui-icon"></i> &nbsp;所有设备</h5>
+                </div>
+                <div class="col-md-12" >
+                    <div class="tag" v-for="(item,i) in equipments" @mouseenter="enter" @click="del_e(item)"
+                         data-toggle="tooltip" data-placement="left" title="点击删除">
+                        {{item.name}}
+                    </div>
+                </div>
+            </div>
+        </div><!-- panel body -->
+    </div>
+</div><!-- content -->
+
+<script>
+    var vm = new Vue({
+        el: '#tags_equip',
+        data: {
+            tags: [
+                {id: null, name: '无标签'}
+            ]
+            ,equipments: [
+                {id:null,name: '无设备'}
+            ]
+            ,tag: ""
+            ,equipment:''
+        },
+        methods: {
+            add_t(){
+                if(this.tag!=""||this.tag!=null){
+                    var tagdata = {
+                        name: this.tag
+                    };
+                    $.ajax({
+                        type: "POST"
+                        ,url:"http://lsudjh.top:8081/tag/add"
+                        , contentType: 'application/json; charset=utf-8'
+                        ,data: JSON.stringify(tagdata)
+                        ,dataType: "json"
+                        ,success:function(result){
+                            vm.tag = "";
+                            alert(result.msg);
+                            if(result.code ==0){
+                                vm.getAll_t({});
+                            }
+                        }
+                    });
+                }
+            },
+            add_e(){
+                if(this.equipment!=""||this.equipment!=null){
+                    var equipmentdata = {
+                        name: this.equipment
+                    };
+                    $.ajax({
+                        type: "POST"
+                        ,url:"http://lsudjh.top:8081/equipment/add"
+                        , contentType: 'application/json; charset=utf-8'
+                        ,data: JSON.stringify(equipmentdata)
+                        ,dataType: "json"
+                        ,success:function(result){
+                            alert(result.msg);
+                            vm.equipment = "";
+                            if(result.code==0){
+                                vm.getAll_e({});
+                            }
+                        }
+                    });
+                }
+            },
+            getAll_t(data){
+                $.ajax({
+                    type: "POST"
+                    ,url:"http://lsudjh.top:8081/tag/listEntity"
+                    , contentType: 'application/json; charset=utf-8'
+                    ,data: JSON.stringify(data)
+                    ,dataType: "json"
+                    ,success:function(result){
+                        vm.tags = result.data.data;
+                    }
+                });
+            },
+            getAll_e(data){
+                $.ajax({
+                    type: "POST"
+                    ,url:"http://lsudjh.top:8081/equipment/listEntity"
+                    , contentType: 'application/json; charset=utf-8'
+                    ,data: JSON.stringify(data)
+                    ,dataType: "json"
+                    ,success:function(result){
+                        vm.equipments = result.data.data;
+                    }
+                });
+            },
+            del_t(item){
+                var data = {
+                    id : item.id
+                };
+                $.ajax({
+                    type: "POST"
+                    ,url:"http://lsudjh.top:8081/tag/delete"
+                    ,contentType: 'application/json; charset=utf-8'
+                    ,data: JSON.stringify(data)
+                    ,dataType: "json"
+                    ,success:function(result){
+                        alert(result.msg);
+                        if(result.code==0){
+                            vm.getAll_t({});
+                        }
+                    }
+                });
+            },
+            del_e(item){
+                var data = {
+                    id : item.id
+                };
+                $.ajax({
+                    type: "POST"
+                    ,url:"http://lsudjh.top:8081/equipment/delete"
+                    ,contentType: 'application/json; charset=utf-8'
+                    ,data: JSON.stringify(data)
+                    ,dataType: "json"
+                    ,success:function(result){
+                        alert(result.msg);
+                        if(result.code==0){
+                            vm.getAll_e({});
+                        }
+                    }
+                });
+            },
+            enter(){
+
+            }
+        },
+        created(){
+            this.getAll_t({});
+            this.getAll_e({ });
+        }
+    })
+</script>
