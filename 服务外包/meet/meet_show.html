@@ -426,7 +426,7 @@
                             size: 6
                             ,page: 1
                             ,order :'id asc'
-                            ,beginTime: value+' 1:1,'
+                            ,beginTime: value+' 0:0,'+value+' 23:59'
                             ,workerId: ''
                         }
                     });
@@ -436,13 +436,14 @@
                 ,ready: function(date){
                     var all = $('.laydate-btns-clear');
                     all.html('全部').attr('lay-type','');
+                    var ltoday = new Date().Format("yyyy-MM-dd");
                     all.on('click', function () {
                         table.reload('shenheTable', {
                             where:{
                                 size: 6
                                 ,page: 1
                                 ,order :'id asc'
-                                ,beginTime: '1999-3-21 1:1,'
+                                ,beginTime: ltoday+' 0:0,'
                                 ,workerId: ''
                             }
                         });
@@ -450,15 +451,16 @@
 
                     $('.laydate-btns-now').html('今日');
 
-                    var all = $('.laydate-btns-confirm');
-                    all.html('我的').attr('lay-type','');
-                    all.on('click', function () {
+                    var me = $('.laydate-btns-confirm');
+                    me.html('我的').attr('lay-type','');
+                    var ltoday = new Date().Format("yyyy-MM-dd");
+                    me.on('click', function () {
                         table.reload('shenheTable', {
                             where:{
                                 size: 6
                                 ,page: 1
                                 ,order :'id asc'
-                                ,beginTime: '1999-3-21 1:1,'
+                                ,beginTime: ltoday+' 0:0,'
                                 ,workerId: $.cookie('id')
                             }
                         });

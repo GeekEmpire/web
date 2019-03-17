@@ -14,7 +14,7 @@
     <title>主界面</title>
 </head>
 <body>
-<div id="app">
+<div id="app" v-cloak>
     <div class="header">
         <div class="fl">
             <img src="images/logoimg.png" class="logo fl">
@@ -36,31 +36,31 @@
             <table border="1">
                 <tr class="meet_table_top center">
                     <th>当前会议</th>
-                    <th>时间</th>
+                    <th >组织人</th>
                     <th>主题</th>
-                    <th>组织人</th>
+                    <th>会议时间</th>
                 </tr>
                 <tr>
-                    <td rowspan="4" class="center">无</td>
-                    <td>10:00-11:00</td>
-                    <td>销售讨论会</td>
-                    <td>销售部</td>
+                    <td rowspan="5" class="center" width="30%">
+                        <span v-if="nowMeet==null">无</span>
+                        <div  style="line-height: 30px" v-else>
+                        <!--<div style="line-height: 30px">-->
+                            <p>admin</p>
+                            <p>销售会议</p>
+                            <p>07:30-09:30</p>
+                        </div>
+                    </td>
                 </tr>
-                <tr>
-                    <td>12:00-13:00</td>
-                    <td>销售讨论会</td>
-                    <td>销售部</td>
+                <tr v-for="(item,i) in meetInfo">
+                    <td width="18%">{{item.flexible}}</td>
+                    <td width="22%">{{item.topic}}</td>
+                    <td width="30%">{{item.beginTime}}</td>
                 </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                <!--<tr>-->
+                    <!--<td width="18%">admin</td>-->
+                    <!--<td width="22%">销售会议</td>-->
+                    <!--<td width="30%">07:30-09:30</td>-->
+                <!--</tr>-->
             </table>
         </div>
     </div>
@@ -70,16 +70,27 @@
 </div>
 
 <script>
-    function timeStampString(time){
+    function getTime(time,p){
         var datetime = new Date();
         datetime.setTime(time);
+
+        var d = datetime.getDate();
+        if(p===1){
+            d++;
+        }
         var year = datetime.getFullYear();
         var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
-        var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+        var date = d < 10 ? "0" + d : d;
         var hour = datetime.getHours()< 10 ? "0" + datetime.getHours() : datetime.getHours();
         var minute = datetime.getMinutes()< 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
         var second = datetime.getSeconds()< 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-        return year + "-" + month + "-" + date+" "+hour+":"+minute+":"+second;
+        if(p===0)
+            return year + "-" + month + "-" + date+" "+hour+":"+minute+":"+second;
+        else if(p===1){
+            return year + "-" + month + "-" + date+" 00:00:00";
+        } else if(p===2){
+            return year + "-" + month + "-" + date+" 00:00:00";
+        }
     }
     window.onload=function () {
         setInterval(showTime,1000);
@@ -114,19 +125,24 @@
         // console.log(tyear,tday,tmonth,tweek,thour,tseconds,tminute);
     }
 
+    console.log(new Date().getTime());
     var vm = new Vue({
         el: '#app',
         data: {
             roomId: '',
             meetInfo: [],
-
+            all: 0,
+            f: 0,
+            r: 0,
+            nowMeet: {id:1},
         },
         methods: {
             getMeetsInfo(){
+                var t = new Date().getTime();
                 var data ={
                     roomID: 7,
                     status: 0,
-                    beginTime: timeStampString(new Date().getTime())+','
+                    // beginTime: getTime(t,0)+','+getTime(t,1)
                 };
                 // console.log(data);
                 $.ajax({
@@ -137,6 +153,7 @@
                     success:function(result){ //所有错误信息都如result.message有关
                         console.log(result);
                         var tdata = result.data.data;
+                        vm.r = tdata.length;
                         if(result.code==0){
                             for(var i =0;i<tdata.length;i++){
                                 tdata[i].beginTime = tdata[i].beginTime.split(' ')[1].split(':')[0]+':'+
@@ -147,7 +164,9 @@
                                 // tdata[i].endTime = tdata[i].endTime.split(' ')[1].split(':')[0]+':'+
                                 //     tdata[i].endTime.split(' ')[1].split(':')[1];
                             }
-                            getUserName(0,tdata.length);
+                            if(tdata.length>0){
+                                getUserName(0,tdata.length);
+                            }
                             function getUserName(j,length) {
                                 var udata={
                                     id: tdata[j].workerId
@@ -156,6 +175,7 @@
                                     url:"http://lsudjh.top:8081/user/get",
                                     type:"POST",
                                     data:JSON.stringify(udata),
+                                    async:false,
                                     contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
                                     success:function(result){ //所有错误信息都如result.message有关
                                         // console.log(result.data);
@@ -171,16 +191,62 @@
                                     }
                                 });
                             }
-                            console.log(tdata);
-                            vm.meetInfo = tdata;
+                            // console.log(tdata);
+                            var mdata =[];
+                            if(tdata.length>=4){
+                                for(var i=0;i<4;i++){
+                                    mdata.push(tdata[i]);
+                                }
+                            } else{
+                                for(var i=0;i<tdata.length;i++){
+                                    mdata.push(tdata[i]);
+                                }
+                                for(i=tdata.length;i<4;i++){
+                                    mdata.push({
+                                        price: '空'
+                                    })
+                                }
+                            }
+                            vm.meetInfo = mdata;
                         }
+
+                        data.beginTime = getTime(t,2)+','+getTime(t,0);
+                        $.ajax({
+                            url:"http://lsudjh.top:8081/meetingApply/listEntity",
+                            type:"POST",
+                            data:JSON.stringify(data),
+                            contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                            success:function(result){ //所有错误信息都如result.message有关
+                                console.log(result);
+                                var k1data = result.data.data;
+                                vm.l = k1data.length;
+                                data.beginTime = getTime(t,2)+','+getTime(t,1);
+                                $.ajax({
+                                    url:"http://lsudjh.top:8081/meetingApply/listEntity",
+                                    type:"POST",
+                                    data:JSON.stringify(data),
+                                    contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                                    success:function(result){ //所有错误信息都如result.message有关
+                                        console.log(result);
+                                        var k2data = result.data.data;
+
+                                        if(k2data.length==(vm.l+vm.r)){
+                                            vm.nowMeet.price ='无';
+                                        } else{
+                                            vm.nowMeet = k2data[vm.l];
+                                        }
+                                    }
+                                });
+                            }
+                        });
+
                     }
                 });
             },
         }
     })
     vm.getMeetsInfo();
-
+    setInterval(vm.getMeetsInfo,1000*60*15);
 
 </script>
 </body>

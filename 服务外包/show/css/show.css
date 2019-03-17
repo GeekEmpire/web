@@ -3,6 +3,10 @@ body,div,a,input,h5,p,span,i,h4{
     padding: 0px;
     margin: 0px;
 }
+[v-cloak]{
+    display: none;
+}
+td { text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
 .fl{
     float: left;
 }
@@ -52,13 +56,14 @@ body,div,a,input,h5,p,span,i,h4{
     font-style:normal;
     font-size: 5vh;
     margin-right: 5px;
-    white-space:pre
+    white-space:pre;
+    /*color: #666!important;*/
 }
 .show_time{                /*当前时间*/
     line-height: 16vh;
     font-size: 4vh;
     margin-right: 3vw;
-    color: #3C74A6;
+    color: #23407A;
 }
 
 /*内容部分*/
@@ -105,7 +110,6 @@ body,div,a,input,h5,p,span,i,h4{
     font-size: 4vh;
     text-align: center;
     height: 10vh;
-    padding-left: 2vw;
     background-color:#eee;
 }
 .meet_table_top{
