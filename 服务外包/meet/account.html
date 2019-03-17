@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="dist/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="dist/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="dist/me/css/base.css">
+    <link rel="stylesheet" type="text/css" href="dist/me/css/me.css">
+
+    <script src="dist/me/js/jquery-3.3.1.js" type="text/javascript"></script>
+    <script src="dist/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+    <script src="dist/layui/layui.js" type="text/javascript"></script>
+    <script type="" src="dist/me/js/jquery.cookie.js"></script>
+    <script type="" src="dist/me/js/vue.min.js"></script>
+
+    <title>会议预约系统</title>
+    <style>
+        /*弹出框*/
+        .me_none{
+            display: none;
+        }
+        #mz_add_info,#mz_edit_info{display: none;margin: 15px 70px 0 0px}
+        #show_user_info li{
+            height: 30px;
+            line-height: 30px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        .container-fluid{
+            height: auto;
+            min-height: 74vh;
+            width: 700px;
+            margin: 30px auto;
+        }
+
+
+        /*头像部分*/
+        .mz_touxiang_t{
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .mz_touxiang{
+            display: block;
+            width: 100px;
+            height: 130px;
+            margin: 0 auto;
+        }
+        .mz_touxiang img{
+            display: block;
+            width: 150px;
+            height: 150px;
+            border: 1px solid #ccc;
+        }
+        .mz_touxiang a{
+            display: block;
+            margin-top: 5px;
+            text-align: center;
+        }
+        .layui-upload-choose{
+            display: none;
+        }
+
+
+
+        /*账号管理，修改信息*/
+        #mz_admin_info{
+            margin:150px 0 0px 150px;
+        }
+        #mz_admin_info li{
+            height: 30px;
+            line-height: 30px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        #mz_modify_modal_t{
+            font-size: 24px;
+            text-align: center;
+        }
+        .layui-input-block{
+            margin-left: 130px;
+        }
+        .layui-form-label{
+            width: 120px;
+        }
+        .layui-input-inline{
+            margin-left: 10px;
+        }
+        .mz_info_intro{
+            display: block;
+            text-indent:2em;
+            margin-right: 15%;
+        }
+        @media (min-width: 768px) {
+            .me_kuochong{
+                padding-bottom: 150px;
+            }
+        }/* 账号管理结束*/
+
+        #edit_info{
+            position: absolute;
+            right: -260px;
+            top: 0px;
+            font-size: 20px;
+            color: #57a0f5;
+        }
+    </style>
+    <script>
+        function exit() {
+            alert('退出成功');
+            $.removeCookie('id',{ path: '/'}); //path为指定路径，直接删除该路径下的cookie
+            $.removeCookie('companyId',{ path: '/'});
+            $.removeCookie('companyCode',{ path: '/'});
+            $.removeCookie('role',{ path: '/'});
+            $.removeCookie('login_code',{ path: '/'});
+            location.href = 'login.html'
+        };
+    </script>
+</head>
+<body>
+<header>
+    <div class="fl logo">
+        <img src="images/logoimg.png" class="fl">
+        <h5 class="fl">会议室预定系统</h5>
+    </div>
+    <div class="fr head_a">
+        <a href="index.html">首页</a>
+        <a href="meetlist.html">会议室列表</a>
+        <a href="mycollect.html">我的收藏</a>
+        <a href="mymeet.html">我的会议</a>
+        <a href="account.html" class="me_active">个人中心</a>
+        <a onclick="exit()">注销</a>
+    </div>
+</header>
+<div class="me_content" id="app">
+    <div class="container-fluid">
+        <div class="col-xs-12 col-sm-9 content">
+
+                    <div class="content-row">
+                        <div class="row" id="userVm" v-cloak>
+                            <div class="col-md-2">
+                                <h4 class="me_center mz_touxiang_t">
+                                    <!--<span>owl</span>-->
+                                </h4>
+                                <div class="mz_touxiang">
+                                    <img src="" id="mz_touxiang_img">
+                                    <a id="mz_up_touxiang"><i class="layui-icon">&#xe67c;</i>更换头像</a>
+                                </div>
+
+                            </div><!-- 头像-->
+                            <div class="col-md-10 me_margin_mtop ">
+                                <ul id="mz_admin_info">
+                                    <li>
+                                        ID：<span>{{user.id}}</span><a class="pull-right" id="edit_info">修改信息</a>
+                                    </li>
+                                    <li>用户名：<span>{{user.name}}</span></li>
+                                    <li>公司：<span>{{user.companyName}}</span></li>
+                                    <li>部门：<span>{{department}}</span></li>
+                                    <li>电话号码：<span>{{user.phone}}</span></li>
+                                    <li>邮箱：<span>{{user.email}}</span></li>
+
+                                    <li>身份：
+                                        <span v-if="user.role==1">普通用户</span>
+                                        <span v-if="user.role==2">HR</span>
+                                        <span v-if="user.role==3">后勤</span>
+                                        <span v-if="user.role==4">管理员</span>
+                                    </li>
+                                </ul>
+                            </div><!-- 详细信息-->
+                        </div>
+                    </div>
+            </div>
+
+            <div id="mz_edit_info" style="display: none;margin: 10px 70px 0 0px">
+                <form class="layui-form me_margin_top" id="user_edit" action="" lay-filter="editForm">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">用户名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="name" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">手机号</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="phone" required lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">密码</label>
+                        <div class="layui-input-block">
+                            <input type="psw" name="psw" if="psw1" required  lay-verify="psw" placeholder="******" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">邮箱</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="email" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item" style="display: none">
+                        <label class="layui-form-label">权限</label>
+                        <div class="layui-input-block">
+                            <select name="role" lay-verify="required" lay-search>
+                                <option value=""></option>
+                                <option value="1">普通用户</option>
+                                <option value="2">HR</option>
+                                <option value="3">后勤</option>
+                                <option value="4">管理员</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item" style="display: none">
+                        <label class="layui-form-label">公司</label>
+                        <div class="layui-input-block">
+                            <select name="companyId" class="edit_company" id="companyId" lay-verify="required">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item"  style="display: none">
+                        <label class="layui-form-label">部门</label>
+                        <div class="layui-input-block">
+                            <select name="department" id="department"  class="edit_department" lay-verify="required">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <script>
+                //获取cookie
+                var ldata= {
+                    phone : $.cookie("login_code")
+                };
+                //获取公司信息，并渲染(edit)
+                function getCompany(company,id){
+                    // console.log(id)
+                    $.ajax({
+                        url:"http://lsudjh.top:8081/company/listEntity",
+                        type:"POST",
+                        data:'{}',
+                        contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                        success:function(result){ //所有错误信息都如result.message有关
+                            if(result.code==0){
+                                layui.use('form', function(){
+                                    var form = layui.form;
+
+                                    company.empty();
+                                    company.append("<option value=''></option>" );
+                                    for(var i=0; i<result.data.data.length; i++) {
+                                        // console.log(result.data.data[i])
+                                        if(id!=result.data.data[i].id){
+                                            company.append("<option value=\"" +result.data.data[i].id+"\">" + result.data.data[i].name + "");
+                                        }else {
+                                            company.append("<option selected value=\"" +result.data.data[i].id+"\">" + result.data.data[i].name + "");
+                                        }
+                                    }
+                                    form.render('select');
+                                });
+                            }
+                        }
+                    });
+                }
+
+                //获取登陆者信息
+                function getInfo(){
+                    $.ajax({
+                        url: 'http://lsudjh.top:8081/user/listEntity',
+                        type: 'post',
+                        data: JSON.stringify(ldata) ,
+                        contentType: 'application/json;charset=utf-8',
+                        dataType: 'json',
+                        success: function (result) {
+                            var tdata = result.data.data[0];
+                            if(result.code==0){
+                                console.log(tdata);
+                                if(tdata.company!=null&&tdata.company!=""){
+                                    tdata.companyId = tdata.company.id;   //渲染select用
+                                    tdata.companyName = tdata.company.name;
+                                }else{
+                                    tdata.companyId = 0;
+                                    tdata.companyName = "无";
+                                }
+                                if(tdata.department==null||tdata.department==''){
+                                    vm.department = '无'
+                                } else {
+                                    vm.department = tdata.department.name;
+                                }
+
+                                vm.imgId = tdata.id;
+                                vm.user = tdata;
+                                if(tdata.avatar=="default.jpg"){
+                                    $('#mz_touxiang_img').attr('src', "dist/img/bg2.jpg");
+                                } else {
+                                    $('#mz_touxiang_img').attr('src', tdata.avatar);
+                                }
+
+                            } else {
+                                alert('系统错误，请稍后再试');
+                            }
+                        }
+                    });
+                }
+                getInfo();
+
+                //vue渲染
+                var vm = new Vue({
+                    el: '#userVm',
+                    data:{
+                        way: '用户名',
+                        v: 0,
+                        department: '',
+                        imgId: 1,
+                        user: {
+                            avatar: '',
+                            company: {
+                                code: '',
+                                cost: '',
+                                hr: [],
+                                id: '',
+                                name: ''
+
+                            },
+                            department: {
+                                compangyId: '',
+                                id: '',
+                                name: ''
+                            },
+                            companyId: '',
+                            companyName: '',
+                            email: '',
+                            id: '',
+                            name: '',
+                            phone: '',
+                            role: ''
+                        }
+                    },
+                    methods:{
+
+                    }
+                });
+
+                //上传头像
+                layui.use('upload', function(){
+                    var upload = layui.upload;
+                    //执行实例
+                    var uploadInst = upload.render({
+                        elem: '#mz_up_touxiang'
+                        ,url: 'http://lsudjh.top:8081/file/headImage'
+                        ,data: {
+                            id: function(){
+                                return vm.imgId;
+                            }
+                        }
+                        ,done: function(res){
+                            //如果上传失败
+                            if(res.code > 0){
+                                return layer.msg('上传失败');
+                            }
+                            $('#mz_touxiang_img').attr('src', res.data);
+                            alert("更换成功");
+                            //上传成功
+                        }
+                    });
+                });
+
+
+                //修改信息
+                $('#edit_info').on("click", function () {
+                    var company = $('.edit_company');
+                    var data = vm.user;
+                    // console.log(data);
+                    if(data.companyId!=""&&data.companyId!=null) {
+                        getCompany(company, data.companyId);
+                    } else{
+                        getCompany(company,0);
+                    }
+                    layui.use('form', function(){
+                        var form = layui.form;
+
+                        var department = $('#department');
+                        var tdata = {
+                            companyId: company.val()
+                        };
+                        $.ajax({
+                            url: "http://lsudjh.top:8081/department/listEntity",
+                            type:"POST",
+                            data:JSON.stringify(tdata),
+                            contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                            success: function (result) {
+                                console.log(result);
+                                for(var i=0; i<result.data.data.length; i++) {
+                                    if(vm.user.departmentId!=result.data.data[i].id) {
+                                        department.append("<option value=\"" + result.data.data[i].id + "\">" + result.data.data[i].name + "</option>");
+                                    } else {
+                                        department.append("<option selected value=\"" + result.data.data[i].id + "\">" + result.data.data[i].name + "</option>");
+                                    }
+                                }
+                                form.render('select');
+                            }
+                        });
+                        // console.log(data);
+                        // data.companyId = data.company.id;
+                        form.val("editForm", vm.user);
+                    });
+                    layer.open({
+                        type: 1
+                        ,title: "编辑信息" //不显示标题栏
+                        // ,closeBtn: true
+                        ,area: '400px'
+                        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        ,btn: ['确定', '取消']
+                        ,btnAlign: 'c'
+                        ,moveType: 1 //拖拽模式，0或者1
+                        ,content: $('#mz_edit_info')
+                        ,yes:function (index, layero) {
+                            var tdata = $('form[id="user_edit"]').serializeObject();
+                            if(tdata.psw!=''&&tdata.psw !=null){
+                                tdata.password = tdata.psw;
+                            }
+                            tdata.id = data.id;
+                            console.log(tdata);
+                            //修改信息
+                            $.ajax({
+                                url:"http://lsudjh.top:8081/user/update",
+                                type:"POST",
+                                data:JSON.stringify(tdata),
+                                contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                                success:function(result){ //所有错误信息都如result.message有关
+
+                                    if(result.code==0){
+                                        $('#user_edit')[0].reset();
+                                        layer.close(index);  //关闭弹出层
+                                        tdata.psw = '';
+                                        //获取公司信息
+                                        $.ajax({
+                                            url:"http://lsudjh.top:8081/company/get",
+                                            type:"POST",
+                                            data:'{id:'+tdata.companyId+'}',
+                                            contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                                            success:function(result){ //所有错误信息都如result.message有关
+                                                console.log(result);
+                                                alert(result.msg);
+                                                if(result.code==0){
+                                                    tdata.companyName= result.data.name; //公司名
+                                                    console.log(tdata);
+                                                    vm.user = tdata;
+                                                }
+                                            }
+                                        });
+                                    } else{
+                                        alert('系统错误请重试')
+                                        layui.use('form', function(){
+                                            var form = layui.form;
+                                            form.val("editForm", data);
+                                        });
+                                    }
+
+                                }
+                            });
+                        }
+                        ,btn2:function (index, layero) {
+
+                        }
+                    });
+                });
+
+                /**
+                 * 自动将form表单封装成json对象
+                 */
+                $.fn.serializeObject = function() {
+                    var o = {};
+                    var a = this.serializeArray();
+                    $.each(a, function() {
+                        if (o[this.name]) {
+                            if (!o[this.name].push) {
+                                o[this.name] = [ o[this.name] ];
+                            }
+                            o[this.name].push(this.value || '');
+                        } else {
+                            o[this.name] = this.value || '';
+                        }
+                    });
+                    return o;
+                };
+            </script>
+        </div><!-- content -->
+    </div>
+</div>
+
+<footer>
+    <h5>输入日期、人数等信息以查看会议室并开始预订， 只有预订后的24小时之内可以取消。</h5>
+    <p>***股份有限公司</p>
+</footer>
+</body>
+</html>

@@ -122,7 +122,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">密码</label>
             <div class="layui-input-block">
-                <input type="password" name="password" if="psw1" required  lay-verify="psw" placeholder="***" autocomplete="off" class="layui-input">
+                <input type="psw" name="psw" if="psw1" required  lay-verify="psw" placeholder="******" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -542,6 +542,9 @@
                         ,yes:function (index, layero) {
                             console.log(JSON.stringify($('form[id="user_edit"]').serializeObject()));
                             var tdata = $('form[id="user_edit"]').serializeObject();
+                            if(tdata.psw!=''&&tdata.psw !=null){
+                                tdata.password = tdata.psw;
+                            }
                             tdata.id = data.id;
                             // console.log(tdata)
                             $.ajax({

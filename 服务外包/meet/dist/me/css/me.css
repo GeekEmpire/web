@@ -1,0 +1,90 @@
+/*弹出框*/
+.me_none{
+	display: none;
+}
+#mz_add_info,#mz_edit_info{display: none;margin: 15px 70px 0 0px}
+#show_user_info li{
+	height: 30px;
+	line-height: 30px;
+	margin: 10px;
+	font-size: 16px;
+}
+.container-fluid{
+	height: auto;
+	min-height: 74vh;
+	width: 700px;
+	margin: 30px auto;
+}
+
+
+/*头像部分*/
+.mz_touxiang_t{
+	font-size: 18px;
+	margin-bottom: 10px;
+}
+.mz_touxiang{
+	display: block;
+	width: 100px;
+	height: 130px;
+	margin: 0 auto;
+}
+.mz_touxiang img{
+	display: block;
+	width: 150px;
+	height: 150px;
+	border: 1px solid #ccc;
+}
+.mz_touxiang a{
+	display: block;
+	margin-top: 5px;
+	text-align: center;
+}
+.layui-upload-choose{
+	display: none;
+}
+
+
+
+/*账号管理，修改信息*/
+#mz_admin_info{
+	margin:150px 0 0px 150px;
+}
+#mz_admin_info li{
+	height: 30px;
+	line-height: 30px;
+	margin: 10px;
+	font-size: 16px;
+}
+#mz_modify_modal_t{
+	font-size: 24px;
+	text-align: center;
+}
+.layui-input-block{
+	margin-left: 130px;
+}
+.layui-form-label{
+	width: 120px;
+}
+.layui-input-inline{
+	margin-left: 10px;
+}
+.mz_info_intro{
+	display: block;
+	text-indent:2em;
+	margin-right: 15%;
+}
+@media (min-width: 768px) {
+	.me_kuochong{
+		padding-bottom: 150px;
+	}
+}/* 账号管理结束*/
+
+#edit_info{
+	position: absolute;
+	right: -260px;
+	top: 0px;
+	font-size: 20px;
+	color: #57a0f5;
+}
+
+

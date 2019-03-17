@@ -20,7 +20,7 @@
         <button class="layui-btn me_fr" id="mz_add_meet">添加预约申请</button>
       </div>
       <div class="content-row">
-        <h5>待审核：</h5>
+        <h5>预约列表：</h5>
         <div class="col-md-12">
           <!-- table-model -->
 
@@ -162,13 +162,15 @@
 <p>结束</p>
 {{#  } }}
 </script>
-<script type="text/html" id="tflex"><!--部门-->
+<script type="text/html" id="tflex"><!--调剂-->
 {{#  if(d.flexible == 1){ }}
 <p>支持</p>
 {{#  } else { }}
 <p>不支持</p>
 {{#  } }}
 </script>
+
+<!--申请时间-->
 <script type="text/html" id="tuse">
   {{#
   var time = function(){
@@ -206,7 +208,7 @@
    });
 
 
-       function show_people(id){
+   function show_people(id){
            var data={ id: id};
            $.ajax({
                url: 'http://lsudjh.top:8081/user/get',
@@ -282,6 +284,10 @@
 
    }
 
+   layui.use('form', function () {
+       var form = layui.form;
+       form.render();
+   })
    function show_files() {
    }
 
@@ -320,7 +326,7 @@
            ,url:'http://lsudjh.top:8081/meetingApply/listEntity'
            ,method: 'post'
            ,contentType: 'application/json'
-           ,title: '未审核数据表'
+           ,title: '预约数据表'
            ,id:'shenheTable'
            ,cellMinWidth:80
            ,cols: [[
@@ -349,29 +355,6 @@
            ,where: {size:size, page:curnum,order :'id asc'}
            ,parseData: function(res){ //res 即为原始返回的数据
                console.log(res);
-               // for(var i=0;i<res.data.total;i++) {
-               //     var roomdata = {
-               //         id: res.data.data[i].id
-               //     };
-               //     $.ajax({
-               //         url: "http://lsudjh.top:8081/meetingRoom/listEntity",
-               //         type: "POST",
-               //         data: JSON.stringify(roomdata),
-               //         contentType: "application/json",  //缺失会出现URL编码，无法转成json对象
-               //         success: function (result) { //所有错误信息都如result.message有关
-               //             if (result.code == 0) {
-               //                 console.log(result);
-               //                 if(result.data.total==1){
-               //                     res.data.data[i].roomName = result.data.data[0].name;
-               //                 } else{
-               //                     res.data.data[i].roomName = '';
-               //                 }
-               //             } else {
-               //                 alert('系统错误，请稍后再试');
-               //             }
-               //         }
-               //     })
-               // };
                return {
                    "code": res.code, //解析接口状态
                    "msg": res.message, //解析提示文本

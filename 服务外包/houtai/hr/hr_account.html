@@ -62,7 +62,7 @@
       <div class="layui-form-item">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-block">
-          <input type="password" name="password" if="psw1" required  lay-verify="psw" placeholder="***" autocomplete="off" class="layui-input">
+          <input type="psw" name="psw" if="psw1" required  lay-verify="psw" placeholder="******" autocomplete="off" class="layui-input">
         </div>
       </div>
       <div class="layui-form-item">
@@ -412,6 +412,9 @@
               ,yes:function (index, layero) {
                   var tdata = $('form[id="user_edit"]').serializeObject();
                   tdata.id = data.id;
+                  if(tdata.psw!=''&&tdata.psw !=null){
+                      tdata.password = tdata.psw;
+                  }
                   console.log(tdata);
                   //修改信息
                   $.ajax({
@@ -424,7 +427,7 @@
                           if(result.code==0){
                               $('#user_edit')[0].reset();
                               layer.close(index);  //关闭弹出层
-                              tdata.password = '';
+                              tdata.psw = '';
                               //获取公司信息
                               $.ajax({
                                   url:"http://lsudjh.top:8081/company/get",

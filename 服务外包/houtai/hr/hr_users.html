@@ -101,7 +101,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">密码</label>
                 <div class="layui-input-block">
-                    <input type="password" name="password" if="psw1" required  lay-verify="psw" placeholder="***" autocomplete="off" class="layui-input">
+                    <input type="psw" name="psw" if="psw1" required  lay-verify="psw" placeholder="******" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -122,14 +122,6 @@
                     </select>
                 </div>
             </div>
-            <!--<div class="layui-form-item">-->
-                <!--<label class="layui-form-label">公司</label>-->
-                <!--<div class="layui-input-block">-->
-                    <!--<select name="companyId" class="edit_company" lay-filter="com_e" id="companyId" lay-verify="required">-->
-                        <!--<option value=""></option>-->
-                    <!--</select>-->
-                <!--</div>-->
-            <!--</div>-->
             <div class="layui-form-item">
                 <label class="layui-form-label">部门</label>
                 <div class="layui-input-block">
@@ -352,12 +344,6 @@
                             });
                         });
                     } else if(e === 'edit'){    //table行编辑事件
-                        // var company = $('.edit_company');
-                        // if(data.company!=""&&data.company!=null) {
-                        //     getCompany(company, data.company.id);
-                        // } else{
-                        //     getCompany(company,0);
-                        // }
                         layui.use('form', function(){
                             var form = layui.form;
 
@@ -390,8 +376,6 @@
                                 }
                             });
 
-                            // console.log(data);
-                            // data.companyId = data.company.id;
                             form.val("editForm", data);
 
                         });
@@ -410,6 +394,9 @@
                                 var tdata = $('form[id="user_edit"]').serializeObject();
                                 tdata.companyCode = $.cookie("companyCode");
                                 tdata.id = data.id;
+                                if(tdata.psw!=''&&tdata.psw !=null){
+                                    tdata.password = tdata.psw;
+                                }
                                 // console.log(tdata.id)
                                 $.ajax({
                                     url:"http://lsudjh.top:8081/user/update",

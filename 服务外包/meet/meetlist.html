@@ -13,8 +13,20 @@
     <script src="dist/me/js/jquery-3.3.1.js" type="text/javascript"></script>
     <script src="dist/bootstrap/js/bootstrap.js" type="text/javascript"></script>
     <script src="dist/layui/layui.js" type="text/javascript"></script>
-    <script src="dist/me/js/meetlist.js" type="text/javascript"></script>
+    <script type="" src="dist/me/js/jquery.cookie.js"></script>
+    <script type="" src="dist/me/js/vue.min.js"></script>
     <title>会议预约系统</title>
+    <script>
+        function exit() {
+            alert('退出成功');
+            $.removeCookie('id',{ path: '/'}); //path为指定路径，直接删除该路径下的cookie
+            $.removeCookie('companyId',{ path: '/'});
+            $.removeCookie('companyCode',{ path: '/'});
+            $.removeCookie('role',{ path: '/'});
+            $.removeCookie('login_code',{ path: '/'});
+            location.href = 'login.html'
+        };
+    </script>
 </head>
 <body>
 <header>
@@ -24,178 +36,76 @@
     </div>
     <div class="fr head_a">
         <a href="index.html">首页</a>
-        <a href="meetlist.html" class="me_active">会议室</a>
+        <a href="meetlist.html" class="me_active">会议室列表</a>
         <a href="mycollect.html">我的收藏</a>
         <a href="mymeet.html">我的会议</a>
-        <a href="files.html">会议文档</a>
-        <a href="register.html">注册</a>
-        <a href="login.html">登录</a>
+        <a href="account.html">个人中心</a>
+        <a onclick="exit()">注销</a>
     </div>
 </header>
-<div class="me_content">
+<div class="me_content" id="app" style="min-height: 74vh;">
     <div class="area fl">
         选择区域：
         <div class="layui-input-inline">
-            <select>
-                <option>知行楼</option>
-                <option>崇信楼</option>
-                <option>三楼</option>
+            <select id="build" @change="areaChange">
             </select>
         </div>
     </div>
 
     <div class="sort fl">
         排序方式：
-        <select>
-            <option>热度升序</option>
-            <option>热度降序</option>
-        </select>
-    </div>
-    <div class="pattern">
-        搜索方式：
-        <select>
-            <option>会议室名</option>
-            <option>容量</option>
+        <select id="order" @change="orderChange">
+            <option value="id asc">可选择</option>
+            <option value="hot asc">热度升序</option>
+            <option value="hot desc">热度降序</option>
+            <option value="price asc">价格升序</option>
+            <option value="price desc">价格降序</option>
         </select>
     </div>
     <div class="search fr">
         搜索会议室名：
         <div class="layui-inline">
-            <input class="layui-input" name="id" id="searchReload" autocomplete="off">
+            <input class="layui-input" v-model="searchName" id="searchName" autocomplete="off">
         </div>
-        <button class="layui-btn" data-type="reload">搜索</button>
+        <button class="layui-btn" data-type="reload" id="search">搜索</button>
     </div>
     <div class="middle">
         <div class="layui-row meetlists">
             <div class="meetlist1">
                 <h5 class="list1_title">精品推荐 : </h5>
                 <ul class="list1_content">
-                    <li class="layui-anim layui-anim-fadein">
-                        <a href="meet_show.html">
-                            <img src="images/huiyi2.jpg">
-                            <h5><i class="layui-icon">&#xe66c;</i>15#215</h5>
+                    <li class="layui-anim layui-anim-fadein" v-for="(item, i) in rooms">
+                        <a :href="'meet_show.html?id='+item.id">
+                            <img src="images/huiyi2.jpg" v-if="item.cover=='cover_default.jpg'">
+                            <img :src="item.cover" v-else>
+                            <div class="price">
+                                ￥{{item.price}}元/小时
+                                <span>{{item.building.location}}#{{item.address}} &nbsp;{{item.name}}</span></div>
+                            <!--<h5><i class="layui-icon">&#xe66c;</i>15#215 高级会议室1</h5>-->
                             <p>
-                                <b>&nbsp; &nbsp; 发的哥哥干发不费大幅度发地方大幅度发地方大幅度发发VB你就的卡夫卡的解放军发快递发的咖啡机</b>
+                                <b>
+                                    设备：
+                                    <span  v-if="item.equipment.length==0">无</span>
+                                    <span  v-for="(eq,i) in item.equipment" >{{eq.name}}</span>
+                                </b>
+                                <!--<b style="margin-left: 30px">介绍：很舒服</b>-->
                             </p>
-                            <div class="meet_frequency">
-                                <i class="layui-icon">&#xe756;</i>
-                                <span>使用次数：20</span>
-                                <span>热门时间段：14:00-16:00</span>
-                            </div>
-
-                        </a>
-                    </li>
-                    <li class="layui-anim layui-anim-fadein">
-                        <a href="meet_show.html">
-                            <img src="images/huiyi1.jpg">
-                            <h5><i class="layui-icon">&#xe66c;</i>15#215</h5>
                             <p>
-                                <b>&nbsp; &nbsp; 发的哥哥干发不费大幅度发地方大幅度发地方大幅度发发VB你就的卡夫卡的解放军发快递发的咖啡机</b>
+                                <b>介绍：{{item.detail}}</b>
                             </p>
-                            <div class="meet_frequency">
-                                <i class="layui-icon">&#xe756;</i>
-                                <span>使用次数：20</span>
-                                <span>热门时间段：14:00-16:00</span>
-                            </div>
-
                         </a>
+                        <div class="meet_frequency">
+                            <i class="layui-icon" style="">&#xe756;</i>
+                            <span>使用次数：{{item.hot}}</span>
+                            <span style="margin-left: 30px">容量：{{item.volume}}</span>
+                            <i class="layui-icon-rate layui-icon fr collect_i" onclick="collect(this)" data-toggle="tooltip" data-placement="left" title="点击收藏"></i>
+                        </div>
                     </li>
-                    <li class="layui-anim layui-anim-fadein">
-                        <a href="meet_show.html">
-                            <img src="images/huiyi2.jpg">
-                            <h5><i class="layui-icon">&#xe66c;</i>15#215</h5>
-                            <p>
-                                <b>&nbsp; &nbsp; 发的哥哥干发不费大幅度发地方大幅度发地方大幅度发发VB你就的卡夫卡的解放军发快递发的咖啡机</b>
-                            </p>
-                            <div class="meet_frequency">
-                                <i class="layui-icon">&#xe756;</i>
-                                <span>使用次数：20</span>
-                                <span>热门时间段：14:00-16:00</span>
-                            </div>
-
-                        </a>
-                    </li>
-                    <li class="layui-anim layui-anim-fadein">
-                        <a href="meet_show.html">
-                            <img src="images/huiyi3.jpg">
-                            <h5><i class="layui-icon">&#xe66c;</i>15#215</h5>
-                            <p>
-                                <b>&nbsp; &nbsp; 发的哥哥干发不费大幅度发地方大幅度发地方大幅度发发VB你就的卡夫卡的解放军发快递发的咖啡机</b>
-                            </p>
-                            <div class="meet_frequency">
-                                <i class="layui-icon">&#xe756;</i>
-                                <span>使用次数：20</span>
-                                <span>热门时间段：14:00-16:00</span>
-                            </div>
-
-                        </a>
-                    </li>
-                    <li class="layui-anim layui-anim-fadein">
-                        <a href="meet_show.html">
-                            <img src="images/huiyi4.jpg">
-                            <h5><i class="layui-icon">&#xe66c;</i>15#215</h5>
-                            <p>
-                                <b>&nbsp; &nbsp; 发的哥哥干发不费大幅度发地方大幅度发地方大幅度发发VB你就的卡夫卡的解放军发快递发的咖啡机</b>
-                            </p>
-                            <div class="meet_frequency">
-                                <i class="layui-icon">&#xe756;</i>
-                                <span>使用次数：20</span>
-                                <span>热门时间段：14:00-16:00</span>
-                            </div>
-
-                        </a>
-                    </li>
-                    <li class="layui-anim layui-anim-fadein">
-                        <a href="meet_show.html">
-                            <img src="images/huiyi1.jpg">
-                            <h5><i class="layui-icon">&#xe66c;</i>15#215</h5>
-                            <p>
-                                <b>&nbsp; &nbsp; 发的哥哥干发不费大幅度发地方大幅度发地方大幅度发发VB你就的卡夫卡的解放军发快递发的咖啡机</b>
-                            </p>
-                            <div class="meet_frequency">
-                                <i class="layui-icon">&#xe756;</i>
-                                <span>使用次数：20</span>
-                                <span>热门时间段：14:00-16:00</span>
-                            </div>
-
-                        </a>
-                    </li>
-                    <li class="layui-anim layui-anim-fadein">
-                        <a href="meet_show.html">
-                            <img src="images/huiyi2.jpg">
-                            <h5><i class="layui-icon">&#xe66c;</i>15#215</h5>
-                            <p>
-                                <b>&nbsp; &nbsp; 发的哥哥干发不费大幅度发地方大幅度发地方大幅度发发VB你就的卡夫卡的解放军发快递发的咖啡机</b>
-                            </p>
-                            <div class="meet_frequency">
-                                <i class="layui-icon">&#xe756;</i>
-                                <span>使用次数：20</span>
-                                <span>热门时间段：14:00-16:00</span>
-                            </div>
-
-                        </a>
-                    </li>
-                    <li class="layui-anim layui-anim-fadein">
-                        <a href="meet_show.html">
-                            <img src="images/huiyi3.jpg">
-                            <h5><i class="layui-icon">&#xe66c;</i>15#215</h5>
-                            <p>
-                                <b>&nbsp; &nbsp; 发的哥哥干发不费大幅度发地方大幅度发地方大幅度发发VB你就的卡夫卡的解放军发快递发的咖啡机</b>
-                            </p>
-                            <div class="meet_frequency">
-                                <i class="layui-icon">&#xe756;</i>
-                                <span>使用次数：20</span>
-                                <span>热门时间段：14:00-16:00</span>
-                            </div>
-                        </a>
-                    </li>
-
                 </ul>
             </div>
 
         </div>
     </div>
-
 </div>
 
 <footer>
@@ -203,5 +113,106 @@
     <p>***股份有限公司</p>
 </footer>
 
+<script>
+
+    function collect(the){//收藏点击事件
+        console.log(the);
+        if($(the).hasClass("layui-icon-rate")){
+            $(the).removeClass("layui-icon-rate").addClass("layui-icon-rate-solid");
+            layui.use('layer', function () {
+                layui.layer.msg('收藏成功',{
+                    icon:1,
+                    time: 1000
+                });
+            });
+
+        } else {
+            $(the).removeClass("layui-icon-rate-solid").addClass("layui-icon-rate");
+            layui.use('layer', function () {
+                layui.layer.msg('成功取消收藏',{
+                    icon:1,
+                    time:1000
+                });
+            });
+        }
+    }
+    $(function () {
+        layui.use('layer', function () {
+            layui.layer.msg('加载成功',{
+                time:1
+            });
+        });
+        var build = $('#build');
+        var tdata = {};
+        $.ajax({
+            url:"http://lsudjh.top:8081/building/listEntity",
+            type:"POST",
+            data:JSON.stringify(tdata),
+            contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+            success:function(result){ //所有错误信息都如result.message有关
+                // console.log(result);
+                if(result.code==0){
+                    build.empty();
+                    build.append("<option value=''>全部</option>" );
+                    for(var i=0; i<result.data.data.length; i++) {
+                        build.append("<option value=\"" +result.data.data[i].id+"\">" + result.data.data[i].location + "");
+                    }
+                }
+            }
+        });
+
+        $('#search').on('click', function () {
+            var data ={
+                name: vm.searchName,
+                order:  $('#order').val(),
+                buildingId: $('#build').val()
+            };
+            vm.getRooms(data);
+        });
+    });
+
+
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            rooms: [],
+            searchName: '',
+        },
+        methods:{
+            getRooms(data){
+                $.ajax({
+                    url:"http://lsudjh.top:8081/meetingRoom/listEntity",
+                    type:"POST",
+                    data:JSON.stringify(data),
+                    contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                    success:function(result){ //所有错误信息都如result.message有关
+                        console.log(result);
+                        if(result.code==0){
+                            vm.rooms = result.data.data;
+                        }
+                    }
+                });
+            },
+            areaChange(){
+                var data ={
+                    order:  $('#order').val(),
+                    buildingId: $('#build').val()
+                };
+                vm.getRooms(data);
+            },
+            orderChange(){
+                var data ={
+                    order:  $('#order').val(),
+                    buildingId: $('#build').val()
+                };
+                vm.getRooms(data);
+            }
+        },
+        created(){
+            this.getRooms({order :'id asc'});
+        }
+    })
+</script>
 </body>
 </html>

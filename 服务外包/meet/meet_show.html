@@ -10,241 +10,395 @@
     <link rel="stylesheet" type="text/css" href="dist/me/css/base.css">
     <script src="dist/me/js/jquery-3.3.1.js" type="text/javascript"></script>
     <script src="dist/layui/layui.js" type="text/javascript"></script>
+    <script type="" src="dist/me/js/jquery.cookie.js"></script>
     <script src="dist/me/js/vue.min.js" type="text/javascript"></script>
     <title>会议室详情介绍</title>
 </head>
-
-<form class="layui-form" action="" id="add_apply" style="display: none;margin: 20px 60px 0 15px">
-    <div class="layui-form-item">
-        <label class="layui-form-label">主题</label>
-        <div class="layui-input-block">
-            <input type="text" name="title"  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">会议室</label>
-        <div class="layui-input-inline open" data-method="notice"  >
-            <input type="password" name="password" required lay-verify="required" placeholder="请选择会议室" autocomplete="off" class="layui-input">
-        </div>
-
-        <label class="layui-form-label">日期</label>
-        <div class="layui-input-inline">
-            <input type="text" id="day"  name="" required lay-verify="required" placeholder="请选择日期" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">开始时间</label>
-        <div class="layui-input-inline">
-            <input type="number" min="0" max="60"   step="1" name="" required lay-verify="required" placeholder="时钟" autocomplete="off" class="layui-input">
-        </div>
-        <div class="layui-input-inline">
-            <input type="number" min="0" max="60"  step="15" name="" required lay-verify="required" placeholder="分钟" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">结束时间</label>
-        <div class="layui-input-inline">
-            <input type="number"  min="0" max="60"  step="1" name="" required lay-verify="required" placeholder="时钟" autocomplete="off" class="layui-input">
-        </div>
-        <div class="layui-input-inline">
-            <input type="number"  min="0" max="60"  step="15" name="" required lay-verify="required" placeholder="分钟" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">人数</label>
-        <div class="layui-input-block">
-            <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">企业</label>
-        <div class="layui-input-inline" >
-            <select name="city" lay-verify="required" lay-filter="com" v-model="company">
-                <option value="">公司</option>
-                <option value="0" v-for="(item,i) in companys">{{item.city}}</option>
-            </select>
-        </div>
-        <div class="layui-input-inline">
-            <select name="city"  lay-verify="required" id="sections">
-                <option value="" >部门</option>
-                <!--<option value="0" v-for="(item,i) in sections">{{item.city}}</option>-->
-            </select>
-        </div>
-    </div>
-    <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">会议介绍</label>
-        <div class="layui-input-block">
-            <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-        </div>
-    </div>
-</form>
 
 <body>
     <div class="goback">
         <a href="meetlist.html">返回会议室列表</a>
     </div>
-    <div class="layui-container">
+    <div class="layui-container" id="meet_show">
+        <div class="header_info">
+            {{meetInfo.name}}：{{meetInfo.building.location}}-{{meetInfo.address}}
+        </div>
         <div class="layui-carousel" id="slider_img">
             <div carousel-item class="img_swiper">
-                <img src="images/huiyi1.jpg">
-                <img src="images/huiyi2.jpg">
-                <img src="images/huiyi3.jpg">
-                <img src="images/huiyi4.jpg">
+                <div v-if="meetRoomImg.length==0" >
+                    <img src="images/huiyi1.jpg"style="width: 100%;height: 100%">
+                </div>
+
+                <!--<img v-for="(item, i) in meetRoomImg" src="item.url">-->
+                <div v-for="item in meetRoomImg">
+                    <img v-bind:src='item.url' style="width: 100%;height: 100%">
+                </div>
+                <!--<div>-->
+                <!--<img src="dist/img/huiyi4.jpg" style="width: 100%;height: 100%">-->
+                <!--</div>-->
+
             </div>
-            <div class="img_describe">会议室一览</div>
+            <div class="img_describe">容量：{{meetInfo.volume}}</div>
         </div>
         <!-- 条目中可以是任意内容，如：<img src=""> -->
         <div class="pflags">
-            <div class="pflag"><h5>50人</h5></div>
-            <div class="pflag"><h5>配有WiFi</h5></div>
-            <div class="pflag"><h5>4k超高清矩阵</h5></div>
-            <div class="pflag"><h5>9个发表单元</h5></div>
-            <div class="pflag"><h5>可投屏</h5></div>
+            <div class="pflag" v-if="meetInfo.tag.length==0">
+                <h5>无标签</h5>
+            </div>
+            <div class="pflag" v-for="(item,i) in meetInfo.tag">
+                <h5>{{item.name}}</h5>
+            </div>
+
+            <br style="clear:both;" /><!--清楚浮动带来的内部无法撑开父元素-->
         </div>
-        <br>
+        <!--<br>-->
         <div class="meet_describe">
+            <p style="margin-bottom: 10px">设备：
+                <span style="margin-right: 20px" v-if="meetInfo.equipment.length==0">无</span>
+                <span v-for="(item,i) in meetInfo.equipment" style="margin-right: 20px">{{item.name}}</span>
+            </p>
             <p>
-                中国领先的会议场地、活动资源在线预订平台。南京会议场地、南京会议酒店、南京年会场地
-                、南京年会酒店、南京酒店会议室、南京酒店宴会厅、南京酒店会场预订，会议场地租赁，就上
-                会小二，开会+住宿+用餐一站式会议服务平台，开启28分钟疾速场地直订服务，免费获3-6套会议
-                报价方案，轻松搞定公司年会场地、培训会场地、发布会场地、研讨会场地、招商会场地、答谢
-                会场地、经销商会议场地、工作总结会场地、沙龙/休闲会议场地。
+                介绍：{{meetInfo.detail}}
+                <span v-if="meetInfo.detail==''||meetInfo.detail==null">无</span>
             </p>
         </div>
         <div class="meet_apply">
             <div class="fl">
                 <p class="fl">预计预定成功率：80%</p>
-                <p class="fl" >累计预定次数：80次</p>
-                <!--<a class="fl">查看该会议室近期预约</a>-->
+                <p class="fl" >累计预定次数：{{meetInfo.hot}}次</p>
+                <p class="fl" >价格：{{meetInfo.price}}元/小时</p>
             </div>
-            <a class="fr" id="apply_now">立即预定</a>
+            <a class="fr" id="apply_then">立即预定</a>
         </div>
-
-        <!--日历加表格显示预约情况-->
 
         <div class="calendar_table">
             <hr>
             <br>
             <div id="calender1" class="fl"></div>
             <div class="table_list fr">
-                <table class="layui-hide" id="test" lay-filter="test"></table>
-
-                <script type="text/html" id="toolbarDemo">
-                    <div class="layui-btn-container">
-                        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-                        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-                        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
-                    </div>
-                </script>
-
-                <script type="text/html" id="barDemo">
-                    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-                </script>
-
-
+                <table class="layui-hide" id="mz_shenhe_table" lay-filter="mz_shenhe_table"></table>
+                <div id="laypage_user"></div>
             </div>
+            <br style="clear:both;" />
         </div>
+        <div class="other"></div>
     </div>
 
+
+    <!--添加预约弹出框-->
+    <div id="mz_add_info" style="display: none;">
+        <form class="layui-form " id="apply_add" action="" lay-filter="addForm">
+            <div class="layui-form-item">
+                <label class="layui-form-label">主题</label>
+                <div class="layui-input-block">
+                    <input type="text" name="topic"  lay-verify="required" placeholder="请输入主题" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">日期</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="day"  name="day" required lay-verify="required" placeholder="请选择日期" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">会议室</label>
+                <div class="layui-input-block" style="width: 240px">
+                    <select name="roomId" id="roomId"  class="add_room" lay-verify="required">
+                        <option></option>
+                    </select>
+                </div>
+            </div>
+            <script>
+                function fill_0(event) {
+                    if(event.value<10){
+                        event.value = '0'+event.value%10;
+                    }
+                }
+            </script>
+            <div class="layui-form-item">
+                <label class="layui-form-label">开始时间</label>
+                <div class="layui-input-inline" style="width: 110px">
+                    <input type="number" min="0" max="23" onchange="fill_0(this)"  step="1" name="begin_h" required lay-verify="required" placeholder="时钟" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-input-inline" style="width: 110px">
+                    <input type="number" min="0" max="59" onchange="fill_0(this)" step="15" name="begin_s" required lay-verify="required" placeholder="分钟" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">结束时间</label>
+                <div class="layui-input-inline" style="width: 110px" >
+                    <input type="number"  min="0" max="23" onchange="fill_0(this)"  step="1" name="end_h" required lay-verify="required" placeholder="时钟" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-input-inline"  style="width: 110px">
+                    <input type="number"  min="0" max="59" onchange="fill_0(this)"  step="15" name="end_s" required lay-verify="required" placeholder="分钟" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">人数</label>
+                <div class="layui-input-block">
+                    <input type="text" name="attendance" required  lay-verify="required" placeholder="参加人数" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">调剂</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="flexible" value="1" title="接受" checked="">
+                    <input type="radio" name="flexible" value="0" title="不接受">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">会议介绍</label>
+                <div class="layui-input-block">
+                    <textarea name="intro" placeholder="请输入内容" class="layui-textarea"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/html" id="tstatus"><!--公司-->
+    {{#  if(d.status == 0){ }}
+    <p>未安排</p>
+    {{#  }else if(d.status==1) { }}
+    <p>安排</p>
+    {{# } else if(d.status==2) { }}
+    <p>进行中</p>
+    {{# } else if(d.status==3) { }}
+    <p>结束</p>
+    {{#  } }}
+    </script>
+    <script type="text/html" id="tflex"><!--部门-->
+    {{#  if(d.flexible == 1){ }}
+    <p>支持</p>
+    {{#  } else { }}
+    <p>不支持</p>
+    {{#  } }}
+    </script>
+    <script type="text/html" id="tuse">
+        {{#
+        var time = function(){
+        var start = d.beginTime.split(':')[0]+':'+d.beginTime.split(':')[1];
+        var end = d.endTime.split(" ")[1];
+
+        return start+'-'+end.split(":")[0]+':'+end.split(":")[1];
+        };
+        }}
+        {{time()}}
+    </script>
     <script>
-        $('#apply_now').on('click', function () {
-            console.log(1);
-            layer.open({
-                type: 1
-                ,title: false //不显示标题栏
-                // ,closeBtn: true
-                ,title: ["发起预定",'font-size:16px;']
-                ,area: ['720px','']
-                ,shade: 0.8
-                ,id: 'LAY_add_apply01' //设定一个id，防止重复弹出
-                // ,btn: ['确定', '取消']
-                ,btnAlign: 'c'
-                ,moveType: 1 //拖拽模式，0或者1
-                ,content: $('#add_apply')
-                // ,success: function(layero){
-                //     var btn = layero.find('.layui-layer-btn');
-                //     btn.find('.layui-layer-btn0').attr({
-                //         href: 'http://www.layui.com/'
-                //         ,target: '_blank'
-                //     });
-                // }
-            });
-        });
-
-        layui.use('table', function(){
-            var table = layui.table;
-
-            table.render({
-                elem: '#test'
-                ,url:'/test/table/demo1.json'
-                // ,toolbar: '#toolbarDemo'
-                ,title: '用户数据表'
-                ,cols: [[
-                    // {type: 'checkbox', fixed: 'left'}
-                    ,{field:'username', title:'发起人', width:120, edit: 'text'}
-                    ,{field:'email', title:'时间', width:150, sort: true ,edit: 'text', templet: function(res){
-                            return '<em>'+ res.email +'</em>'
-                        }}
-                    ,{field:'sex', title:'地点', width:80, edit: 'text'}
-                    ,{field:'city', title:'主题', width:100}
-                    ,{field:'sign', title:'参加人数', sort: true}
-                    ,{field:'detail', title:'查看', templet: function(res){
-                            return '<a href="#">'+ res.email +'</a>'
-                        }}
-                    ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
-                ]]
-                ,page: true
-            });
-
-            //头工具栏事件
-            table.on('toolbar(test)', function(obj){
-                var checkStatus = table.checkStatus(obj.config.id);
-                switch(obj.event){
-                    case 'getCheckData':
-                        var data = checkStatus.data;
-                        layer.alert(JSON.stringify(data));
-                        break;
-                    case 'getCheckLength':
-                        var data = checkStatus.data;
-                        layer.msg('选中了：'+ data.length + ' 个');
-                        break;
-                    case 'isAll':
-                        layer.msg(checkStatus.isAll ? '全选': '未全选');
-                        break;
-                };
-            });
-
-            //监听行工具事件
-            table.on('tool(test)', function(obj){
-                var data = obj.data;
-                //console.log(obj)
-                if(obj.event === 'del'){
-                    layer.confirm('真的删除行么', function(index){
-                        obj.del();
-                        layer.close(index);
-                    });
-                } else if(obj.event === 'edit'){
-                    layer.prompt({
-                        formType: 2
-                        ,value: data.email
-                    }, function(value, index){
-                        obj.update({
-                            email: value
+        function getMeet(meet){
+            $.ajax({
+                url:"http://lsudjh.top:8081/meetingRoom/listEntity",
+                type:"POST",
+                data:'{}',
+                contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                success:function(result){ //所有错误信息都如result.message有关
+                    console.log(result);
+                    if(result.code==0){
+                        layui.use('form', function(){
+                            var form = layui.form;
+                            meet.empty();
+                            meet.append("<option value=''></option>" );
+                            meet.append("<option value=''>服从分配</option>" );
+                            for(var i=0; i<result.data.data.length; i++) {
+                                if(result.data.data[i].id==window.location.href.split('=')[1]){
+                                    meet.append("<option selected value=\"" +result.data.data[i].id+"\">" + result.data.data[i].name + "");
+                                } else{
+                                    meet.append("<option value=\"" +result.data.data[i].id+"\">" + result.data.data[i].name + "");
+                                }
+                            }
+                            form.render('select');
                         });
-                        layer.close(index);
-                    });
+                    }
                 }
             });
+        }
+        $.fn.serializeObject = function() {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function() {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [ o[this.name] ];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+
+        Date.prototype.Format = function (fmt) { //author: meizz
+            var o = {
+                "M+": this.getMonth() + 1, //月份
+                "d+": this.getDate(), //日
+                "H+": this.getHours(), //小时
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds(), //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                "S": this.getMilliseconds() //毫秒
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
+        $(function () {
+            $('#apply_then').on('click', function () {
+                var meet = $('#roomId');
+                getMeet(meet);
+                layer.open({
+                    type: 1
+                    ,title: "预约申请" //不显示标题栏
+                    ,area: ['480px','500px']
+                    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,btn: ['确定', '取消']
+                    ,btnAlign: 'c'
+                    ,moveType: 1 //拖拽模式，0或者1
+                    ,content: $('#mz_add_info')
+                    ,yes:function (index, layero) {
+                        var tdata = $('form[id="apply_add"]').serializeObject();
+                        tdata.beginTime = tdata.day+' '+tdata.begin_h+':'+tdata.begin_s;
+                        tdata.endTime = tdata.day+' '+tdata.end_h+':'+tdata.end_s;
+                        tdata.workerId = $.cookie('id');
+                        $.ajax({
+                            url:"http://lsudjh.top:8081/meetingApply/apply",
+                            type:"POST",
+                            data:JSON.stringify(tdata),
+                            contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                            success:function(result){ //所有错误信息都如result.message有关
+                                alert(result.msg);
+                                if(result.code==0){
+                                    $('#apply_add')[0].reset();
+                                    layer.close(index);  //关闭弹出层
+                                    layui.use('table', function () {
+                                        var table = layui.table;
+                                        table.reload('shenheTable', {
+                                            where:{
+                                                order :'id asc'
+                                            }
+                                        });
+                                    })
+
+                                } else{
+                                    // console.log($('#user_add'));
+                                    // $('#apply_add')[0].reset();   //[0]必须得加
+                                }
+                            }
+                        });
+
+                    }
+                    ,btn2:function (index, layero) {
+                        // $('#user_add')[0].reset();   //[0]必须得加，清楚已填数据
+                    }
+                });
+            });
         });
 
-        //轮播图
+        var vm = new Vue({
+            el: '#meet_show',
+            data: {
+                meetInfo: {
+                    address: "",
+                    autoList: [],
+                    building: {id: '', location: ""},
+                    cover: "",
+                    detail: "",
+                    equipment: [],
+                    hot: ',',
+                    id: '',
+                    isUsing: 0,
+                    name: "",
+                    price: 40,
+                    tag: [],
+                    volume: ''
+                },
+                meetRoomImg:[]
+            },
+            methods: {
+                getMeetInfo(){
+                    var data = {id: window.location.href.split('=')[1] };
+                    $.ajax({
+                        url:"http://lsudjh.top:8081/meetingRoom/listEntity",
+                        type:"POST",
+                        data:JSON.stringify(data),
+                        contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                        success:function(result){ //所有错误信息都如result.message有关
+                            if(result.code==0){
+                                vm.meetInfo = result.data.data[0];
+                            }
+                            // console.log(result);
+                        }
+                    });
+                }
+            }
+        })
+        vm.getMeetInfo();
+
+        // 数据表
+        var curnum = 1;
+        var size = 6;
+        var today = new Date().Format("yyyy-MM-dd");
+        // console.log(today);
+        layui.use(['table','laypage'], function(){
+            var table = layui.table;
+            var laypage = layui.laypage;
+            table.render({
+                elem: '#mz_shenhe_table'     //未审核
+                ,url:'http://lsudjh.top:8081/meetingApply/listEntity'
+                ,method: 'post'
+                ,contentType: 'application/json'
+                ,title: '预约数据表'
+                ,id:'shenheTable'
+                ,cellMinWidth:80
+                ,cols: [[
+                    {type: 'checkbox'}
+                    // ,{field:'id', title:'ID', width:80, unresize: true, sort: true}
+                    ,{field:'topic', title:'会议主题',width:120, unresize: true}
+                    ,{field:'attendance', title:'人数', unresize: true}
+                    ,{field:'applyTime', title:'提交时间', width:160, unresize: true}
+                    // ,{field:'applyUpdateTime', title:'修改时间', width:160, unresize: true}
+                    ,{field:'useTime', title:'申请时间段', width:182, sort: true, unresize: true,
+                        templet:'#tuse'}
+                    ,{field:'status', title:'状态',width:80, unresize: true,templet: '#tstatus'}
+                    ,{field:'flexible', title:'调剂', unresize: true,templet: '#tflex'}
+                ]]
+                ,page: false
+                ,where: {size:size, page:curnum,order :'id asc',beginTime: today+' 1:1,'}
+                ,parseData: function(res){ //res 即为原始返回的数据
+                    // console.log(res);
+                    return {
+                        "code": res.code, //解析接口状态
+                        "msg": res.message, //解析提示文本
+                        "count": res.data.total, //解析数据长度
+                        "data": res.data.data //解析数据列表
+                    };
+                }
+                ,done: function(res, curr, count) {
+                    laypage.render({
+                        elem: 'laypage_user'
+                        , count: count
+                        , curr: curnum
+                        , limit: size
+                        , layout: ['prev', 'page', 'next', 'skip', 'count', 'refresh']
+                        , jump: function (obj, first) {
+                            if (!first) {
+                                curnum = obj.curr;
+                                size = obj.limit;
+                                table.reload('shenheTable', {
+                                    where:{
+                                        size: obj.limit
+                                        ,page: obj.curr
+                                        ,order :'id asc'
+                                    }
+                                });
+                            }
+                        }
+                    })
+                }
+            });
+
+        });
+
         layui.use('carousel', function(){
             var carousel = layui.carousel;
             //建造实例
@@ -252,138 +406,74 @@
                 elem: '#slider_img'
                 ,width: '100%' //设置容器宽度
                 ,arrow: 'always' //始终显示箭头
-                // ,anim: 'updown' //切换动画方式
                 ,height:'450px'
             });
         });
-
-        layui.use('laydate', function(){
+        layui.use(['laydate','table'], function(){
             var laydate = layui.laydate;
+            var table = layui.table;
             //查看预定的左边日历
             laydate.render({
                 elem: '#calender1' //指定元素
                 // ,show: true //直接显示
                 ,position: 'static'
                 ,calendar: true
-                // ,change: function(value, date){ //监听日期被切换
-                //     alert(value+date);
-                // }
-                ,done: function(value, date, endDate){
+                ,done: function(value, date, endDate){//切换日期
                     console.log(value); //得到日期生成的值，如：2017-08-18
+
+                    table.reload('shenheTable', {
+                        where:{
+                            size: 6
+                            ,page: 1
+                            ,order :'id asc'
+                            ,beginTime: value+' 1:1,'
+                            ,workerId: ''
+                        }
+                    });
                     // console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
                     // console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
                 }
-            });
+                ,ready: function(date){
+                    var all = $('.laydate-btns-clear');
+                    all.html('全部').attr('lay-type','');
+                    all.on('click', function () {
+                        table.reload('shenheTable', {
+                            where:{
+                                size: 6
+                                ,page: 1
+                                ,order :'id asc'
+                                ,beginTime: '1999-3-21 1:1,'
+                                ,workerId: ''
+                            }
+                        });
+                    })
 
-        //    弹出框日期选择
+                    $('.laydate-btns-now').html('今日');
+
+                    var all = $('.laydate-btns-confirm');
+                    all.html('我的').attr('lay-type','');
+                    all.on('click', function () {
+                        table.reload('shenheTable', {
+                            where:{
+                                size: 6
+                                ,page: 1
+                                ,order :'id asc'
+                                ,beginTime: '1999-3-21 1:1,'
+                                ,workerId: $.cookie('id')
+                            }
+                        });
+                    })
+                }
+            });
+            //    弹出框日期选择
             layui.use('laydate', function(){
                 var laydate = layui.laydate;
-
                 laydate.render({
                     elem: '#day' //指定元素
                     ,calendar: true
                 });
             });
         });
-
-        //发起预定弹出框的js
-        layui.use('layer', function(){ //独立版的layer无需执行这一句
-            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
-
-            //触发事件
-            var active = {
-                notice: function(){
-                    //示范一个公告层
-                    layer.open({
-                        type: 1
-                        ,title: false //不显示标题栏
-                        ,closeBtn: false
-                        ,area: '300px;'
-                        ,shade: 0.8
-                        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-                        ,btn: ['火速围观', '残忍拒绝']
-                        ,btnAlign: 'c'
-                        ,moveType: 1 //拖拽模式，0或者1
-                        ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">你知道吗？亲！<br>layer ≠ layui<br><br>layer只是作为Layui的一个弹层模块，由于其用户基数较大，所以常常会有人以为layui是layerui<br><br>layer虽然已被 Layui 收编为内置的弹层模块，但仍然会作为一个独立组件全力维护、升级。<br><br>我们此后的征途是星辰大海 ^_^</div>'
-                        ,success: function(layero){
-                            var btn = layero.find('.layui-layer-btn');
-                            btn.find('.layui-layer-btn0').attr({
-                                href: 'http://www.layui.com/'
-                                ,target: '_blank'
-                            });
-                        }
-                    });
-                }
-            };
-
-            $('.open').on('click', function(){
-                var othis = $(this), method = othis.data('method');
-                active[method] ? active[method].call(this, othis) : '';
-            });
-        });
-
-        layui.use('form', function(){
-            var form = layui.form;
-
-            //监听提交
-            form.on('submit(formDemo)', function(data){
-                layer.msg(JSON.stringify(data.field));
-                return false;
-            });
-            form.on('select(com)', function(data){
-                // console.log(data.elem); //得到select原始DOM对象
-                // console.log(data.value); //得到被选中的值
-                // console.log(data.othis); //得到美化后的DOM对象
-                var city = $('#sections');
-
-                $.ajax({url:"http://localhost:63342/服务外包/meet/1.json",success:function(result){
-                        // console.log(vm.sections);
-                        vm.sections = result.data;
-                        // console.log(vm.sections)
-                        vm.$forceUpdate();
-                        // console.log(result);
-                        // console.log(vm.sections);
-                        for(var i=0; i<vm.sections.length; i++) {
-                            console.log(i);
-                            city.append("<option>" + vm.sections[i].city + "</option>");
-                        }
-                        form.render('select');
-                    }});
-
-            });
-        });
-
-        var vm = new Vue({
-            el: '#add_apply',
-            data: {
-                companys: [
-
-                ],
-                sections: [
-
-                ],
-                company: null,
-                section: null
-            },
-            methods: {
-                // change(k){
-                //     console.log(k);
-                //     $$.ajax({url:"http://localhost:63342/服务外包/meet/1.json",success:function(result){
-                //         vm.sections = result.data;
-                //         console.log(vm.sections);
-                //         // console.log(vm.companys);
-                //             vm.$forceUpdate();
-                //     }});
-                // }
-            },
-            created(){
-                $.ajax({url:"http://localhost:63342/服务外包/meet/1.json",success:function(result){
-                        vm.companys = result.data;
-                        // console.log(result);
-                        // console.log(vm.companys);
-                    }});
-            }
-        })
     </script>
 </body>
 </html>

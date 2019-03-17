@@ -5,7 +5,7 @@
     /*height: 10vh;*/
 /*}*/
 .area{
-    margin:20px 0 0 260px;
+    margin:20px 0 0 300px;
     font-size: 16px;
 }
 .area select{
@@ -14,11 +14,11 @@
 }
 .sort{
     padding-top:20px;
-    margin-left: 70px;
+    margin-left: 160px;
 }
 .search{
     padding-top:20px;
-    margin-right: 20px;
+    margin-right: 50px;
 }
 .pattern{
     position: absolute;
@@ -45,38 +45,46 @@
     margin-bottom: 20px;
 }
 .meetlists{
-    /*height: 100vh;*/
     width: 96%;
     margin: 0px auto;
-    /*background-color: #ddd;*/
 }
-.meetlist1{
 
-}
 .list1_title{
     font-size: 3vh;
     margin-bottom: 20px;
-    /*line-height: 8vh;*/
 }
 .list1_content>li{
-    width: 30%;
-    /*height: 50vh;*/
-    /*background-color: #1E9FFF;*/
+    width: 31%;
     float: left;
-    margin-left: 2.5%;
-    margin-bottom: 20px;
+    margin-left: 2%;
+    margin-bottom: 15px;
+    padding: 10px;
+    height: 385px;
+    position: relative;
+}
+.list1_content li:hover{
+    border: 1px solid #aaa;
+    box-sizing: border-box;
 }
 .list1_content img{
     width: 100%;
-    height: 40vh;
+    height: 260px;
 }
 .list1_content img:hover{
     opacity: 0.8;
 }
+.list1_content .price{
+    font-size: 18px;
+    color:#e4393c;
+    margin: 5px 0;
+}
+.list1_content .price span{
+    color: #333;
+    font-size: 16px;
+    margin-left: 30px;
+}
 .list1_content h5{
-    font-size: 3vh;
-    height: 3vh;
-    line-height: 3vh;
+    font-size: 16px;
     margin: 5px 0 2px 5px;
 }
 .list1_content h5 i{
@@ -86,6 +94,8 @@
 .list1_content p{
     margin-left: 5px;
     margin-bottom: 5px;
+    color: #555;
+    font-size: 14px;
 }
 .list1_content p:hover{
     color: #777;
@@ -95,5 +105,15 @@
     margin-left: 5px;
 }
 .meet_frequency i{
-    color: red;
+    color: #3639ff;
+}
+.meet_frequency  .collect_i{
+    font-size: 24px;
+    position: absolute;
+    right: 20px;
+    bottom: 15px;
+    cursor: pointer;
+}
+.meet_frequency  .collect_i:hover{
+
 }

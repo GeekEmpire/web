@@ -8,12 +8,142 @@
     <link rel="stylesheet" type="text/css" href="dist/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="dist/layui/css/layui.css">
     <link rel="stylesheet" type="text/css" href="dist/me/css/base.css">
-    <link rel="stylesheet" type="text/css" href="dist/me/css/index.css">
     <script src="dist/me/js/jquery-3.3.1.js" type="text/javascript"></script>
     <script src="dist/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+    <script type="" src="dist/me/js/jquery.cookie.js"></script>
     <script src="dist/layui/layui.js" type="text/javascript"></script>
-    <script src="dist/me/js/index.js" type="text/javascript"></script>
     <title>会议预约系统</title>
+    <style>
+        .layui-laydate-content>.layui-laydate-list {
+            padding-bottom: 0px;
+            overflow: hidden;
+        }
+        .layui-laydate-content>.layui-laydate-list>li{
+            width:50%
+        }
+
+        .merge-box .scrollbox .merge-list {
+            padding-bottom: 5px;
+        }
+        /*index.html*/
+        /*中间内容部分*/
+        .me_content{  /*会议室查询*/
+            height: 86vh;
+            padding: 8vh;
+            width: 100%;
+            background: url("images/meetbg.jpg");
+            background-size: cover;
+            position: relative;
+        }
+        .search_c{
+            width: 65%;
+            height: 35vh;
+            background-color: #eee;
+            border: 1px solid #fff;
+            margin:8% 0;
+            padding:6vh 2%;
+            position: relative;
+        }
+        .search_c input{
+            height: 10vh;
+            font-size: 3vh;
+            /*margin-bottom: 2vh;*/
+            float: left;
+            width: 100%;
+            /*margin-left: 2.5%;*/
+            padding-left: 7vh;
+        }
+        .search_c select{
+            width: 30%;
+            height: 10vh;
+            font-size: 3vh;
+            margin-bottom: 2vh;
+            padding-left: 30px;
+            float: left;
+            margin-left: 2.5%;
+        }
+        .input_g{
+            position: relative;
+            float: left;
+            width: 30%;
+            margin-left: 2.5%;
+            margin-bottom: 2vh;
+        }
+        .input_g i{
+            color: #1E9FFF;
+        }
+        .input_g > i{
+            position: absolute;
+            left: 2vh;
+            font-size: 4vh;
+            height: 10vh;
+            line-height: 10vh;
+        }
+        .input2 .input_people{
+            width: 20%;
+        }
+        .input2 .input-topic{
+            width: 55%;
+        }
+        .search_submit{
+            font-size: 1vw;
+            margin-left: 5%;
+            margin-top: 2vh;
+        }
+        .search_other{
+            margin-top: 3vh;
+        }
+
+        .meet_c{  /*近期会议*/
+            width: 30%;
+            background-color: #fafafa;
+            height: 70vh;
+            margin-left: 5%;
+            position: relative;
+        }
+        .meet_title{
+            font-size: 3vh;
+            text-align: center;
+            margin: 10px 0;
+        }
+        .me_content2{
+            margin-top: 30px;
+            height: 100vh;
+        }
+        .img_swiper{
+            position: relative;
+        }
+        .swiper_title{
+            position: absolute;
+            bottom: 5%;
+            left: 3%;
+            color: #fff;
+            font-size: 4vh;
+        }
+        /*公告板*/
+        .notice{
+            height: 30vh;
+            margin-top: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+        }
+        .notice_title{
+            font-size: 3vh;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        function exit() {
+            alert('退出成功');
+            $.removeCookie('id',{ path: '/'}); //path为指定路径，直接删除该路径下的cookie
+            $.removeCookie('companyId',{ path: '/'});
+            $.removeCookie('companyCode',{ path: '/'});
+            $.removeCookie('role',{ path: '/'});
+            $.removeCookie('login_code',{ path: '/'});
+            location.href = 'login.html'
+        };
+    </script>
 </head>
 <body>
     <header>
@@ -23,132 +153,149 @@
         </div>
         <div class="fr head_a">
             <a href="index.html" class="me_active">首页</a>
-            <a href="meetlist.html">会议室</a>
+            <a href="meetlist.html">会议室列表</a>
             <a href="mycollect.html">我的收藏</a>
             <a href="mymeet.html">我的会议</a>
-            <a href="files.html">会议文档</a>
-            <a href="register.html">注册</a>
-            <a href="login.html">登录</a>
+            <a href="account.html">个人中心</a>
+            <a onclick="exit()">注销</a>
         </div>
     </header>
     <div class="me_content layui-container">
+
         <div class="layui-row">
             <div class="search_c fl">
-                <form class="search_form">
+                <div style="position:absolute;top:-40px">快速提交申请，系统自动分配最适合您的会议室</div>
+                <form class="search_form" id="apply_add">
                     <div class="layui-row input1">
-                        <!--<input placeholder="请选择会议室" class="layui-input input_first">-->
-                        <!--<select name="city" lay-verify="" >-->
-                            <!--<option value="">请选择会议室</option>-->
-                            <!--<option value="010">5栋1楼001</option>-->
-                            <!--<option value="021">5栋1楼010</option>-->
-                            <!--<option value="0571">5栋1楼100</option>-->
-                        <!--</select>-->
                         <div class="input_g">
-                            <input placeholder="开会日期" class="layui-input" id="start_day">
+                            <input placeholder="开会日期" name="day" class="layui-input" id="day">
                             <i class="layui-icon start_day_i">&#xe637;</i>
                         </div>
                         <div class="input_g">
-                            <input placeholder="开始时间" class="layui-input" id="start_time">
+                            <input placeholder="开始时间" class="layui-input"  name="begin" id="begin">
                             <i class="layui-icon">&#xe65b;</i>
                         </div>
                         <div class="input_g">
-                            <input placeholder="结束时间" class="layui-input" id="end_time">
+                            <input placeholder="结束时间" class="layui-input" name="end" id="end">
                             <i class="layui-icon">&#xe65b;</i>
                         </div>
                     </div>
                     <div class="layui-row input2">
                         <div class="input_g input_people">
-                            <input placeholder="人数" class="layui-input input_first " type="number" min="2" max="100">
+                            <input placeholder="人数" class="layui-input input_first " name="attendance" type="number" min="2" max="100">
                             <i class="layui-icon">&#xe612;</i>
                         </div>
                         <div class="input_g input-topic">
-                            <input placeholder="请输入主题" class="layui-input ">
+                            <input placeholder="请输入主题" name="topic" class="layui-input ">
                             <i class="layui-icon">&#xe611;</i>
                         </div>
-                        <!--<div class="input_g">-->
-                            <!--<input placeholder="类型" class="layui-input">-->
-                            <!--<i class="layui-icon">&#xe637;</i>-->
-                        <!--</div>-->
-                        <button class="layui-btn search_submit" onclick="search_submit();"><a href="#">提交申请</a></button>
-                        <script>
-                            function search_submit() {
-                                alert('提交成功，系统将在半个小时之内处理您的预约，请耐心等待');
-                            }
-                        </script>
+                        <div class="search_submit layui-btn"><span  style="color: #fafafa;">提交申请</span></div>
                     </div>
                 </form>
-                <div class="search_other">
-                    <!--<div class="fl">-->
-                        <!--&lt;!&ndash;<a href="#">点击前往详细预约</a>&ndash;&gt;-->
-                    <!--</div>-->
-                    <!--<div class="fr search_other_c">-->
-                        <!--<a href="meetlist.html">查看所有会议室</a>-->
-                    <!--</div>-->
-                </div>
             </div>
             <div class="meet_c fl">
                 <h5 class="meet_title">近期会议</h5>
-                <div class="meet_main">
-                    <div class="layui-collapse " lay-accordion>
-                        <div class="layui-colla-item">
-                            <h2 class="layui-colla-title">今天10:00-11:00 &nbsp;&nbsp;5栋3-111号</h2>
-                            <div class="layui-colla-content layui-show">
-                                <ul>
-                                    <li>1</li>
-                                    <li>1</li>
-                                    <li>1</li>
-                                    <li>1</li>
-                                </ul>
+                <div class="col-md-12" style="border: 1px solid #fefefe">
+                    <!--<h5 class="me_center">待参加会议</h5>-->
+                    <div class="panel-group panel-group-lists" id="accordion11">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion11" href="#collapse11">2018-3-28 14:00~15:30</a>
+                                </h4>
+                            </div>
+                            <div id="collapse11" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <p>
+                                        <span>发起人：</span><span>admin1</span>
+                                    </p>
+                                    <p>
+                                        <span>参加人数：</span><span>25</span>
+                                    </p>
+                                    <p>
+                                        <span>地点：</span><span>18B 四楼408</span>
+                                    </p>
+                                    <p>
+                                        <span>主题：</span><span>新年计划</span>
+                                    </p>
+                                    <p><span>备注：</span><span>新年计划，附带抽奖</span></p>
+                                </div>
                             </div>
                         </div>
-                        <div class="layui-colla-item">
-                            <h2 class="layui-colla-title">今天14:00-15:00 &nbsp;&nbsp;2栋3-308号</h2>
-                            <div class="layui-colla-content">
-                                <ol>
-                                    <li>2</li>
-                                    <li>2</li>
-                                    <li>2</li>
-                                    <li>2</li>
-                                </ol>
-                            </div>
-                        </div>
-                        <div class="layui-colla-item">
-                            <h2 class="layui-colla-title">今天18:00-19:00 &nbsp;&nbsp;11栋3-402号</h2>
-                            <div class="layui-colla-content">
-                                <ol>
-                                    <li>2</li>
-                                    <li>2</li>
-                                    <li>2</li>
-                                    <li>2</li>
-                                </ol>
-                            </div>
-                        </div>
-                        <div class="meet_more">
-                            <a href="#"  >查看更多<i class="layui-icon">&#xe602;</i></a>
-                        </div>
-
                     </div>
-                </div>
+                </div><!--待参加会议end-->
+                <div class="col-md-12">
+                    <!--<h5 class="me_center">待参加会议</h5>-->
+                    <div class="panel-group panel-group-lists" id="accordion2">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">2018-4-02 10:00~11:00</a>
+                                </h4>
+                            </div>
+                            <div id="collapseFour" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <p>
+                                        <span>发起人：</span><span>admin1</span>
+                                    </p>
+                                    <p>
+                                        <span>参加人数：</span><span>25</span>
+                                    </p>
+                                    <p>
+                                        <span>地点：</span><span>18B 四楼408</span>
+                                    </p>
+                                    <p>
+                                        <span>主题：</span><span>新年计划</span>
+                                    </p>
+                                    <p><span>备注：</span><span>新年计划，附带抽奖</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--待参加会议end-->
             </div>
         </div>
 
     </div>
-    <div class="me_content2 layui-container">
+    <div class="me_content2 layui-container" style="height: 120vh">
         <div class="layui-carousel" id="test1">
             <div carousel-item class="img_swiper">
                 <img src="images/huiyi1.jpg">
                 <img src="images/huiyi2.jpg">
                 <img src="images/huiyi3.jpg">
                 <img src="images/huiyi4.jpg">
+                <img src="images/meet1.jpg">
+                <img src="images/meet2.jpg">
             </div>
             <div class="swiper_title">会议室一览</div>
         </div>
         <!-- 条目中可以是任意内容，如：<img src=""> -->
 
+
         <div class="notice">
             <div class="notice_title">公告板</div>
             <div class="notice_content">
-                近期公告
+                <div class="col-md-12">
+                    <div class="panel-group" id="accordion1">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne">
+                                        <span>2018-2-1-10:00</span>
+                                        <span class="me_margin_left">发布人：管理员1号</span>
+                                        <span class="me_margin_left">标题：放假提醒</span>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    即将进入春节假期，会议室从2018-02-04开始停止对外开发，直至2018-02-17恢复使用，
+                                    如需需要可以提前预定，祝大家节日快乐。
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -156,6 +303,90 @@
         <h5>输入日期、人数等信息以查看会议室并开始预订， 只有预订后的24小时之内可以取消。</h5>
         <p>***股份有限公司</p>
     </footer>
+    <script>
+        $('.search_submit').click(function () {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.confirm('确认提交?', {icon: 3, title:'提示'}, function(index){
+                    var tdata = $('form[id="apply_add"]').serializeObject();
+                    tdata.beginTime = tdata.day+' '+tdata.begin;
+                    tdata.endTime = tdata.day+' '+tdata.end;
+                    tdata.workerId = $.cookie('id');
+                    console.log(tdata);
+                    $.ajax({
+                        url:"http://lsudjh.top:8081/meetingApply/apply",
+                        type:"POST",
+                        data:JSON.stringify(tdata),
+                        contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                        success:function(result){ //所有错误信息都如result.message有关
+                            alert(result.msg);
+                            if(result.code==0){
+                                $('#apply_add')[0].reset();
+                            } else{
 
+                            }
+
+                        }
+                    });
+                    layer.close(index);
+                });
+            });
+        });
+
+        layui.use('element', function(){
+            var element = layui.element;
+        });
+        layui.use('carousel', function(){
+            var carousel = layui.carousel;
+            //建造实例
+            carousel.render({
+                elem: '#test1'
+                ,width: '100%' //设置容器宽度
+                ,arrow: 'always' //始终显示箭头
+                ,height:'70%'
+            });
+        });
+        layui.use('laydate', function(){
+            var laydate = layui.laydate;
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#day' //day
+                ,min: 0 //7天前
+                ,max: 31 //7天后
+            });
+
+            laydate.render({
+                elem: '#begin' //指定元素
+                ,type: 'time'
+                ,format: 'HH:mm'
+            });
+
+            laydate.render({
+                elem: '#end' //指定元素
+                ,type: 'time'
+                ,format: 'HH:mm'
+            });
+        });
+
+        /**
+         * 自动将form表单封装成json对象
+         */
+        $.fn.serializeObject = function() {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function() {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [ o[this.name] ];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+    </script>
 </body>
 </html>
