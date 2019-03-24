@@ -355,15 +355,15 @@
                     // ,{field:'id', title:'ID', width:80, unresize: true, sort: true}
                     ,{field:'topic', title:'会议主题',width:120, unresize: true}
                     ,{field:'attendance', title:'人数', unresize: true}
-                    ,{field:'applyTime', title:'提交时间', width:160, unresize: true}
+                    ,{field:'applyTime', title:'提交时间', width:180}
                     // ,{field:'applyUpdateTime', title:'修改时间', width:160, unresize: true}
-                    ,{field:'useTime', title:'申请时间段', width:182, sort: true, unresize: true,
+                    ,{field:'useTime', title:'申请时间段', width:200, sort: true,
                         templet:'#tuse'}
                     ,{field:'status', title:'状态',width:80, unresize: true,templet: '#tstatus'}
                     ,{field:'flexible', title:'调剂', unresize: true,templet: '#tflex'}
                 ]]
                 ,page: false
-                ,where: {size:size, page:curnum,order :'id asc',beginTime: today+' 1:1,'}
+                ,where: {size:size, page:curnum,order :'id asc',beginTime: today+' 1:1,', roomId: vm.meetInfo.id}
                 ,parseData: function(res){ //res 即为原始返回的数据
                     // console.log(res);
                     return {

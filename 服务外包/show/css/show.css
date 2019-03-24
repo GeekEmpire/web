@@ -45,7 +45,7 @@ td { text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
 .logo_title{
     line-height: 16vh;
     margin-left: 1vh;
-    font-size: 5vh;
+    font-size: 4.5vh;
 }
 .ma{
     height: 16vh;
@@ -54,7 +54,7 @@ td { text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
 .calendar{
     font-family:"iconfont" !important;
     font-style:normal;
-    font-size: 5vh;
+    font-size: 4.5vh;
     margin-right: 5px;
     white-space:pre;
     /*color: #666!important;*/

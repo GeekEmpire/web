@@ -340,11 +340,12 @@
                //     templet: '<div><a onclick=show_files("{{d.id}}") style="color: #666;">查看</a></div>'}
                ,{field:'room', title:'会议室', width:80, unresize: true,
                    templet: '<div><a class="layui-table-link" onclick=show_location("{{d.roomId}}")>查看</a></div>' }
-               ,{field:'applyTime', title:'提交时间', width:160, unresize: true}
-               ,{field:'applyUpdateTime', title:'修改时间', width:160, unresize: true}
-               ,{field:'useTime', title:'申请时间段', width:182, sort: true, unresize: true,
+               ,{field:'applyTime', title:'提交时间', width:180,sort:true}
+               ,{field:'applyUpdateTime', title:'修改时间', width:180}
+               ,{field:'useTime', title:'申请时间段', width:220,sort:true,
                    templet:'#tuse'}
-               ,{field:'price', title:'费用',width:100, unresize: true}
+               ,{field:'price', title:'费用',width:100, unresize: true,
+                   templet: '<div>{{d.attendance}}.00</div>'}
                ,{field:'status', title:'状态',width:80, unresize: true,templet: '#tstatus'}
                ,{field:'intro', title:'说明',width:180, unresize: true}
                ,{field:'remark', title:'备注',width:180, unresize: true}

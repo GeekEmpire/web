@@ -122,7 +122,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">密码</label>
             <div class="layui-input-block">
-                <input type="password" name="psw" if="psw1" required  lay-verify="psw" placeholder="******" autocomplete="off" class="layui-input">
+                <input type="psw" name="psw" if="psw1" required  lay-verify="psw" placeholder="******" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -495,14 +495,11 @@
                     layui.use('form', function(){
                         var form = layui.form;
 
-                        var tdata={};
                         var department = $('#dep');
-                        if(data.company!=""&&data.company!=null) {
-                            tdata.companyId = data.company.id
-                        } else{
-                            tdata.companyId = '0'
-                        }
-                        // console.log(data.company.id);
+                        var tdata = {
+                            companyId: data.company.id
+                        };
+                        console.log(data.company.id);
                         $.ajax({
                             url: "http://lsudjh.top:8081/department/listEntity",
                             type:"POST",
@@ -517,7 +514,7 @@
 
                                 department.empty();
                                 department.append("<option value=''></option>" );
-                                for(var i=0; i<result.data.data.length; i++) {
+                                for(var i=0; i<result.data.data.length; i<=5) {
                                     if(departmentId!=result.data.data[i].id){
                                         department.append("<option value=\""+ result.data.data[i].id+"\">" + result.data.data[i].name + "</option>");
                                     } else {
@@ -603,26 +600,20 @@
                         tdata.name = key;
                         tdata.phone = null,
                         tdata.email = null,
-                        tdata.companyId = null
+                        tdata.company = null
                     } else if(way=="phone"){
                         tdata.phone = key;
                         tdata.name = null;
                         tdata.email = null,
-                        tdata.companyId = null
+                        tdata.company = null
                     } else if(way=="email"){
                         tdata.email = key;
                         tdata.name = '';
-                        tdata.companyId = ''
+                        tdata.company = ''
                     } else if(way=="company"){
-                        tdata.companyId = 26;
+                        tdata.company = key;
                         tdata.name = null;
                         tdata.email = null,
-                        tdata.phone = null
-                    }
-                    if(key==null||key==''){
-                        tdata.companyId = null;
-                        tdata.name = null;
-                        tdata.email = null;
                         tdata.phone = null
                     }
                     tdata.order = 'id asc';

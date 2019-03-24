@@ -12,7 +12,7 @@
         <div class="collapse sys_item" id="xitong">
             <a id="to_build" class="list-group-item to_a">物业管理</a>
             <a id="to_company" class="list-group-item to_a">企业管理</a>
-            <a id="to_notice" class="list-group-item to_a">公告管理</a>
+            <!--<a id="to_notice" class="list-group-item to_a">公告管理</a>-->
         </div>
     </li>
 
@@ -48,3 +48,68 @@
         </a>
     </li>
 </ul>
+<script>
+        $('#to_main').css('background','#efefef');
+
+        $('#to_main').on('click', function () {
+            $(".midpage").load("./main.html");
+
+            $('.to_a').css('background', '#fff');
+            $('#to_main').css('background','#efefef');
+        });
+
+        $('#to_build').on('click', function () {
+            $(".midpage").load("./build.html");
+            $('.to_a').css('background', '#fff')
+            $('#to_build').css('background','#efefef');
+        });
+        $('#to_company').on('click', function () {
+            $(".midpage").load("company.html");
+            $('.to_a').css('background', '#fff')
+            $('#to_company').css('background','#efefef');
+        });
+        $('#to_notice').on('click', function () {
+            $(".midpage").load("notice.html");
+            $('.to_a').css('background', '#fff')
+            $('#to_notice').css('background','#efefef');
+        });
+
+        $('#to_apply').on('click', function () {
+            $(".midpage").load("./apply.html");
+            $('.to_a').css('background', '#fff')
+            $('#to_apply').css('background','#efefef');
+        });
+        $('#to_meet').on('click', function () {
+            $(".midpage").load("meet.html");
+            $('.to_a').css('background', '#fff')
+            $('#to_meet').css('background','#efefef');
+        });
+        $('#to_flag').on('click', function () {
+            $(".midpage").load("tag.html");
+
+            $('.to_a').css('background', '#fff')
+            $('#to_flag').css('background','#efefef');
+        });
+
+        $('#to_users').on('click', function () {
+            $(".midpage").load("./users.html");
+            $('.to_a').css('background', '#fff')
+            $('#to_users').css('background','#efefef');
+        });
+        $('#to_service').on('click', function () {
+            $(".midpage").load("service.html");
+            $('.to_a').css('background', '#fff')
+            $('#to_service').css('background','#efefef');
+        });
+        $('#to_today').on('click', function () {
+            $(".midpage").load("./today.html");
+            $('.to_a').css('background', '#fff')
+            $('#to_today').css('background','#efefef');
+        });
+        $('#to_analysis').on('click', function () {
+            $(".midpage").load("./analysis.html");
+            $('.to_a').css('background', '#fff')
+            $('#to_analysis').css('background','#efefef');
+        });
+        $('#to_main').css('background','#efefef');
+</script>

@@ -101,7 +101,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">密码</label>
                 <div class="layui-input-block">
-                    <input type="psw" name="psw" if="psw1" required  lay-verify="psw" placeholder="******" autocomplete="off" class="layui-input">
+                    <input type="password" name="psw" if="psw1" required  lay-verify="psw" placeholder="******" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -449,22 +449,20 @@
                         if(way=="name"){
                             tdata.name = key;
                             tdata.phone = null,
-                                tdata.email = null,
-                                tdata.company = null
+                                tdata.email = null
                         } else if(way=="phone"){
                             tdata.phone = key;
                             tdata.name = null;
-                            tdata.email = null,
-                                tdata.company = null
+                            tdata.email = null
                         } else if(way=="email"){
                             tdata.email = key;
-                            tdata.name = '';
-                            tdata.company = ''
-                        } else if(way=="company"){
-                            tdata.company = key;
                             tdata.name = null;
-                            tdata.email = null,
-                                tdata.phone = null
+                            tdata.phone = null
+                        }
+                        if(key==''||key==null){
+                            tdata.email = null;
+                            tdata.name = null;
+                            tdata.phone = null
                         }
                         tdata.order = 'id asc';
                         console.log(tdata);

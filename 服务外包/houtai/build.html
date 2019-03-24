@@ -207,6 +207,10 @@
                     tdata.location = key;
                     tdata.id = null;
                 }
+                if(key==''||key==null){
+                    tdata.location = null;
+                    tdata.id = null;
+                }
                 tdata.order = 'id asc';
                 console.log(tdata);
                 table.reload('buildTable', {

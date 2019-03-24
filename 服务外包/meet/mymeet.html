@@ -207,41 +207,81 @@
                     <!--</div>-->
                 <!--</div>-->
             </div>
+            <!--<div class="layui-tab-item layui-anim layui-anim-upbit">-->
+                <!--<div class="meets_number">-->
+                    <!--<p>数量：{{meets1.length}}</p>-->
+                <!--</div>-->
+                <!--<div class="one_meet" v-for="(item, i) in meets1">-->
+                    <!--<div class="one_meet_title">-->
+                        <!--<i class="layui-icon layui-icon-form"></i>-->
+                        <!--<p>{{item.endTime}}  -   {{item.topic}}</p>-->
+                    <!--</div>-->
+                    <!--<div class="one_meet_content">-->
+                        <!--<div class="meet_img">-->
+                            <!--<img src="images/huiyi2.jpg">-->
+                        <!--</div>-->
+                        <!--<div class="meet_detail">-->
+                            <!--<p >地址：{{item.flexible}}</p>-->
+                            <!--<p style="">参加人数：{{item.attendance}}</p>-->
+                            <!--<p>时间：{{item.beginTime}}</p>-->
+                        <!--</div>-->
+                        <!--<div class="meet_other">-->
+                            <!--<div class="other_equip">-->
+                                <!--<p>{{item.intro}}</p>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="meet_price">-->
+                            <!--<p>￥{{item.price}}</p>-->
+                        <!--</div>-->
+                        <!--<div class="meet_state">-->
+                            <!--提交时间-->
+                            <!--<p style="margin-top: 15px">{{item.applyTime}}</p>-->
+                        <!--</div>-->
+                        <!--<div class="meet_operation">-->
+                            <!--<a  @click="show_peoples(item.id)"  v-if="item.workerId == userId">添加成员</a>-->
+                            <!--<a  @click="show_peoples1(item.id)"  v-else >与会人员</a>-->
+                            <!--<a  @click="show_files1(item.id)">文件</a>-->
+                            <!--<a  @click="redo(item.id)" v-if="item.workerId == userId">取消预定</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<br style="clear:both;" />-->
+                <!--</div>-->
+            <!--</div>-->
             <div class="layui-tab-item layui-anim layui-anim-upbit">
                 <div class="meets_number">
-                    <p>数量：{{meets1.length}}</p>
+                    <p>数量：1</p>
                 </div>
-                <div class="one_meet" v-for="(item, i) in meets1">
+                <div class="one_meet">
                     <div class="one_meet_title">
                         <i class="layui-icon layui-icon-form"></i>
-                        <p>{{item.endTime}}  -   {{item.topic}}</p>
+                        <p>张一龙  -   新产品问题</p>
                     </div>
                     <div class="one_meet_content">
                         <div class="meet_img">
                             <img src="images/huiyi2.jpg">
                         </div>
                         <div class="meet_detail">
-                            <p >地址：{{item.flexible}}</p>
-                            <p style="">参加人数：{{item.attendance}}</p>
-                            <p>时间：{{item.beginTime}}</p>
+                            <p >地址：18B#212</p>
+                            <p style="">参加人数：9</p>
+                            <p>时间：2019-03-17 13:30-17:30</p>
                         </div>
                         <div class="meet_other">
                             <div class="other_equip">
-                                <p>{{item.intro}}</p>
+                                <p>关于新产品的售价</p>
                             </div>
                         </div>
                         <div class="meet_price">
-                            <p>￥{{item.price}}</p>
+                            <p>￥60.00</p>
                         </div>
                         <div class="meet_state">
                             提交时间
-                            <p style="margin-top: 15px">{{item.applyTime}}</p>
+                            <p style="margin-top: 15px">2019-03-09 19:35:45</p>
                         </div>
                         <div class="meet_operation">
-                            <a  @click="show_peoples(item.id)"  v-if="item.workerId == userId">添加成员</a>
-                            <a  @click="show_peoples1(item.id)"  v-else >与会人员</a>
+                            <!--<a  @click="show_peoples(item.id)"  v-if="item.workerId == userId">添加成员</a>-->
+                            <a  @click="show_peoples1(item.id)">与会人员</a>
                             <a  @click="show_files1(item.id)">文件</a>
-                            <a  @click="redo(item.id)" v-if="item.workerId == userId">取消预定</a>
+                            <!--<a  @click="redo(item.id)" v-if="item.workerId == userId">取消预定</a>-->
                         </div>
                     </div>
                     <br style="clear:both;" />
@@ -310,7 +350,7 @@
                             </div>
                         </div>
                         <div class="meet_price">
-                            <p>￥{{item.price}}</p>
+                            <p>￥80.00</p>
                         </div>
                         <div class="meet_state">
                             提交时间
@@ -474,7 +514,7 @@
     var vm = new Vue({
         el: '#mymeet_tab',
         data: {
-            meets:[{endTime:''}],
+            meets:[],
             meets1:[],
             meets2:[],
             meets3:[],

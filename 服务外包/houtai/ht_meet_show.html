@@ -313,7 +313,7 @@
 </div>
 <div id="img_ms1" class="me_none">
     <img id="showimg1">
-    <a id="up_img1"><i class="layui-icon">&#xe67c;</i>更换头像</a>
+    <a id="up_img1"><i class="layui-icon">&#xe67c;</i>更换封面</a>
     <button id="submit_up1" class="layui-btn layui-btn-sm">提交</button>
 </div>
 
@@ -654,7 +654,8 @@
                         ins.reload({
                             arrow: 'always' //始终显示箭头
                             ,height:'450px'
-                            ,interval:3000
+                            ,interval:5000
+                            ,autoplay: false
                         });
                     });
                     layui.use('laytpl', function() {
@@ -1112,7 +1113,8 @@
                 ,arrow: 'always' //始终显示箭头
                 // ,anim: 'updown' //切换动画方式
                 ,height:'450px'
-                ,interval:3000
+                ,interval:5000,
+                autoplay: false
             });
         });
 

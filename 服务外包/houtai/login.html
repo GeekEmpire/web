@@ -5,6 +5,7 @@
 <link href="./Wopop_files/style_log.css" rel="stylesheet" type="text/css">
 <script type="" src="dist/js/jquery-3.3.1.min.js"></script>
 <script type="" src="dist/js/jquery.cookie.js"></script>
+<script type="" src="dist/js/base64.js"></script>
 </head>
 
 <body class="login" mycollectionplug="bind">
@@ -117,14 +118,17 @@
                             console.log(result);
                             var tdata = result.data.data[0];
                             if(result.code==0){
-                                $.cookie("companyId",tdata.company.id,{
-                                    expires: 3,
-                                    path: '/'
-                                });
-                                $.cookie("companyCode",tdata.company.code,{
-                                    expires: 3,
-                                    path: '/'
-                                });
+                                if(tdata.company!=null){
+                                    $.cookie("companyId",tdata.company.id,{
+                                        expires: 3,
+                                        path: '/'
+                                    });
+                                    $.cookie("companyCode",tdata.company.code,{
+                                        expires: 3,
+                                        path: '/'
+                                    });
+                                }
+
                                 $.cookie("role",tdata.role,{
                                     expires: 3,
                                     path: '/'

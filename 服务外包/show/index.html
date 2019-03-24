@@ -125,128 +125,128 @@
         // console.log(tyear,tday,tmonth,tweek,thour,tseconds,tminute);
     }
 
-    console.log(new Date().getTime());
-    var vm = new Vue({
-        el: '#app',
-        data: {
-            roomId: '',
-            meetInfo: [],
-            all: 0,
-            f: 0,
-            r: 0,
-            nowMeet: {id:1},
-        },
-        methods: {
-            getMeetsInfo(){
-                var t = new Date().getTime();
-                var data ={
-                    roomID: 7,
-                    status: 0,
-                    // beginTime: getTime(t,0)+','+getTime(t,1)
-                };
-                // console.log(data);
-                $.ajax({
-                    url:"http://lsudjh.top:8081/meetingApply/listEntity",
-                    type:"POST",
-                    data:JSON.stringify(data),
-                    contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
-                    success:function(result){ //所有错误信息都如result.message有关
-                        console.log(result);
-                        var tdata = result.data.data;
-                        vm.r = tdata.length;
-                        if(result.code==0){
-                            for(var i =0;i<tdata.length;i++){
-                                tdata[i].beginTime = tdata[i].beginTime.split(' ')[1].split(':')[0]+':'+
-                                    tdata[i].beginTime.split(' ')[1].split(':')[1]+'-'+
-                                    tdata[i].endTime.split(' ')[1].split(':')[0]+':'+
-                                    tdata[i].endTime.split(' ')[1].split(':')[1];
-                                // tdata[i].beginTime = tdata[i].beginTime.split(':')[0]+':'+ tdata[i].beginTime.split(':')[1];
-                                // tdata[i].endTime = tdata[i].endTime.split(' ')[1].split(':')[0]+':'+
-                                //     tdata[i].endTime.split(' ')[1].split(':')[1];
-                            }
-                            if(tdata.length>0){
-                                getUserName(0,tdata.length);
-                            }
-                            function getUserName(j,length) {
-                                var udata={
-                                    id: tdata[j].workerId
-                                }
-                                $.ajax({
-                                    url:"http://lsudjh.top:8081/user/get",
-                                    type:"POST",
-                                    data:JSON.stringify(udata),
-                                    async:false,
-                                    contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
-                                    success:function(result){ //所有错误信息都如result.message有关
-                                        // console.log(result.data);
-                                        if(result.data!=null){
-                                            tdata[j].flexible = result.data.name;
-                                        } else{
-                                            tdata[j].flexible = '无';
-                                        }
-
-                                        if(++j < length) {
-                                            getUserName(j, length);
-                                        }
-                                    }
-                                });
-                            }
-                            // console.log(tdata);
-                            var mdata =[];
-                            if(tdata.length>=4){
-                                for(var i=0;i<4;i++){
-                                    mdata.push(tdata[i]);
-                                }
-                            } else{
-                                for(var i=0;i<tdata.length;i++){
-                                    mdata.push(tdata[i]);
-                                }
-                                for(i=tdata.length;i<4;i++){
-                                    mdata.push({
-                                        price: '空'
-                                    })
-                                }
-                            }
-                            vm.meetInfo = mdata;
-                        }
-
-                        data.beginTime = getTime(t,2)+','+getTime(t,0);
-                        $.ajax({
-                            url:"http://lsudjh.top:8081/meetingApply/listEntity",
-                            type:"POST",
-                            data:JSON.stringify(data),
-                            contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
-                            success:function(result){ //所有错误信息都如result.message有关
-                                console.log(result);
-                                var k1data = result.data.data;
-                                vm.l = k1data.length;
-                                data.beginTime = getTime(t,2)+','+getTime(t,1);
-                                $.ajax({
-                                    url:"http://lsudjh.top:8081/meetingApply/listEntity",
-                                    type:"POST",
-                                    data:JSON.stringify(data),
-                                    contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
-                                    success:function(result){ //所有错误信息都如result.message有关
-                                        console.log(result);
-                                        var k2data = result.data.data;
-
-                                        if(k2data.length==(vm.l+vm.r)){
-                                            vm.nowMeet.price ='无';
-                                        } else{
-                                            vm.nowMeet = k2data[vm.l];
-                                        }
-                                    }
-                                });
-                            }
-                        });
-
-                    }
-                });
-            },
-        }
-    })
-    vm.getMeetsInfo();
-    setInterval(vm.getMeetsInfo,1000*60*15);
+    // console.log(new Date().getTime());
+    // var vm = new Vue({
+    //     el: '#app',
+    //     data: {
+    //         roomId: '',
+    //         meetInfo: [],
+    //         all: 0,
+    //         f: 0,
+    //         r: 0,
+    //         nowMeet: {id:1},
+    //     },
+    //     methods: {
+    //         getMeetsInfo(){
+    //             var t = new Date().getTime();
+    //             var data ={
+    //                 roomID: 7,
+    //                 status: 0,
+    //                 // beginTime: getTime(t,0)+','+getTime(t,1)
+    //             };
+    //             // console.log(data);
+    //             $.ajax({
+    //                 url:"http://lsudjh.top:8081/meetingApply/listEntity",
+    //                 type:"POST",
+    //                 data:JSON.stringify(data),
+    //                 contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+    //                 success:function(result){ //所有错误信息都如result.message有关
+    //                     console.log(result);
+    //                     var tdata = result.data.data;
+    //                     vm.r = tdata.length;
+    //                     if(result.code==0){
+    //                         for(var i =0;i<tdata.length;i++){
+    //                             tdata[i].beginTime = tdata[i].beginTime.split(' ')[1].split(':')[0]+':'+
+    //                                 tdata[i].beginTime.split(' ')[1].split(':')[1]+'-'+
+    //                                 tdata[i].endTime.split(' ')[1].split(':')[0]+':'+
+    //                                 tdata[i].endTime.split(' ')[1].split(':')[1];
+    //                             // tdata[i].beginTime = tdata[i].beginTime.split(':')[0]+':'+ tdata[i].beginTime.split(':')[1];
+    //                             // tdata[i].endTime = tdata[i].endTime.split(' ')[1].split(':')[0]+':'+
+    //                             //     tdata[i].endTime.split(' ')[1].split(':')[1];
+    //                         }
+    //                         if(tdata.length>0){
+    //                             getUserName(0,tdata.length);
+    //                         }
+    //                         function getUserName(j,length) {
+    //                             var udata={
+    //                                 id: tdata[j].workerId
+    //                             }
+    //                             $.ajax({
+    //                                 url:"http://lsudjh.top:8081/user/get",
+    //                                 type:"POST",
+    //                                 data:JSON.stringify(udata),
+    //                                 async:false,
+    //                                 contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+    //                                 success:function(result){ //所有错误信息都如result.message有关
+    //                                     // console.log(result.data);
+    //                                     if(result.data!=null){
+    //                                         tdata[j].flexible = result.data.name;
+    //                                     } else{
+    //                                         tdata[j].flexible = '无';
+    //                                     }
+    //
+    //                                     if(++j < length) {
+    //                                         getUserName(j, length);
+    //                                     }
+    //                                 }
+    //                             });
+    //                         }
+    //                         // console.log(tdata);
+    //                         var mdata =[];
+    //                         if(tdata.length>=4){
+    //                             for(var i=0;i<4;i++){
+    //                                 mdata.push(tdata[i]);
+    //                             }
+    //                         } else{
+    //                             for(var i=0;i<tdata.length;i++){
+    //                                 mdata.push(tdata[i]);
+    //                             }
+    //                             for(i=tdata.length;i<4;i++){
+    //                                 mdata.push({
+    //                                     price: '空'
+    //                                 })
+    //                             }
+    //                         }
+    //                         vm.meetInfo = mdata;
+    //                     }
+    //
+    //                     data.beginTime = getTime(t,2)+','+getTime(t,0);
+    //                     $.ajax({
+    //                         url:"http://lsudjh.top:8081/meetingApply/listEntity",
+    //                         type:"POST",
+    //                         data:JSON.stringify(data),
+    //                         contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+    //                         success:function(result){ //所有错误信息都如result.message有关
+    //                             console.log(result);
+    //                             var k1data = result.data.data;
+    //                             vm.l = k1data.length;
+    //                             data.beginTime = getTime(t,2)+','+getTime(t,1);
+    //                             $.ajax({
+    //                                 url:"http://lsudjh.top:8081/meetingApply/listEntity",
+    //                                 type:"POST",
+    //                                 data:JSON.stringify(data),
+    //                                 contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+    //                                 success:function(result){ //所有错误信息都如result.message有关
+    //                                     console.log(result);
+    //                                     var k2data = result.data.data;
+    //
+    //                                     if(k2data.length==(vm.l+vm.r)){
+    //                                         vm.nowMeet.price ='无';
+    //                                     } else{
+    //                                         vm.nowMeet = k2data[vm.l];
+    //                                     }
+    //                                 }
+    //                             });
+    //                         }
+    //                     });
+    //
+    //                 }
+    //             });
+    //         },
+    //     }
+    // })
+    // vm.getMeetsInfo();
+    // setInterval(vm.getMeetsInfo,1000);
 
 </script>
 </body>

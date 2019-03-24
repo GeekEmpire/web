@@ -59,7 +59,7 @@
     margin-left: 2%;
     margin-bottom: 15px;
     padding: 10px;
-    height: 385px;
+    height: 370px;
     position: relative;
 }
 .list1_content li:hover{
@@ -68,7 +68,7 @@
 }
 .list1_content img{
     width: 100%;
-    height: 260px;
+    height: 240px;
 }
 .list1_content img:hover{
     opacity: 0.8;

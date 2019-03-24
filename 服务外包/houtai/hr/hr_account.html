@@ -20,6 +20,9 @@
             <a class="pull-right" id="edit_company" style="position: absolute;top: -25px;right: 25px;font-size: 16px;">
               公司管理
             </a>
+            <a class="pull-right" id="add_face" style="position: absolute;top: 50px;right: 25px;font-size: 16px;">
+              批量上传人脸
+            </a>
             <ul id="mz_admin_info">
               <li>
                 ID：<span>{{user.id}}</span><a class="pull-right" id="edit_info">修改信息</a>
@@ -327,6 +330,23 @@
                   $('#mz_touxiang_img').attr('src', res.data);
                   alert("更换成功");
                   //上传成功
+              }
+          });
+      });
+      layui.use('upload', function(){
+          var upload = layui.upload;
+          var uploadInst = upload.render({
+              elem: '#add_face'
+              ,url: 'http://lsudjh.top:8081/file/uploadFileToApply'
+              ,auto: true
+              ,accept: 'file'
+              ,data: {
+
+              }
+              ,done: function(res){
+                  //如果上传失败
+
+                  alert("上传成功，成功添加数为2");
               }
           });
       });
